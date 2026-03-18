@@ -1,0 +1,997 @@
+<!DOCTYPE html><html lang="en" class="scroll-smooth"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Application Penetration Testing Training - Cryptonic Area</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/all.min.css">
+    <link href="css/aos.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#0a0e27',       // [cite: 500]
+                            bgDark: '#050714',
+                            cyan: '#00fff2',     // [cite: 500]
+                            purple: '#b400ff',   // [cite: 500]
+                            green: '#39ff14',    // [cite: 500]
+                            text: '#ffffff',
+                            subtext: '#e2e8f0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                        tech: ['Rajdhani', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 20px rgba(0, 255, 242, 0.4), inset 0 0 10px rgba(0, 255, 242, 0.1)',
+                        'neon-purple': '0 0 20px rgba(180, 0, 255, 0.4), inset 0 0 10px rgba(180, 0, 255, 0.1)',
+                        'neon-green': '0 0 30px rgba(57, 255, 20, 0.5)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 10s linear infinite',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- DYNAMIC STYLES --- */
+        body {
+            background-color: #0a0e27;
+            color: #ffffff;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* 1. Cyber Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050714;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+        .loader-ring {
+            width: 80px;
+            height: 80px;
+            border: 4px solid transparent;
+            border-top: 4px solid #00fff2;
+            border-right: 4px solid #b400ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        /* 2. Background Animation */
+        .cyber-grid {
+            position: fixed;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 242, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 242, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: perspective(500px) rotateX(60deg);
+            animation: plane-move 20s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+        @keyframes plane-move {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(40px); }
+        }
+
+        /* 3. Glassmorphism 2.0 */
+        .glass-panel {
+            background: rgba(15, 15, 35, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .glass-panel:hover {
+            border-color: rgba(0, 255, 242, 0.3);
+            box-shadow: 0 10px 40px -10px rgba(0, 255, 242, 0.2);
+        }
+
+        /* 4. Text Effects */
+        .text-glow-cyan { text-shadow: 0 0 15px rgba(0, 255, 242, 0.6); }
+        .gradient-text {
+            background: linear-gradient(135deg, #fff 0%, #00fff2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Typing Cursor */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+            color: #39ff14;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* 5. Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0e27; }
+        ::-webkit-scrollbar-thumb { background: #00fff2; border-radius: 10px; }
+
+        /* 6. Sticky Mobile Bar */
+        .mobile-sticky-bar {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-sticky-bar {
+                display: flex;
+                animation: slideUp 0.5s ease-out;
+            }
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    </style>
+    <script>
+                var url = 'https://wati-integration-prod-service.clare.ai/v2/watiWidget.js?88104';
+                var s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.async = true;
+                s.src = url;
+                var options = {
+                "enabled":true,
+                "chatButtonSetting":{
+                    "backgroundColor":"#00e785",
+                    "ctaText":"Chat with us",
+                    "borderRadius":"25",
+                    "marginLeft": "0",
+                    "marginRight": "20",
+                    "marginBottom": "20",
+                    "ctaIconWATI":false,
+                    "position":"right"
+                },
+                "brandSetting":{
+                    "brandName":"Cryptonic Area",
+                    "brandSubTitle":"undefined",
+                    "brandImg":"https://www.wati.io/wp-content/uploads/2023/04/Wati-logo.svg",
+                    "welcomeText":"Hi there!\nHow can I help you?",
+                    "messageText":"Hello, %0A I have a question about {{page_title}}",
+                    "backgroundColor":"#00e785",
+                    "ctaText":"Chat with us",
+                    "borderRadius":"25",
+                    "autoShow":false,
+                    "phoneNumber":"918503979765"
+                }
+                };
+                s.onload = function() {
+                    CreateWhatsappChatWidget(options);
+                };
+                var x = document.getElementsByTagName('script')[0];
+                x.parentNode.insertBefore(s, x);
+            </script>
+</head>
+<body class="font-sans antialiased">
+
+
+
+    <div class="cyber-grid"></div>
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-brand-bg/80 via-transparent to-brand-bg pointer-events-none z-0"></div>
+
+    <header class="fixed w-full top-0 z-40 bg-brand-bg/80 backdrop-blur-md border-b border-brand-cyan/20 h-[80px] transition-all duration-300">
+        <div class="container mx-auto px-6 h-full flex justify-between items-center relative z-50">
+            <a href="#" class="flex items-center gap-3 group">
+    <div class="relative w-10 h-10 flex items-center justify-center border border-brand-cyan rounded bg-brand-bgDark overflow-hidden group-hover:shadow-neon-cyan transition-all">
+        
+        <img src="images/logo.png" alt="Logo" class="w-full h-full object-contain relative z-10 p-1">
+
+        <div class="absolute inset-0 bg-brand-cyan/20 transform scale-0 group-hover:scale-100 transition-transform rounded-full"></div>
+    </div>
+
+    <div class="flex flex-col">
+        <span class="font-tech text-2xl font-bold text-white tracking-widest leading-none">CRYPTONIC AREA</span>
+        <span class="font-tech text-xs font-bold text-brand-cyan tracking-[0.4em] leading-none group-hover:text-white transition-colors">COMMUNITY</span>
+    </div>
+</a>
+
+            <nav class="hidden md:flex space-x-8 font-tech text-lg font-medium text-brand-subtext">
+                <a href="#overview" class="hover:text-brand-cyan transition-all hover:scale-105">Course Details</a>
+                <a href="#syllabus" class="hover:text-brand-cyan transition-all hover:scale-105">Syllabus</a>
+                <a href="#pricing" class="hover:text-brand-cyan transition-all hover:scale-105">Pricing</a>
+                <a href="#contact" class="hover:text-brand-cyan transition-all hover:scale-105">Contact</a>
+            </nav>
+
+            <button id="mobile-menu-btn" class="md:hidden text-white text-2xl hover:text-brand-cyan transition-colors">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="absolute top-[80px] left-0 w-full bg-brand-bgDark border-b border-brand-cyan/30 hidden flex-col shadow-2xl origin-top animate-fade-in-down">
+            <a href="#overview" class="block py-4 px-6 text-white hover:bg-brand-cyan/10 hover:text-brand-cyan font-tech text-xl border-b border-white/5">Course Details</a>
+            <a href="#syllabus" class="block py-4 px-6 text-white hover:bg-brand-cyan/10 hover:text-brand-cyan font-tech text-xl border-b border-white/5">Syllabus</a>
+            <a href="#pricing" class="block py-4 px-6 text-white hover:bg-brand-cyan/10 hover:text-brand-cyan font-tech text-xl border-b border-white/5">Pricing</a>
+            <a href="#contact" class="block py-4 px-6 text-white hover:bg-brand-cyan/10 hover:text-brand-cyan font-tech text-xl">Contact</a>
+        </div>
+    </header>
+    
+    
+
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-screen">
+        <div class="absolute top-1/4 left-10 w-24 h-24 bg-brand-purple/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-10 w-32 h-32 bg-brand-cyan/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7" data-aos="fade-right">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-cyan/30 bg-brand-cyan/5 mb-6 backdrop-blur-sm">
+                        <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+                        <span class="text-xs font-tech text-brand-cyan uppercase tracking-wider">WAPT Live Training Program</span>
+                    </div>
+
+                    <h1 class="font-heading text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                        Web Application Penetration Testing Training &<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-purple typing-cursor" id="typewriter">Sharp Your Future</span>
+                    </h1>
+                    
+                    <p class="font-sans text-brand-subtext text-lg mb-8 leading-relaxed max-w-xl">
+                        Join India's most beginner-friendly Web app penetration testing course <span class="text-white font-semibold">100% practical-based learning, practical tools, and real-world techniques.</span>, Learn web app penetration testing from zero in just 6 weeks!
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 mb-10 text-sm font-tech text-gray-400">
+                        <div class="flex items-center"><i class="fas fa-check-circle text-brand-green mr-2"></i> 100% Practical Training</div>
+                        <div class="flex items-center"><i class="fas fa-check-circle text-brand-green mr-2"></i> Certified Experts</div>
+                        <div class="flex items-center"><i class="fas fa-check-circle text-brand-green mr-2"></i> Hands-on Labs</div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="scrollToPricing()" class="relative group px-8 py-4 bg-brand-green text-black font-bold font-heading text-lg rounded overflow-hidden shadow-neon-green hover:scale-105 transition-transform">
+                            <span class="relative z-10">Enroll Now - ₹1,999</span>
+                            <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
+                        </button>
+                        <button onclick="scrollToSyllabus()" class="px-8 py-4 border border-brand-subtext/30 text-white font-bold font-heading text-lg rounded hover:bg-white/5 transition-colors flex items-center gap-2">
+                            View Syllabus <i class="fas fa-arrow-down text-brand-cyan"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 relative" data-aos="zoom-in" data-tilt="">
+                    <div class="relative z-10 bg-brand-bgDark border border-brand-cyan/30 rounded-xl p-2 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                        <div class="bg-[#0f0f23] rounded-lg p-6 font-tech text-sm text-green-400 overflow-hidden relative">
+                            <div class="flex gap-2 mb-4 border-b border-gray-700 pb-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="space-y-1 opacity-80">
+                                <p><span class="text-brand-purple">cryptonicarea@kali</span>:<span class="text-blue-400">~</span># nmap -sV -A target.com</p>
+                                <p>Starting Nmap 7.92...</p>
+                                <p class="text-yellow-300">Discovered open port 80/tcp on 192.168.1.1</p>
+                                <p class="text-yellow-300">Discovered open port 443/tcp on 192.168.1.1</p>
+                                <p class="text-red-400 font-bold">! VULNERABILITY DETECTED: SQL Injection</p>
+                                <p>> Exploiting database...</p>
+                                <p class="animate-pulse text-brand-cyan font-bold">> ACCESS GRANTED</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 bg-brand-cyan/20 blur-3xl -z-10 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+     <section class="py-24 bg-brand-bgDark border-y border-brand-cyan/10">
+        <div class="container mx-auto px-6 mb-16">
+            <h2 class="font-heading text-3xl text-center font-bold mb-10">Course Benefits</h2>
+            
+            <div class="flex flex-wrap justify-center gap-6" data-aos="zoom-in">
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-cyan/40 text-brand-cyan font-tech font-bold hover:bg-brand-cyan hover:text-black transition-colors">Recorded Classes</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-purple/40 text-brand-purple font-tech font-bold hover:bg-brand-purple hover:text-white transition-colors">Learn Everything Practically</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-cyan/40 text-brand-cyan font-tech font-bold hover:bg-brand-cyan hover:text-black transition-colors">Work On Live Projects & Labs</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-cyan/40 text-brand-cyan font-tech font-bold hover:bg-brand-cyan hover:text-black transition-colors">Certificate</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-purple/40 text-brand-purple font-tech font-bold hover:bg-brand-purple hover:text-white transition-colors">Lifetime Support</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-cyan/40 text-brand-cyan font-tech font-bold hover:bg-brand-cyan hover:text-black transition-colors">Internship Opportunity</div>
+            </div>
+        </div>
+    </section>
+    
+   <section id="preview" class="py-20 relative bg-black/40">
+        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 z-0"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 max-w-5xl">
+            <div class="glass-panel p-1 rounded-xl border border-brand-cyan/40 shadow-monitor" data-aos="zoom-in">
+                
+                <div class="bg-brand-bgDark flex justify-between items-center px-4 py-2 rounded-t-lg border-b border-brand-cyan/20">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+                        <span class="font-tech text-red-500 text-xs tracking-wider">LIVE FEED // PREVIEW</span>
+                    </div>
+                    <div class="font-tech text-brand-cyan text-xs">SECURE_CHANNEL_ESTABLISHED</div>
+                </div>
+
+                <div class="bg-black p-1 md:p-4">
+                    <div class="video-container">
+                         <iframe width="340" height="315" src="" title="Cybersecurity Intro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                    </div>
+                </div>
+
+                <div class="p-6 text-center md:text-left md:flex justify-between items-center bg-brand-bgDark/80 rounded-b-lg">
+                    <div>
+                        <h3 class="font-bold text-white text-xl mb-1">See What You'll Learn</h3>
+                        <p class="text-brand-subtext text-sm">A sneak peek into our learning hub methodology.</p>
+                    </div>
+                    <a href="https://youtube.com/@CryptonicArea" target="_blank" class="mt-4 md:mt-0 inline-flex items-center gap-2 text-brand-cyan hover:text-white font-tech uppercase tracking-widest text-sm transition-colors">
+                        Visit Channel <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-24 bg-brand-bgDark border-y border-brand-cyan/10">
+        <div class="container mx-auto px-6 mb-16">
+            <h2 class="font-heading text-3xl text-center font-bold mb-10">Course Details</h2>
+            
+            <div class="flex flex-wrap justify-center gap-6" data-aos="zoom-in">
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-cyan/40 text-brand-cyan font-tech font-bold hover:bg-brand-cyan hover:text-black transition-colors">LANGUAGE : HINGLISH</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-purple/40 text-brand-purple font-tech font-bold hover:bg-brand-purple hover:text-white transition-colors">DURATION : 6 Weak</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-cyan/40 text-brand-cyan font-tech font-bold hover:bg-brand-cyan hover:text-black transition-colors">CERTIFICATE OF COMPLETION + INTERSHIP</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-purple/40 text-brand-purple font-tech font-bold hover:bg-brand-purple hover:text-white transition-colors">ONLINE CLASSES</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-cyan/40 text-brand-cyan font-tech font-bold hover:bg-brand-cyan hover:text-black transition-colors">18 Sessions</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="overview" class="py-20 relative bg-brand-bgDark/50 border-y border-brand-cyan/10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="0">
+                    <div class="text-4xl md:text-5xl font-tech font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 group-hover:from-brand-cyan group-hover:to-blue-500 transition-all">6</div>
+                    <div class="text-brand-subtext text-sm uppercase tracking-wider mt-2">Weeks Duration</div>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl md:text-5xl font-tech font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 group-hover:from-brand-purple group-hover:to-pink-500 transition-all">1 - 1.5 Hour</div>
+                    <div class="text-brand-subtext text-sm uppercase tracking-wider mt-2">Per Session</div>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl md:text-5xl font-tech font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 group-hover:from-brand-green group-hover:to-emerald-500 transition-all">95%</div>
+                    <div class="text-brand-subtext text-sm uppercase tracking-wider mt-2">Practical Labs</div>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl md:text-5xl font-tech font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 group-hover:from-brand-cyan group-hover:to-blue-500 transition-all">45</div>
+                    <div class="text-brand-subtext text-sm uppercase tracking-wider mt-2">Batch Size</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="syllabus" class="py-24 relative">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="text-center mb-16">
+                <span class="font-tech text-brand-cyan tracking-widest uppercase">Curriculum</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-white mt-2">What You Will Learn in This Course</h2>
+                <br><br>
+            <a href="https://wa.link/n9voct" class="button relative group px-8 py-4 bg-brand-green text-black font-bold font-heading text-lg rounded overflow-hidden shadow-neon-green hover:scale-105 transition-transform">Get Full Curriculum</a>
+            </div>
+
+            <div class="space-y-4">
+                
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">1: Introduction to Web Application Security</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Understanding web application security fundamentals</li>
+            <li>How real-world web attacks happen</li>
+            <li>Ethical hacking principles and legal boundaries</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">2: Professional Pentesting Environment Setup</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Setting up a professional testing lab</li>
+            <li>Installing and configuring pentesting tools</li>
+            <li>Understanding testing environments and workflows</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">3: Information Gathering & Reconnaissance</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Discovering target assets and web technologies</li>
+            <li>Subdomain discovery and enumeration techniques</li>
+            <li>Real-world reconnaissance strategies used by pentesters</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">4: Vulnerability Discovery Techniques</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Identifying security weaknesses in web applications</li>
+            <li>Manual vulnerability discovery methods</li>
+            <li>Understanding real vulnerability patterns</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">5: Web Application Attack Techniques</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Understanding common web vulnerabilities</li>
+            <li>Practical exploitation concepts</li>
+            <li>Testing vulnerable web applications in a safe lab</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">6: Advanced Web Security Concepts</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Exploring complex web attack scenarios</li>
+            <li>Understanding authentication and access control flaws</li>
+            <li>Learning real-world vulnerability examples</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">7: Network & Web Infrastructure Security</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Understanding how servers and networks support web apps</li>
+            <li>Discovering exposed services and configurations</li>
+            <li>Basic network reconnaissance for pentesting</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">8: Bug Bounty Methodology</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Understanding bug bounty ecosystems</li>
+            <li>Finding vulnerabilities in real programs</li>
+            <li>Responsible disclosure practices</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">9: Vulnerability Reporting</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Writing professional security reports</li>
+            <li>Documenting vulnerabilities with proper evidence</li>
+            <li>Understanding vulnerability severity levels</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">10: Security Testing Tools</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Using professional web pentesting tools</li>
+            <li>Learning automation and scanning workflows</li>
+            <li>Hands-on security testing practice</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">11: AI in Cybersecurity</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Understanding the role of AI in security</li>
+            <li>Using AI tools for research and analysis</li>
+            <li>Automation concepts for modern security workflows</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">12: Professional Presence in Cybersecurity</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Building a strong cybersecurity profile</li>
+            <li>Sharing security research professionally</li>
+            <li>Growing your presence in the cyber community</li>
+        </ul>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+        <h4 class="font-bold text-brand-cyan text-lg mb-3">13: Career Path in VAPT</h4>
+        <ul class="text-brand-subtext list-disc list-inside space-y-1 text-sm">
+            <li>Understanding VAPT career opportunities</li>
+            <li>Building a cybersecurity resume</li>
+            <li>Interview preparation and growth roadmap</li>
+        </ul>
+    </div>
+
+</div>  
+            </div>
+        </div>
+    </section>
+    <section class="py-24 bg-brand-bgDark border-y border-brand-cyan/10">
+        <div class="container mx-auto px-6 mb-16">
+            <h2 class="font-heading text-3xl text-center font-bold mb-10">Tools You Will Master</h2>
+            
+            <div class="flex flex-wrap justify-center gap-6" data-aos="zoom-in">
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-cyan/40 text-brand-cyan font-tech font-bold hover:bg-brand-cyan hover:text-black transition-colors">Nmap</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-purple/40 text-brand-purple font-tech font-bold hover:bg-brand-purple hover:text-white transition-colors">Metasploit Framework</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-cyan/40 text-brand-cyan font-tech font-bold hover:bg-brand-cyan hover:text-black transition-colors">Nikto</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-purple/40 text-brand-purple font-tech font-bold hover:bg-brand-purple hover:text-white transition-colors">AI Tools</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-cyan/40 text-brand-cyan font-tech font-bold hover:bg-brand-cyan hover:text-black transition-colors">OWASP ZAP</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-purple/40 text-brand-purple font-tech font-bold hover:bg-brand-purple hover:text-white transition-colors">SQLMap</div>
+                <div class="px-6 py-3 glass-panel rounded-full border border-brand-cyan/40 text-brand-cyan font-tech font-bold hover:bg-brand-cyan hover:text-black transition-colors">Wireshark</div>
+            </div>
+        </div>
+</section>
+
+<section class="py-24 relative overflow-hidden">
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="glass-panel rounded-3xl p-10 md:p-14 border border-brand-purple/30 shadow-neon-purple flex flex-col md:flex-row items-center gap-12" data-aos="flip-up">
+            
+            <div class="md:w-1/3 text-center">
+                <div class="w-48 h-48 mx-auto rounded-full p-1 bg-gradient-to-r from-brand-cyan to-brand-purple mb-6">
+                    <div class="w-full h-full rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
+                       <img src="images/akash_das_barman.png" alt="AkashDas Barman" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <h3 class="font-heading text-2xl font-bold text-white">AkashDas Barman</h3>
+                <p class="text-brand-cyan font-tech tracking-wider uppercase mt-1">Community Mentor</p>
+            </div>
+
+            <div class="md:w-2/3">
+                <h4 class="font-heading text-3xl font-bold text-white mb-6">Learn from the <span class="text-brand-purple">Specialist</span></h4>
+                <p class="text-brand-subtext text-lg italic mb-8 border-l-4 border-brand-purple pl-4">
+                    "I don't just teach you how to use tools. I teach you the mindset of a hacker so you can defend against them."
+                </p>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-center text-sm text-gray-300">
+                        <i class="fas fa-shield-alt text-brand-cyan mr-3"></i> 15+ Years Experience
+                    </div>
+                    <div class="flex items-center text-sm text-gray-300">
+                        <i class="fas domain-hackingtext-brand-cyan mr-3"></i> Penetrations Tester & Ethical Hacker 
+                    </div>
+                    <div class="flex items-center text-sm text-gray-300">
+                        <i class="fas fa-briefcase text-brand-cyan mr-3"></i> 50+ Pentest Projects
+                    </div>
+                    <div class="flex items-center text-sm text-gray-300">
+                        <i class="fas fa-users text-brand-cyan mr-3"></i> Trained 10K+ Students In Their Cyber Career
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+    <section id="pricing" class="py-24 relative overflow-hidden">
+        <div class="glow-orb absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-brand-green/10 rounded-full blur-[100px] transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+
+      
+            <div class="glass-panel border border-brand-green/30 rounded-3xl p-1 md:p-2 relative group" data-tilt="" data-tilt-max="5" data-tilt-glare="" data-tilt-max-glare="0.2">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand-green text-black font-bold px-6 py-1 rounded-full text-sm z-20 shadow-neon-green">
+                    BEST VALUE
+                </div>
+                
+                <div class="bg-brand-bgDark rounded-[20px] p-8 md:p-12 text-center relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-bold text-white mb-2">Web App Penetrations Testing Masterclass</h3>
+                        <div class="text-gray-500 line-through mb-1">Regular: ₹20,999</div>
+                        <div class="text-6xl font-bold text-white text-glow-cyan mb-4">₹1,999</div>
+                        <div class="inline-block px-4 py-1 bg-brand-purple/20 text-brand-purple border border-brand-purple/30 rounded mb-8 text-sm">
+                            Save 99% - Limited Time
+                        </div>
+
+                        <ul class="text-left max-w-md mx-auto space-y-3 mb-10 text-gray-300">
+                            <li class="flex items-center"><i class="fas fa-check text-brand-green w-6"></i> 6 Weak Practical Training</li>
+                            <li class="flex items-center"><i class="fas fa-check text-brand-green w-6"></i> Full Lab Set-up</li>
+                            <li class="flex items-center"><i class="fas fa-check text-brand-green w-6"></i> Completion Certification</li>
+                            <li class="flex items-center"><i class="fas fa-check text-brand-green w-6"></i> Placement Support</li>
+                        </ul>
+
+<a href="pay" class="bg-brand-green text-black font-bold px-8 py-3 rounded shadow-neon-green text-sm uppercase tracking-wide inline-block text-center">
+    SECURE YOUR SEAT
+</a>
+                        
+                        <p class="mt-4 text-red-500 text-sm font-bold animate-pulse">
+                            <i class="fas fa-exclamation-triangle"></i> Only 12 seats remaining
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+       <section class="py-24 bg-brand-bgDark">
+    <div class="container mx-auto px-6 max-w-3xl">
+        <h2 class="font-heading text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+<div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+<h4 class="font-bold text-brand-cyan text-lg mb-2">What is this WAPT Live Training Program?</h4>
+<p class="text-brand-subtext">This is a practical Web Application Penetration Testing (WAPT) training program focused on real-world security testing. Students will learn how modern websites are tested for vulnerabilities, how security flaws are identified, and how ethical hackers analyze and secure web applications using professional tools and techniques.</p>
+</div>
+
+<div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+<h4 class="font-bold text-brand-cyan text-lg mb-2">Who should join?</h4>
+<p class="text-brand-subtext">Students, cybersecurity beginners, aspiring ethical hackers, developers, bug bounty enthusiasts, and anyone interested in learning how web application security works in the real world.</p>
+</div>
+
+<div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+<h4 class="font-bold text-brand-cyan text-lg mb-2">Prerequisites</h4>
+<p class="text-brand-subtext">Basic computer knowledge and curiosity to understand cybersecurity concepts. No advanced coding or security experience is required to start.</p>
+</div>
+
+<div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+<h4 class="font-bold text-brand-cyan text-lg mb-2">What will you learn?</h4>
+<p class="text-brand-subtext">Students will understand real web application security testing including reconnaissance, vulnerability discovery, OWASP based attacks, manual testing techniques, security analysis, and how ethical hackers identify weaknesses in modern web systems.</p>
+</div>
+
+<div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+<h4 class="font-bold text-brand-cyan text-lg mb-2">Training Format</h4>
+<p class="text-brand-subtext">This program is conducted through live mentor-led sessions where concepts are explained with practical demonstrations and real testing environments to help students gain hands-on experience.</p>
+</div>
+
+<div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+<h4 class="font-bold text-brand-cyan text-lg mb-2">Language</h4>
+<p class="text-brand-subtext">Sessions are conducted in simple Hindi-English mix (Hinglish) so that beginners can easily understand technical concepts.</p>
+</div>
+
+<div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+<h4 class="font-bold text-brand-cyan text-lg mb-2">Requirements</h4>
+<p class="text-brand-subtext">A computer or laptop with internet connection and the willingness to practice security testing concepts during the training sessions.</p>
+</div>
+
+<div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+<h4 class="font-bold text-brand-cyan text-lg mb-2">Certification</h4>
+<p class="text-brand-subtext">After completing the training and successfully clearing the final online assessment, students will receive a professional completion certificate validating their practical cybersecurity learning.</p>
+</div>
+
+
+                <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+                    <h4 class="font-bold text-brand-cyan text-lg mb-2">Refund Policy</h4>
+                    <p class="text-brand-subtext">No refunds except in case of duplicate payments or failed transactions.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+                    <h4 class="font-bold text-brand-cyan text-lg mb-2">Missed Sessions?</h4>
+                    <p class="text-brand-subtext">Pre-recorded content will be accessible anytime, and live doubt clearing sessions will be conducted.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+                    <h4 class="font-bold text-brand-cyan text-lg mb-2">Job Guarantee?</h4>
+                    <p class="text-brand-subtext">There is no direct job guarantee, but the practical skills gained can help you start freelancing or a bug bounty career.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+                    <h4 class="font-bold text-brand-cyan text-lg mb-2">Support</h4>
+                    <p class="text-brand-subtext">Full support through a dedicated WhatsApp group and mentor guidance.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-xl" data-aos="fade-up">
+                    <h4 class="font-bold text-brand-cyan text-lg mb-2">How to Enroll</h4>
+                    <p class="text-brand-subtext">Message us on WhatsApp or click the payment link to join and start your learning journey.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>  
+
+    <section id="policy" class="py-20 bg-brand-bgDark relative border-t border-brand-cyan/10">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="glass-panel p-8 md:p-12 rounded-2xl border border-red-500/30 shadow-[0_0_30px_rgba(239,68,68,0.1)]" data-aos="fade-up">
+                
+                <div class="flex items-center gap-4 mb-8">
+                    <i class="fas fa-file-contract text-3xl text-red-500"></i>
+                    <h2 class="font-heading text-3xl font-bold text-white">Refund Policy</h2>
+                </div>
+
+                <div class="space-y-6 text-brand-subtext font-sans">
+                    <p class="text-lg">
+                        At <span class="text-brand-cyan font-bold">Cryptonic Area</span>, we are committed to providing high-quality WAPT training. Due to the nature of our digital products and the limited seating in our live cohorts, we maintain a strict policy regarding refunds.
+                    </p>
+
+                    <div class="bg-red-500/10 border-l-4 border-red-500 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-red-400 mb-2 font-tech uppercase tracking-wider">No Refund Policy</h4>
+                        <p class="text-sm text-gray-300">
+                            All sales are final. Once enrollment is confirmed and access to the learning portal/live sessions is granted, <strong>no refunds</strong> will be issued.
+                        </p>
+                    </div>
+
+                    <h3 class="font-bold text-white text-xl mt-6">Why this policy?</h3>
+                    <ul class="list-disc pl-5 space-y-2 marker:text-brand-cyan">
+                        <li><strong>Seat Reservation:</strong> Our live batches are capped at 25 students. Enrolling takes a seat that cannot be filled by another student once the batch begins.</li>
+                        <li><strong>Digital Assets:</strong> You receive immediate access to proprietary course materials, labs, and intellectual property upon registration.</li>
+                        <li><strong>Server Costs:</strong> We incur immediate server and infrastructure costs to provision your dedicated lab environment.</li>
+                    </ul>
+
+                    <p class="text-sm text-gray-500 mt-8 italic">
+                        * Exceptions may be made in cases of duplicate payment due to technical error. Please contact <a href="mailto: cryptonicarea@gmail.com" class="text-brand-cyan hover:underline">cryptonicarea@gmail.com</a> within 48 hours of the transaction.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <footer id="contact" class="bg-black pt-16 pb-24 md:pb-10 border-t border-brand-cyan/20">
+        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-10">
+            <div>
+                <div class="font-tech text-2xl font-bold text-white mb-4">CRYPTONIC<span class="text-brand-cyan">AREA</span></div>
+                <p class="text-gray-500 text-sm">Empowering the next generation of cybersecurity professionals with practical, industry-ready skills.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Contact</h4>
+                <ul class="text-gray-400 text-sm space-y-2">
+                    <li><i class="fas fa-envelope text-brand-cyan mr-2"></i> cryptonicarea@gmail.com</li>
+                    <li><i class="fas fa-phone text-brand-cyan mr-2"></i> +91 8503979765</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Socials</h4>
+                <div class="flex gap-4">
+                    <a href="https://www.linkedin.com/company/cryptonicarea" class="w-10 h-10 rounded bg-white/5 flex items-center justify-center hover:bg-brand-cyan hover:text-black transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.youtube.com/@CryptonicArea" class="w-10 h-10 rounded bg-white/5 flex items-center justify-center hover:bg-brand-cyan hover:text-black transition-colors"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/cryptonicarea" class="w-10 h-10 rounded bg-white/5 flex items-center justify-center hover:bg-brand-cyan hover:text-black transition-colors"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-gray-700 text-xs mt-10 pt-6 border-t border-white/5">
+            � 2025 Cryptonic Area. All rights reserved.
+        </div>
+        
+        
+        <div id="lead-popup" class="fixed inset-0 z-[100] hidden flex items-center justify-center">
+        
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closePopup()"></div>
+
+        <div class="relative w-full max-w-md mx-4 glass-panel border border-brand-cyan/50 p-8 rounded-2xl shadow-neon-cyan transform scale-95 opacity-0 transition-all duration-500" id="popup-content">
+            
+            <button onclick="closePopup()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-cyan transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-brand-cyan/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-cyan/30">
+                    <i class="fas fa-gift text-2xl text-brand-cyan animate-pulse"></i>
+                </div>
+                <h3 class="font-heading text-2xl font-bold text-white">Get Full Syllabus</h3>
+                <p class="text-brand-subtext text-sm mt-2">Enter your details to get the full course breakdown & Call Back From Our Team.</p>
+            </div>
+
+            <form action="https://wa.link/n9voct" method="GET" class="space-y-4">
+                
+    <div class="relative group">
+        <i class="fas fa-user absolute left-4 top-4 text-gray-500 group-focus-within:text-brand-cyan transition-colors"></i>
+        <input type="text" name="name" required placeholder="Full Name"
+            class="w-full bg-brand-bgDark border border-gray-700 text-white pl-12 pr-4 py-3 rounded-lg focus:outline-none focus:border-brand-cyan focus:shadow-[0_0_15px_rgba(0,255,242,0.3)] transition-all placeholder-gray-600">
+    </div>
+
+    <div class="relative group">
+        <i class="fas fa-phone absolute left-4 top-4 text-gray-500 group-focus-within:text-brand-cyan transition-colors"></i>
+        <input type="tel" name="phone" required placeholder="Phone Number" pattern="[0-9]{10}"
+            class="w-full bg-brand-bgDark border border-gray-700 text-white pl-12 pr-4 py-3 rounded-lg focus:outline-none focus:border-brand-cyan focus:shadow-[0_0_15px_rgba(0,255,242,0.3)] transition-all placeholder-gray-600">
+    </div>
+
+    <button type="submit"
+        class="w-full bg-gradient-to-r from-brand-cyan to-blue-500 text-black font-bold font-heading py-3 rounded-lg hover:scale-[1.02] transition-transform shadow-neon-cyan">
+        GET INSTANT ACCESS <i class="fas fa-arrow-right ml-2"></i>
+    </button>
+
+</form>
+                
+                <p class="text-xs text-center text-gray-600 mt-4">
+                    <i class="fas fa-lock"></i> Your data is secure. No spam, ever.
+                </p>
+            </form>
+        </div>
+    </div>
+        
+        
+    </footer>
+
+    <div class="mobile-sticky-bar fixed bottom-0 left-0 w-full bg-[#0a0e27]/95 backdrop-blur-lg border-t border-brand-green/30 p-4 z-50 flex justify-between items-center shadow-[0_-5px_20px_rgba(0,0,0,0.5)]">
+        <div class="flex flex-col">
+            <span class="text-xs text-gray-400 line-through">₹21,999</span>
+            <span class="text-xl font-bold text-white">₹1,999</span>
+        </div>
+        <a href="pay" class="bg-brand-green text-black font-bold px-8 py-3 rounded shadow-neon-green text-sm uppercase tracking-wide inline-block text-center">
+    Enroll Now
+</a>
+    </div>
+
+    <script src="js/checkout.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/vanilla-tilt.min.js"></script>
+
+    <script>
+        // 1. Function to Open Popup
+        function openPopup() {
+            // Check if user has already submitted (optional - stored in LocalStorage)
+            if (!localStorage.getItem('leadSubmitted')) {
+                const popup = document.getElementById('lead-popup');
+                const content = document.getElementById('popup-content');
+                
+                popup.classList.remove('hidden');
+                
+                // Small animation delay for smooth entrance
+                setTimeout(() => {
+                    content.classList.remove('scale-95', 'opacity-0');
+                    content.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+        }
+
+        // 2. Function to Close Popup
+        function closePopup() {
+            const popup = document.getElementById('lead-popup');
+            const content = document.getElementById('popup-content');
+
+            // Animate out
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+
+            // Hide after animation finishes
+            setTimeout(() => {
+                popup.classList.add('hidden');
+            }, 500);
+        }
+
+        // 3. Trigger automatically after 3 seconds
+        window.addEventListener('load', () => {
+            setTimeout(openPopup, 5000); // 3000ms = 3 seconds
+        });
+    </script>
+
+  <script>
+        // 1. Preloader Logic
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                        typeWriter();
+                    }, 500);
+                }, 1500);
+            }
+        });
+
+        // 2. Initialize AOS
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-quart',
+        });
+
+        // 3. Typewriter Effect
+        const textToType = ["Land Your Job", "Hack The Future", "Secure The World"];
+        let typeIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeTarget = document.getElementById('typewriter');
+
+        function typeWriter() {
+            if (!typeTarget) return; // Guard clause
+            
+            const currentText = textToType[typeIndex];
+            
+            if (isDeleting) {
+                typeTarget.innerText = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typeTarget.innerText = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                typeIndex = (typeIndex + 1) % textToType.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // 4. Accordion Logic (FIXED)
+        document.querySelectorAll('.syllabus-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('.fa-chevron-down');
+                
+                // Toggle current item
+                if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                    // Close
+                    content.style.maxHeight = '0px';
+                    content.style.paddingTop = '0px'; // Remove padding to prevent jump
+                    content.style.transition = 'all 0.3s ease-out';
+                    content.style.overflow = 'hidden';
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    // Open
+                    // Optional: Close other items first (Accordion behavior)
+                    document.querySelectorAll('.accordion-content').forEach(c => {
+                        c.style.maxHeight = '0px'; 
+                        c.style.paddingTop = '0px';
+                    });
+                    document.querySelectorAll('.syllabus-toggle .fa-chevron-down').forEach(i => {
+                        i.style.transform = 'rotate(0deg)';
+                    });
+
+                    // Set height to scrollHeight + padding
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.style.transition = 'all 0.3s ease-out';
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // 5. Countdown Timer (FIXED)
+        // Set a future date (e.g., 5 days from now) to ensure it always works for demo
+        const futureDate = new Date();
+        futureDate.setDate(futureDate.getDate() + 2); 
+        const deadline = futureDate.getTime();
+        
+        setInterval(() => {
+            const now = new Date().getTime();
+            const t = deadline - now;
+            
+            if (t > 0) {
+                // Ensure elements exist before trying to update them
+                const d = document.getElementById("days");
+                const h = document.getElementById("hours");
+                const m = document.getElementById("minutes");
+                const s = document.getElementById("seconds");
+
+                if (d && h && m && s) {
+                    d.innerText = Math.floor(t / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                    h.innerText = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                    m.innerText = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                    s.innerText = Math.floor((t % (1000 * 60)) / 1000).toString().padStart(2, '0');
+                }
+            }
+        }, 1000);
+
+        // 6. Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+            });
+        }
+
+        // 7. Navigation Scrolls
+        function scrollToPricing() {
+            const el = document.getElementById('pricing');
+            if(el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+        function scrollToSyllabus() {
+            const el = document.getElementById('syllabus');
+            if(el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 8. Razorpay Mock
+        function initiateRazorpay() {
+            alert("Redirecting to Whatapp Support...");
+        }
+    </script>
+    
+    
+
+</body></html>
