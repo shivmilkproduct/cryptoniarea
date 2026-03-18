@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptonic Area | Empowering The Digital Defenders</title>
+    
+    <link rel="icon" type="image/jpeg" href="assets/cryptonicarea.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #f1f5f9; 
+            --surface: #ffffff;
+            --accent: #2563eb; 
+            --border: #cbd5e1; 
+            --text-main: #0f172a;
+        }
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .terminal-grid {
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .main-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        .pulse { animation: pulse-data 2s infinite; }
+        @keyframes pulse-data {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="terminal-grid min-h-screen flex flex-col justify-center items-center p-6">
+
+    <div class="mb-12 fade-in">
+        <img src="assets/cryptonicarea.jpg" alt="Logo" class="w-16 h-16 rounded-sm border border-slate-300 object-cover shadow-sm">
+    </div>
+
+    <main class="max-w-2xl w-full text-center fade-in">
+        <div class="main-box p-10 md:p-16 relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 mono text-[8px] font-black uppercase">Phase_01</div>
+            
+            <p class="mono text-[10px] text-blue-600 font-bold mb-6 uppercase tracking-[0.4em] pulse">> INITIALIZING_DIGITAL_INFRASTRUCTURE</p>
+            
+            <h1 class="text-4xl md:text-6xl font-black text-slate-900 mb-8 tracking-tighter uppercase italic leading-none">
+                Something <span class="text-blue-600">Great</span> <br> Is Evolving.
+            </h1>
+
+            <p class="text-slate-500 text-xs md:text-sm font-bold uppercase tracking-widest leading-relaxed mb-12">
+                The Cryptonic Area is an independent global community dedicated to technology, security, and innovation. We are a collective group of experts, ethical hackers, and developers operating as a unified technical hub.
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="https://whatsapp.com/channel/0029Vb6plDSBKfi3qGz2fq0f" class="bg-blue-600 text-white px-10 py-4 rounded-sm font-black text-[10px] uppercase tracking-[0.2em] hover:bg-slate-900 transition-all shadow-lg shadow-blue-200">
+                    Join Community <i class="fas fa-bolt ml-2"></i>
+                </a>
+                <a href="https://cryptonicarea.wuaze.com/about-us" class="bg-white border-2 border-slate-900 text-slate-900 px-10 py-4 rounded-sm font-black text-[10px] uppercase tracking-[0.2em] hover:bg-slate-50 transition-all">
+                    About Community
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-12 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-slate-200 pt-8 mono text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                Uplink: Ready for Deployment
+            </div>
+            <div>
+                Target: 2025_Mission_Start
+            </div>
+            <div>
+                Email: cryptonicarea@gmail.com
+            </div>
+        </div>
+    </main>
+
+    <div class="fixed bottom-8 flex gap-8 text-slate-400">
+        <a href="https://www.linkedin.com/company/cryptonicarea" class="hover:text-blue-600 transition"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/cryptonicarea" class="hover:text-blue-600 transition"><i class="fab fa-instagram"></i></a>
+        <a href="https://whatsapp.com/channel/0029Vb6plDSBKfi3qGz2fq0f" class="hover:text-blue-600 transition"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+</body>
+</html>
