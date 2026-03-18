@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | Cryptonic Area</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#f4f7f9',
+                            dark: '#0a0e27',
+                            cyan: '#00d1c7',
+                            purple: '#7c3aed',
+                        }
+                    },
+                    fontFamily: {
+                        tech: ['Rajdhani', 'monospace'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
+        // --- SAFE REDIRECT LOGIC ---
+        function handleSecurePayment() {
+            const upiId = "cryptonicarea@airtel";
+            const amount = "1999";
+            const name = "CryptonicArea";
+            const url = `upi://pay?pa=${upiId}&pn=${name}&am=${amount}&cu=INR`;
+            window.location.href = url;
+        }
+    </script>
+
+    <style>
+        body { background-color: #f4f7f9; scale: 0.98; transform-origin: top; }
+        .qr-card { background: white; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+        .step-number { background: linear-gradient(135deg, #0a0e27, #1e293b); }
+        
+        @keyframes pulse-premium {
+            0% { box-shadow: 0 0 0 0 rgba(10, 14, 39, 0.1); transform: scale(1); }
+            70% { box-shadow: 0 0 0 10px rgba(10, 14, 39, 0); transform: scale(1.01); }
+            100% { box-shadow: 0 0 0 0 rgba(10, 14, 39, 0); transform: scale(1); }
+        }
+        .btn-premium { animation: pulse-premium 2s infinite; cursor: pointer; }
+        
+        .wa-float {
+            position: fixed; bottom: 25px; right: 25px;
+            background: #25d366; color: white; width: 50px; height: 50px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 25px; z-index: 1000;
+        }
+        .pay-logo { height: 20px; filter: grayscale(1); opacity: 0.6; }
+    </style>
+</head>
+<body class="font-sans min-h-screen text-slate-800">
+
+    <header class="w-full bg-white border-b border-slate-200 py-3 px-6 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-brand-dark rounded flex items-center justify-center p-1">
+                    <img src="assets/cryptonicarea.jpg" alt="CA" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-tech text-lg font-bold text-brand-dark tracking-wider leading-none">CRYPTONIC AREA</span>
+                    <span class="font-tech text-[8px] font-bold text-brand-cyan tracking-[0.3em] leading-none uppercase">Community</span>
+                </div>
+            </div>
+            <div class="text-[9px] font-tech font-bold text-slate-400 uppercase tracking-widest">
+                <i class="fas fa-lock text-brand-cyan mr-1"></i> Secure Node
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8 max-w-4xl">
+        <div class="mb-8 text-center">
+            <h2 class="font-tech text-brand-cyan font-bold tracking-[0.4em] text-[10px] uppercase mb-1">Enroll with Payment</h2>
+            <h1 class="text-2xl md:text-3xl font-bold text-brand-dark tracking-tight uppercase">Web Application Penetration Testing</h1>
+            <div class="h-1 w-16 bg-brand-cyan mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8 items-start">
+            
+            <div class="qr-card rounded-2xl p-6 text-center">
+                <p class="font-tech text-[10px] tracking-widest text-slate-400 mb-6 uppercase font-bold">Official Payment QR Code</p>
+                <div class="bg-white p-2 border border-slate-100 inline-block rounded-xl shadow-sm mb-6">
+                    <img src="assets/qr-code.jpg" alt="QR CODE" class="w-48 h-48 object-contain">
+                </div>
+                <div class="bg-slate-50 border border-slate-100 py-2 px-4 rounded-lg font-mono text-xs font-bold text-brand-dark flex justify-between items-center max-w-[200px] mx-auto mb-6">
+                    <span>cryptonicarea@airtel</span>
+                    <i class="far fa-copy text-brand-cyan cursor-pointer"></i>
+                </div>
+                <div class="border-t border-slate-50 pt-6">
+                    <div class="flex justify-between items-center mb-4 px-2">
+                        <span class="text-slate-500 font-semibold uppercase text-[10px]">Total Amount:</span>
+                        <span class="text-xl font-bold text-brand-dark">₹1,999</span>
+                    </div>
+                    <div onclick="handleSecurePayment()" class="w-full bg-brand-dark text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 btn-premium text-sm uppercase tracking-widest">
+                        <i class="fas fa-bolt text-brand-cyan"></i> Pay Now
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6 lg:pl-4">
+                <h3 class="font-tech text-sm font-bold text-brand-dark tracking-widest uppercase border-l-3 border-brand-cyan pl-3">Instructions</h3>
+                <div class="space-y-5">
+                    <div class="flex gap-4">
+                        <div class="step-number w-7 h-7 rounded-full flex items-center justify-center text-[10px] text-white font-bold shrink-0">1</div>
+                        <p class="text-[10px] text-slate-500 uppercase leading-relaxed font-semibold">Complete the transaction of ₹1,999 via QR or Button.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="step-number w-7 h-7 rounded-full flex items-center justify-center text-[10px] text-white font-bold shrink-0">2</div>
+                        <p class="text-[10px] text-slate-500 uppercase leading-relaxed font-semibold">Take a clear screenshot of the payment success screen.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="step-number w-7 h-7 rounded-full flex items-center justify-center text-[10px] text-white font-bold shrink-0">3</div>
+                        <p class="text-[10px] text-slate-500 uppercase leading-relaxed font-semibold">Click Confirm Enrollment to upload your details.</p>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <a href="verify" class="w-full bg-brand-dark text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 btn-premium text-sm uppercase tracking-widest shadow-xl">
+                        <i class="fas fa-check-double text-brand-cyan"></i> Confirm Enrollment
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-12 py-8 border-t border-slate-200 bg-white text-center">
+        <p class="text-[9px] font-tech text-slate-400 tracking-widest uppercase mb-6">Supported Payment Methods</p>
+        <div class="flex flex-wrap justify-center items-center gap-6 mb-8">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Pay_Logo.svg" class="pay-logo" alt="GPay">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/PhonePe_Logo.svg" class="pay-logo" alt="PhonePe">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" class="pay-logo" alt="Paytm">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png" class="pay-logo" alt="UPI">
+        </div>
+        <p class="text-[8px] font-tech text-slate-300 tracking-[0.5em] uppercase">© 2026 CRYPTONIC AREA | SECURE GATEWAY</p>
+    </footer>
+
+    <a href="https://wa.me/918503979765" class="wa-float shadow-lg"><i class="fab fa-whatsapp"></i></a>
+
+</body>
+</html>
