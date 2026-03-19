@@ -310,6 +310,86 @@
         </div>
     </section>
 
+    <section class="px-6 py-20 bg-slate-50/30 overflow-hidden border-y border-slate-100">
+    <div class="max-w-6xl mx-auto mb-10 text-center">
+        <p class="mono text-[10px] font-bold text-blue-600 uppercase tracking-[0.4em] mb-4 italic">Active Operations</p>
+        <h3 class="text-3xl font-black text-slate-900 uppercase italic">What We Offer</h3>
+    </div>
+
+    <div class="relative flex overflow-x-hidden">
+        <div class="py-12 animate-marquee flex gap-6">
+            
+            <div class="min-w-[320px] md:min-w-[400px] bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-6 group hover:border-blue-400 transition-all">
+                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shrink-0 shadow-lg shadow-blue-100">
+                    <i class="fas fa-user-graduate text-2xl"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-black uppercase text-slate-900 italic">Cyber Internships</h4>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase leading-relaxed mt-1">Real-world projects & industrial mentorship.</p>
+                </div>
+            </div>
+
+            <div class="min-w-[320px] md:min-w-[400px] bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-6 group hover:border-red-400 transition-all">
+                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center text-white shrink-0 shadow-lg shadow-red-100">
+                    <i class="fas fa-flag text-2xl"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-black uppercase text-slate-900 italic">Capture The Flag</h4>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase leading-relaxed mt-1">Global CTF competitions & lab challenges.</p>
+                </div>
+            </div>
+
+            <div class="min-w-[320px] md:min-w-[400px] bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-6 group hover:border-teal-400 transition-all">
+                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white shrink-0 shadow-lg shadow-teal-100">
+                    <i class="fas fa-bolt text-2xl"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-black uppercase text-slate-900 italic">Security Bootcamps</h4>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase leading-relaxed mt-1">7-Day intensive zero-to-hero hacking tracks.</p>
+                </div>
+            </div>
+
+            <div class="min-w-[320px] md:min-w-[400px] bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-6 group hover:border-purple-400 transition-all">
+                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white shrink-0 shadow-lg shadow-purple-100">
+                    <i class="fas fa-microphone-lines text-2xl"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-black uppercase text-slate-900 italic">Community Meetups</h4>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase leading-relaxed mt-1">Free webinars & physical networking events.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="absolute top-0 py-12 animate-marquee2 flex gap-6">
+            <div class="min-w-[320px] md:min-w-[400px] bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-6 opacity-0 md:opacity-100">
+                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shrink-0">
+                    <i class="fas fa-user-graduate text-2xl"></i>
+                </div>
+                <div><h4 class="text-sm font-black uppercase text-slate-900 italic">Cyber Internships</h4><p class="text-[10px] text-slate-500 font-bold uppercase mt-1">Real-world projects & industrial mentorship.</p></div>
+            </div>
+            </div>
+    </div>
+</section>
+
+<style>
+    /* Continuous Marquee Animation */
+    .animate-marquee {
+        animation: marquee 30s linear infinite;
+    }
+    .animate-marquee2 {
+        animation: marquee2 30s linear infinite;
+        margin-left: 30s; /* Offset */
+    }
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+    @keyframes marquee2 {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(0%); }
+    }
+</style>
     <section class="py-16 overflow-hidden bg-white">
         <div class="review-track">
             <div class="w-64 premium-card p-6 rounded-md shrink-0">
