@@ -273,26 +273,36 @@
         </div>
     </div>
     </section>
-    <section class="px-6 py-16 max-w-6xl mx-auto overflow-hidden">
+   <section class="px-6 py-16 max-w-6xl mx-auto overflow-hidden">
     <p class="mono text-[10px] font-bold text-slate-400 text-center uppercase tracking-[0.3em] mb-10 italic">Elite Community Mentors</p>
     
     <div class="flex flex-nowrap gap-6 overflow-x-auto pb-8 snap-x no-scrollbar" style="scrollbar-width: none; -ms-overflow-style: none;">
         
-        <div class="min-w-[320px] md:min-w-[420px] snap-center premium-card p-6 flex items-center gap-6 rounded-lg bg-white border border-slate-200">
+        <div class="min-w-[320px] md:min-w-[420px] snap-center premium-card p-6 flex items-center gap-6 rounded-lg bg-white border border-slate-200 group hover:border-blue-400 transition-all">
             <div class="w-24 h-24 flex-shrink-0 border-2 border-blue-100 rounded-full overflow-hidden shadow-md">
-                <img src="assets/akash_das_barman.png" alt="Mentor Name 01" class="w-full h-full object-cover">
+                <img src="assets/akash_das_barman.png" alt="AkashDas Barman" class="w-full h-full object-cover">
             </div>
-            <div class="space-y-1">
-                <h4 class="text-sm font-black uppercase text-slate-900">AkashDas Barman</h4>
+            <div class="space-y-1 relative w-full">
+                <div class="flex justify-between items-start">
+                    <h4 class="text-sm font-black uppercase text-slate-900">AkashDas Barman</h4>
+                    <a href="https://www.linkedin.com/in/akashdas-barman-85a7a6319" target="_blank" class="text-slate-400 hover:text-[#0077b5] transition-colors">
+                        <i class="fab fa-linkedin text-lg"></i>
+                    </a>
+                </div>
                 <p class="mono text-[9px] font-bold text-blue-600 uppercase">M.Tech | CEH | WAPT | NPT | CNSP</p>
                 <div class="h-[1px] w-10 bg-slate-200 my-2"></div>
                 <p class="text-[10px] text-slate-500 italic leading-relaxed">"Securing the digital world, one node at a time."</p>
             </div>
         </div>
 
-            </div>
+    </div>
 </section>
 
+<style>
+    /* Hide scrollbar but keep functionality */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+</style>
+    
 <style>
     /* Slider smooth scroll and hide scrollbar */
     .no-scrollbar::-webkit-scrollbar { display: none; }
