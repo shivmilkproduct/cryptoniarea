@@ -378,6 +378,75 @@
             </div>
         </div>
     </section>
+  <section id="cert-display" class="py-24 px-6 bg-[#030712] relative overflow-hidden">
+    
+    <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#10b981 0.5px, transparent 0.5px); background-size: 30px 30px;"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-600/5 blur-[150px] rounded-full animate-pulse"></div>
+
+    <div class="max-w-5xl mx-auto relative z-10 text-center">
+        
+        <div class="mb-16">
+            <span class="px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-[0.4em] inline-block mb-4 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                The Ultimate Recognition
+            </span>
+            <h2 class="text-4xl md:text-6xl font-black text-white italic uppercase tracking-tighter">Certified <span class="text-emerald-500 underline decoration-emerald-500/20 underline-offset-8">Mastery</span></h2>
+        </div>
+
+        <div class="relative inline-block group">
+            
+            <div class="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-emerald-600 via-transparent to-blue-600 opacity-70 blur-sm group-hover:opacity-100 transition-opacity"></div>
+            
+            <div class="relative bg-slate-900 rounded-xl p-3 border border-white/10 shadow-2xl overflow-hidden">
+                
+                <div class="relative aspect-[1.414/1] w-full max-w-[850px] rounded-lg overflow-hidden border border-emerald-500/20 bg-black">
+                    
+                    <img src="assets/certificate.png" alt="WAPT Elite Certificate" 
+                         class="w-full h-full object-cover shadow-inner transition-transform duration-700 group-hover:scale-[1.02]">
+
+                    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent -translate-x-full animate-sweep pointer-events-none"></div>
+                    
+                    <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-emerald-500 z-20"></div>
+                    <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-emerald-500 z-20"></div>
+
+                    <div class="absolute inset-0 opacity-40 mix-blend-screen pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+                </div>
+
+                <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-slate-950 rounded-full border-4 border-emerald-600 flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.8)] z-30 group-hover:rotate-[360deg] transition-transform duration-[2s]">
+                    <i class="fas fa-shield-alt text-3xl text-emerald-500"></i>
+                </div>
+            </div>
+
+            <div class="w-[80%] h-10 bg-emerald-500/20 blur-[60px] mx-auto mt-[-20px] rounded-full opacity-50"></div>
+        </div>
+
+        <div class="mt-16 space-y-4">
+            <p class="text-slate-400 text-[11px] font-bold uppercase tracking-[0.2em] italic">Industry Recognized • Verifiable ID • Global Standard</p>
+            <div class="flex justify-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Continuous Glass Reflection Sweep */
+    @keyframes sweep {
+        0% { transform: translateX(-100%) skewX(-15deg); }
+        30% { transform: translateX(100%) skewX(-15deg); }
+        100% { transform: translateX(100%) skewX(-15deg); }
+    }
+    .animate-sweep {
+        animation: sweep 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* Subtle Hover Pulse for the energy border */
+    #cert-display .group:hover {
+        transform: translateY(-5px);
+        transition: transform 0.4s ease-out;
+    }
+</style>
     <section id="syllabus" class="py-24 relative">
         <div class="container mx-auto px-6 max-w-5xl">
             <div class="text-center mb-16">
