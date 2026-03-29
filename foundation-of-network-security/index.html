@@ -98,7 +98,7 @@
                 </button>
             </div>
         </section>
-      <section class="py-16 overflow-hidden relative">
+    <section class="py-16 overflow-hidden relative">
     <div class="text-center mb-12">
         <h3 class="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] mb-2">Technical Intelligence</h3>
         <h2 class="text-2xl font-extrabold text-slate-900 italic uppercase">Core <span class="text-blue-600">Curriculum</span> Stream</h2>
@@ -180,6 +180,100 @@
     </div>
 </section>
 
+<style>
+    .landscape-card {
+        flex: 0 0 auto;
+        width: 320px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(226, 232, 240, 0.6);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        gap: 15px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .landscape-card:hover {
+        background: white;
+        border-color: #2563eb;
+        transform: scale(1.05) translateY(-5px);
+        box-shadow: 0 20px 40px rgba(37, 99, 235, 0.1);
+    }
+
+    /* Fixed Center Alignment for Symbols */
+    .card-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Absolutely centered horizontally */
+        text-align: center;      /* Extra safety for font-icons */
+        font-size: 20px;
+        flex-shrink: 0;
+        transition: 0.4s;
+    }
+
+    .landscape-card:hover .card-icon {
+        transform: rotate(10deg);
+        background: #2563eb;
+        color: white;
+    }
+
+    .card-content h4 {
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #0f172a;
+        margin: 0;
+    }
+
+    .card-content p {
+        font-size: 9px;
+        font-weight: 500;
+        color: #64748b;
+        white-space: normal;
+        margin-top: 4px;
+        line-height: 1.4;
+    }
+
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    .animate-marquee {
+        animation: marquee 30s linear infinite;
+    }
+
+    .group:hover .animate-marquee {
+        animation-play-state: paused;
+    }
+
+    .landscape-card::after {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: 16px;
+        background: linear-gradient(90deg, #2563eb, #06b6d4, #2563eb);
+        background-size: 200% auto;
+        z-index: -1;
+        opacity: 0;
+        transition: 0.3s;
+    }
+    .landscape-card:hover::after {
+        opacity: 0.2;
+        animation: gradientShift 2s linear infinite;
+    }
+    @keyframes gradientShift {
+        to { background-position: 200% center; }
+    }
+    </style>
+        
 <style>
     .landscape-card {
         flex: 0 0 auto;
