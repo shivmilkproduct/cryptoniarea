@@ -469,7 +469,161 @@
             </div>
         </section>
     </div>
+<div class="terminal-section-container">
+    <style>
+        .terminal-section-container {
+            padding: 80px 0;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
 
+        .cyber-terminal {
+            width: 95%;
+            max-width: 900px;
+            background: #0f172a; /* Deep Navy Dark Theme */
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.2);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cyber-terminal:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 0 40px 80px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Terminal Header Bar */
+        .terminal-header {
+            background: #1e293b;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .terminal-dots { display: flex; gap: 8px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-title {
+            color: #94a3b8;
+            font-family: 'Fira Code', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Terminal Body/Content */
+        .terminal-body {
+            padding: 25px;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            min-height: 280px;
+        }
+
+        /* Syntax Colors */
+        .t-user { color: #10b981; font-weight: bold; } /* Emerald */
+        .t-cmd { color: #f8fafc; }
+        .t-flag { color: #38bdf8; } /* Cyan */
+        .t-res { color: #94a3b8; } /* Slate */
+        .t-high { color: #fbbf24; } /* Amber */
+        .t-blue { color: #60a5fa; } /* Blue */
+
+        /* Blinking Cursor */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: #10b981;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Scanning Line Effect */
+        .scan-effect {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 15px #2563eb;
+            animation: scanMove 4s linear infinite;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        @keyframes scanMove { 0% { top: 0; } 100% { top: 100%; } }
+
+        @media (max-width: 768px) {
+            .terminal-body { font-size: 11px; padding: 15px; }
+            .cyber-terminal { width: 100%; border-radius: 0; }
+        }
+    </style>
+
+    <div class="cyber-terminal">
+        <div class="scan-effect"></div>
+        <div class="terminal-header">
+            <div class="terminal-dots">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+            </div>
+            <div class="terminal-title"><i class="fas fa-terminal mr-2"></i> Network-Intell-Console</div>
+            <div class="text-[#475569] text-[10px]">SSH: CRYPTONIC_AREA</div>
+        </div>
+
+        <div class="terminal-body">
+            <div>
+                <span class="t-user">root@cryptonicarea:~#</span> <span class="t-cmd">nmap <span class="t-flag">-sV -T4</span> 192.168.1.1</span>
+            </div>
+            <div class="t-res ml-4 mb-2 italic">
+                Scanning services... 2 open ports found.<br>
+                PORT &nbsp; STATE &nbsp; SERVICE &nbsp; VERSION<br>
+                80/tcp &nbsp;OPEN &nbsp; http &nbsp; &nbsp; Apache/2.4.41<br>
+                443/tcp OPEN &nbsp; ssl/http &nbsp;OpenSSL/1.1.1d
+            </div>
+
+            <div>
+                <span class="t-user">root@cryptonicarea:~#</span> <span class="t-cmd">nc <span class="t-flag">-lvnp</span> 4444</span>
+            </div>
+            <div class="t-blue ml-4 mb-2">
+                Listening on [0.0.0.0] (family 0, port 4444)...
+            </div>
+
+            <div>
+                <span class="t-user">root@cryptonic:~#</span> <span class="t-cmd">tcpdump <span class="t-flag">-i</span> eth0 <span class="t-flag">-c</span> 2</span>
+            </div>
+            <div class="t-res ml-4 mb-2">
+                18:42:01.43 IP 192.168.1.5.5342 > <span class="t-high">8.8.8.8.53</span>: DNS Query<br>
+                18:42:01.45 IP <span class="t-high">8.8.8.8.53</span> > 192.168.1.5.5342: DNS Response
+            </div>
+
+            <div>
+                <span class="t-user">root@cryptonic:~#</span> <span class="t-cmd">ifconfig eth0 | grep <span class="t-flag">"inet "</span></span>
+            </div>
+            <div class="t-res ml-4 mb-4">
+                inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+            </div>
+
+            <div>
+                <span class="t-user">root@cryptonicarea:~#</span> <span class="t-cmd">initiate_assessment</span><span class="cursor"></span>
+            </div>
+        </div>
+    </div>
+</div>
+    
     <footer class="bg-white border-t border-slate-100 pt-16 pb-10 px-6">
         <div class="max-w-7xl mx-auto text-center space-y-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-8">
