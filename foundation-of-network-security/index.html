@@ -646,8 +646,8 @@
         .marquee-wrapper {
             display: flex;
             width: fit-content;
-            animation: marquee-scroll 45s linear infinite; /* thoda slow kar diya smooth feel ke liye */
-            gap: 25px;
+            animation: marquee-scroll 55s linear infinite;
+            gap: 20px;
             padding: 20px 0;
         }
 
@@ -660,28 +660,27 @@
             100% { transform: translateX(calc(-50%)); }
         }
 
-        /* --- LANDSCAPE REVIEW CARD --- */
+        /* --- SQUARE LANDSCAPE REVIEW CARD --- */
         .review-card-landscape {
             flex: 0 0 auto;
             width: 380px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(37, 99, 235, 0.1);
-            border-radius: 30px;
+            background: #ffffff;
+            border-radius: 0px; /* Sharp Square */
+            border: 1px solid rgba(15, 23, 42, 0.1);
             padding: 30px;
             display: flex;
             flex-direction: column;
             gap: 15px;
-            transition: all 0.5s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
             position: relative;
         }
 
         .review-card-landscape:hover {
             border-color: #2563eb;
-            transform: scale(1.02) translateY(-5px);
-            background: #ffffff;
-            box-shadow: 0 25px 50px rgba(37, 99, 235, 0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.1);
+            z-index: 10;
         }
 
         .reviewer-info {
@@ -690,19 +689,16 @@
             gap: 15px;
         }
 
-        /* --- FIXED: Letter Logo replaced with Person Icon --- */
         .reviewer-avatar-icon {
             width: 45px;
             height: 45px;
-            /* Gradient background is kept for branding */
-            background: linear-gradient(135deg, #2563eb, #06b6d4);
-            border-radius: 50%;
+            background: #0f172a;
+            border-radius: 0px; /* Square Avatar */
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 18px; /* Icon size */
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+            color: #10b981;
+            font-size: 18px;
             flex-shrink: 0;
         }
 
@@ -715,12 +711,22 @@
             letter-spacing: 0.5px;
         }
 
+        .country-tag {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 2px;
+        }
+
         .stars-row {
-            color: #fbbf24; /* Gold Star Color */
+            color: #fbbf24;
             font-size: 10px;
             display: flex;
             gap: 3px;
-            margin-top: 4px;
+            margin-top: 5px;
         }
 
         .review-text {
@@ -728,7 +734,8 @@
             line-height: 1.6;
             color: #475569;
             font-weight: 500;
-            font-style: italic;
+            border-left: 3px solid #f1f5f9;
+            padding-left: 15px;
         }
 
         /* --- AESTHETIC GRADIENT FADES --- */
@@ -736,22 +743,15 @@
         .reviews-section-container::after {
             content: '';
             position: absolute;
-            top: 0; width: 200px; height: 100%;
+            top: 0; width: 150px; height: 100%;
             z-index: 2;
             pointer-events: none;
         }
-        .reviews-section-container::before {
-            left: 0;
-            background: linear-gradient(to right, white, transparent);
-        }
-        .reviews-section-container::after {
-            right: 0;
-            background: linear-gradient(to left, white, transparent);
-        }
+        .reviews-section-container::before { left: 0; background: linear-gradient(to right, white, transparent); }
+        .reviews-section-container::after { right: 0; background: linear-gradient(to left, white, transparent); }
 
         @media (max-width: 768px) {
-            .review-card-landscape { width: 300px; padding: 20px; }
-            .review-text { font-size: 12px; }
+            .review-card-landscape { width: 310px; }
         }
     </style>
 
@@ -766,39 +766,36 @@
             <div class="reviewer-info">
                 <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
                 <div class="reviewer-details">
-                    <h4>Aman Sharma</h4>
-                    <div class="stars-row">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
+                    <h4>Karandeep Singh</h4>
+                    <div class="country-tag">🇮🇳 INDIA</div>
+                    <div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 </div>
             </div>
-            <p class="review-text">"The assessment was tough but brilliant. The theory-linked questions really tested my networking core."</p>
+            <p class="review-text">"Best networking assessment for beginners. The curriculum is mapped perfectly with industry tools."</p>
         </div>
 
         <div class="review-card-landscape">
             <div class="reviewer-info">
                 <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
                 <div class="reviewer-details">
-                    <h4>Rohan Kapoor</h4>
-                    <div class="stars-row">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
+                    <h4>Aryan Malhotra</h4>
+                    <div class="country-tag">🇮🇳 INDIA</div>
+                    <div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 </div>
             </div>
-            <p class="review-text">"Never seen such a professional certification from a community. Cryptonic Area is at another level!"</p>
+            <p class="review-text">"The terminal simulation is pure fire! It actually feels like working on a real server environment."</p>
         </div>
 
         <div class="review-card-landscape">
             <div class="reviewer-info">
                 <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
                 <div class="reviewer-details">
-                    <h4>Vikas Deshmukh</h4>
-                    <div class="stars-row">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star text-slate-300"></i>
-                    </div>
+                    <h4>Mark Harrison</h4>
+                    <div class="country-tag">🇺🇸 UNITED STATES</div>
+                    <div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 </div>
             </div>
-            <p class="review-text">"Packet analysis section was industry-standard. Learned more here than in my college semester."</p>
+            <p class="review-text">"High-quality content. The theory-to-practical transition is seamless and very logical."</p>
         </div>
 
         <div class="review-card-landscape">
@@ -806,75 +803,91 @@
                 <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
                 <div class="reviewer-details">
                     <h4>Neha Patil</h4>
-                    <div class="stars-row">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
+                    <div class="country-tag">🇮🇳 INDIA</div>
+                    <div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 </div>
             </div>
-            <p class="review-text">"Highly recommended for anyone looking to build a career in Ethical Hacking. Solid foundation!"</p>
+            <p class="review-text">"Never seen such professional level training for free. Cryptonic Area is doing a great job for students."</p>
         </div>
 
         <div class="review-card-landscape">
             <div class="reviewer-info">
                 <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
                 <div class="reviewer-details">
-                    <h4>Aman Sharma</h4>
-                    <div class="stars-row">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
+                    <h4>Rahul Verma</h4>
+                    <div class="country-tag">🇮🇳 INDIA</div>
+                    <div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 </div>
             </div>
-            <p class="review-text">"The assessment was tough but brilliant. The theory-linked questions really tested my networking core."</p>
+            <p class="review-text">"Packet analysis and Nmap concepts are explained so clearly. Highly recommended for everyone."</p>
         </div>
-      <div class="review-card-landscape">
-            <div class="reviewer-info">
-                <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
-                <div class="reviewer-details">
-                    <h4>Priyanka Das</h4>
-                    <div class="stars-row">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star text-slate-300"></i>
-                    </div>
-                </div>
-            </div>
-            <p class="review-text">"Extremely high-quality content. The theory-to-practical transition is seamless. A must-have for cybersecurity enthusiasts."</p>
-      </div>
+
         <div class="review-card-landscape">
             <div class="reviewer-info">
                 <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
                 <div class="reviewer-details">
-                    <h4>Rohan Kapoor</h4>
-                    <div class="stars-row">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
+                    <h4>Priya Sharma</h4>
+                    <div class="country-tag">🇮🇳 INDIA</div>
+                    <div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 </div>
             </div>
-            <p class="review-text">"Never seen such a professional certification from a community. Cryptonic Area is at another level!"</p>
+            <p class="review-text">"The assessment environment is very professional. It actually tests your logical thinking like a hacker."</p>
         </div>
+
+        <div class="review-card-landscape">
+            <div class="reviewer-info">
+                <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
+                <div class="reviewer-details">
+                    <h4>Zaid Bin Rashid</h4>
+                    <div class="country-tag">🇦🇪 UAE</div>
+                    <div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                </div>
+            </div>
+            <p class="review-text">"Great roadmap. The digital badge verification adds so much authority to the certificate."</p>
+        </div>
+
         <div class="review-card-landscape">
             <div class="reviewer-info">
                 <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
                 <div class="reviewer-details">
                     <h4>Vikas Deshmukh</h4>
-                    <div class="stars-row">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star text-slate-300"></i>
-                    </div>
+                    <div class="country-tag">🇮🇳 INDIA</div>
+                    <div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 </div>
             </div>
-            <p class="review-text">"Packet analysis section was industry-standard. Learned more here than in my college semester."</p>
+            <p class="review-text">"I cleared my networking internship interview because of these concepts. Thanks Cryptonic Area!"</p>
         </div>
+
         <div class="review-card-landscape">
             <div class="reviewer-info">
                 <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
                 <div class="reviewer-details">
-                    <h4>Neha Patil</h4>
-                    <div class="stars-row">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
+                    <h4>Ishita Gupta</h4>
+                    <div class="country-tag">🇮🇳 INDIA</div>
+                    <div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 </div>
             </div>
-            <p class="review-text">"Highly recommended for anyone looking to build a career in Ethical Hacking. Solid foundation!"</p>
+            <p class="review-text">"The difficulty level is perfect. It's not easy, but it makes you a better network security professional."</p>
         </div>
+
+        <div class="review-card-landscape">
+            <div class="reviewer-info">
+                <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
+                <div class="reviewer-details">
+                    <h4>Sandeep Yadav</h4>
+                    <div class="country-tag">🇮🇳 INDIA</div>
+                    <div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                </div>
+            </div>
+            <p class="review-text">"Industrial level experience. Every student interested in Cyber Security must take this assessment."</p>
+        </div>
+
+        <div class="review-card-landscape"><div class="reviewer-info"><div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div><div class="reviewer-details"><h4>Karandeep Singh</h4><div class="country-tag">🇮🇳 INDIA</div><div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div></div><p class="review-text">"Best networking assessment for beginners. The curriculum is mapped perfectly."</p></div>
+        <div class="review-card-landscape"><div class="reviewer-info"><div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div><div class="reviewer-details"><h4>Aryan Malhotra</h4><div class="country-tag">🇮🇳 INDIA</div><div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div></div><p class="review-text">"The terminal simulation is pure fire! Realistic server environment."</p></div>
+        <div class="review-card-landscape"><div class="reviewer-info"><div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div><div class="reviewer-details"><h4>Mark Harrison</h4><div class="country-tag">🇺🇸 USA</div><div class="stars-row"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div></div><p class="review-text">"High-quality content. The transition is seamless and very logical."</p></div>
     </div>
+    </div>
+    
                                                                                   </div>
     <div class="faq-intel-container">
     <style>
