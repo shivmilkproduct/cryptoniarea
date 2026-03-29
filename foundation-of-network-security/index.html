@@ -98,7 +98,151 @@
                 </button>
             </div>
         </section>
-<section class="py-16 overflow-hidden relative">
+<div class="program-insight-container">
+    <style>
+        .program-insight-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 24px;
+            perspective: 1000px;
+        }
+
+        .insight-landscape-wrap {
+            position: relative;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            border-radius: 40px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            md:flex-direction: row;
+            align-items: center;
+            gap: 30px;
+            transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+            animation: insightFloat 6s ease-in-out infinite;
+        }
+
+        .insight-landscape-wrap:hover {
+            transform: translateY(-5px) rotateX(2deg);
+            border-color: rgba(37, 99, 235, 0.4);
+            box-shadow: 0 40px 80px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Animated Aesthetic Glow Element */
+        .insight-landscape-wrap::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 180deg at 50% 50%, transparent 0deg, rgba(37, 99, 235, 0.05) 180deg, transparent 360deg);
+            animation: rotateGlow 10s linear infinite;
+            pointer-events: none;
+        }
+
+        .insight-symbol {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .insight-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .insight-content h3 {
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: #2563eb;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .insight-content p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #475569;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .insight-content b {
+            color: #0f172a;
+            font-weight: 800;
+        }
+
+        /* Pulse animation for the small dot in heading */
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: #2563eb;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes rotateGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes insightFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulseDot {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .insight-landscape-wrap { 
+                padding: 30px; 
+                text-align: center; 
+                flex-direction: column;
+            }
+            .insight-content p { font-size: 13px; }
+        }
+    </style>
+
+    <div class="insight-landscape-wrap">
+        <div class="insight-symbol">
+            <i class="fas fa-shield-halved"></i>
+        </div>
+        
+        <div class="insight-content">
+            <h3><span class="status-dot"></span> Mission Intel</h3>
+            <p>
+                <b>Cryptonic Area</b> brings you an industry-grade assessment designed to solidify your <b>Networking Fundamentals</b>. 
+                This isn't just an exam—it's a deep-dive into core protocols. Each challenge includes a specialized 
+                <b>Theory Segment</b> where answers are woven into the logic, ensuring you build an 
+                unbreakable professional foundation in Network Security.
+            </p>
+        </div>
+    </div>
+</div>
+        <section class="py-16 overflow-hidden relative">
     <div class="text-center mb-12">
         <h3 class="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] mb-2">Technical Intelligence</h3>
         <h2 class="text-2xl font-extrabold text-slate-900 italic uppercase">Core <span class="text-blue-600">Curriculum</span> Stream</h2>
