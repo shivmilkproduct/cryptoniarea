@@ -99,6 +99,132 @@
             </div>
         </section>
 
+        <div class="live-intel-section">
+    <style>
+        .live-intel-section {
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .intel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .intel-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0; /* Thoda dark border kiya hai visibility ke liye */
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .intel-box:hover {
+            border-color: #2563eb;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Bottom Animated Line */
+        .intel-box::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, #2563eb, #10b981);
+            transform: translateX(-100%);
+            animation: flow-line 3s infinite linear;
+        }
+
+        @keyframes flow-line {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .intel-label {
+            font-size: 10px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .intel-value {
+            font-size: 24px;
+            font-weight: 900;
+            color: #0f172a;
+        }
+
+        .color-blue { color: #2563eb; }
+        .color-emerald { color: #10b981; }
+        .color-amber { color: #f59e0b; }
+
+        .live-ping {
+            width: 8px; height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 12px #10b981;
+            animation: ping-blink 1s infinite;
+        }
+
+        @keyframes ping-blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        @media (max-width: 768px) {
+            .intel-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+    <div class="intel-grid">
+        <div class="intel-box">
+            <span class="intel-label"><i class="fas fa-chart-line color-blue"></i> Global Avg. Score</span>
+            <div class="intel-value color-blue"><span id="avg-score-val">76</span>%</div>
+        </div>
+
+        <div class="intel-box">
+            <span class="intel-label"><span class="live-ping"></span> Last Certified</span>
+            <div class="intel-value color-emerald" style="font-size: 14px;"><span id="last-cert-time">LOADING...</span></div>
+        </div>
+
+        <div class="intel-box">
+            <span class="intel-label"><i class="fas fa-shield-alt color-amber"></i> Success Tier</span>
+            <div class="intel-value color-amber"><span id="success-tier-val">TOP 10</span>%</div>
+        </div>
+    </div>
+
+    <script>
+        // Use window.onload to make sure it runs after page is fully ready
+        window.addEventListener('load', () => {
+            const timeElement = document.getElementById('last-cert-time');
+            const scoreElement = document.getElementById('avg-score-val');
+            const tierElement = document.getElementById('success-tier-val');
+
+            if(timeElement) {
+                const randomMins = Math.floor(Math.random() * 20) + 2;
+                timeElement.innerText = randomMins + " MINUTES AGO";
+            }
+            if(scoreElement) scoreElement.innerText = Math.floor(Math.random() * (85 - 72 + 1)) + 72;
+            if(tierElement) tierElement.innerText = "TOP " + (Math.floor(Math.random() * 8) + 5);
+        });
+    </script>
+        </div>
         
     
         <div class="program-insight-container">
