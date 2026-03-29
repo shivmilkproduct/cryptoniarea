@@ -1385,14 +1385,32 @@
         }
 
         window.addEventListener('resize', initCanvas);
-        initCanvas(); draw();
+        initCanvas(); 
+        draw();
 
+        // Naya Professional Launch Protocol
         function launchExamProtocol() {
-            document.getElementById('landing-wrapper').classList.add('fade-out');
-            setTimeout(() => { 
-                alert("Exam UI Coming Soon!"); // Iska code hum next step mein denge
-            }, 500);
+            const landing = document.getElementById('landing-wrapper');
+            const assessment = document.getElementById('assessment-wrapper');
+
+            // Fade out effect
+            landing.style.transition = "opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s ease";
+            landing.style.opacity = "0";
+            landing.style.transform = "scale(0.98)";
+            landing.style.pointerEvents = "none";
+
+            setTimeout(() => {
+                landing.style.display = 'none';
+                assessment.style.display = 'block';
+                // questions.js ka function call karega
+                if (typeof startAssessment === "function") {
+                    startAssessment();
+                }
+            }, 800);
         }
     </script>
+
+    <link rel="stylesheet" href="assessment-style.css">
+    <script src="questions.js"></script>
 </body>
 </html>
