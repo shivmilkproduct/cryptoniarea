@@ -628,6 +628,242 @@
         </div>
     </div>
     </div>
+    <div class="reviews-section-container">
+    <style>
+        .reviews-section-container {
+            padding: 80px 0;
+            background: #ffffff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .reviews-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* --- THE MARQUEE ANIMATION --- */
+        .marquee-wrapper {
+            display: flex;
+            width: fit-content;
+            animation: marquee-scroll 45s linear infinite; /* thoda slow kar diya smooth feel ke liye */
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .marquee-wrapper:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50%)); }
+        }
+
+        /* --- LANDSCAPE REVIEW CARD --- */
+        .review-card-landscape {
+            flex: 0 0 auto;
+            width: 380px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            border-radius: 30px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .review-card-landscape:hover {
+            border-color: #2563eb;
+            transform: scale(1.02) translateY(-5px);
+            background: #ffffff;
+            box-shadow: 0 25px 50px rgba(37, 99, 235, 0.12);
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* --- FIXED: Letter Logo replaced with Person Icon --- */
+        .reviewer-avatar-icon {
+            width: 45px;
+            height: 45px;
+            /* Gradient background is kept for branding */
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px; /* Icon size */
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+            flex-shrink: 0;
+        }
+
+        .reviewer-details h4 {
+            font-size: 14px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stars-row {
+            color: #fbbf24; /* Gold Star Color */
+            font-size: 10px;
+            display: flex;
+            gap: 3px;
+            margin-top: 4px;
+        }
+
+        .review-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #475569;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        /* --- AESTHETIC GRADIENT FADES --- */
+        .reviews-section-container::before,
+        .reviews-section-container::after {
+            content: '';
+            position: absolute;
+            top: 0; width: 200px; height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .reviews-section-container::before {
+            left: 0;
+            background: linear-gradient(to right, white, transparent);
+        }
+        .reviews-section-container::after {
+            right: 0;
+            background: linear-gradient(to left, white, transparent);
+        }
+
+        @media (max-width: 768px) {
+            .review-card-landscape { width: 300px; padding: 20px; }
+            .review-text { font-size: 12px; }
+        }
+    </style>
+
+    <div class="reviews-header">
+        <span class="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em] block mb-2">Student Feedback</span>
+        <h2 class="text-3xl font-black text-slate-900 italic uppercase">Wall of <span class="text-blue-600">Excellence</span></h2>
+    </div>
+
+    <div class="marquee-wrapper">
+        
+        <div class="review-card-landscape">
+            <div class="reviewer-info">
+                <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
+                <div class="reviewer-details">
+                    <h4>Aman Sharma</h4>
+                    <div class="stars-row">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="review-text">"The assessment was tough but brilliant. The theory-linked questions really tested my networking core."</p>
+        </div>
+
+        <div class="review-card-landscape">
+            <div class="reviewer-info">
+                <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
+                <div class="reviewer-details">
+                    <h4>Rohan Kapoor</h4>
+                    <div class="stars-row">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="review-text">"Never seen such a professional certification from a community. Cryptonic Area is at another level!"</p>
+        </div>
+
+        <div class="review-card-landscape">
+            <div class="reviewer-info">
+                <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
+                <div class="reviewer-details">
+                    <h4>Vikas Deshmukh</h4>
+                    <div class="stars-row">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star text-slate-300"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="review-text">"Packet analysis section was industry-standard. Learned more here than in my college semester."</p>
+        </div>
+
+        <div class="review-card-landscape">
+            <div class="reviewer-info">
+                <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
+                <div class="reviewer-details">
+                    <h4>Neha Patil</h4>
+                    <div class="stars-row">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="review-text">"Highly recommended for anyone looking to build a career in Ethical Hacking. Solid foundation!"</p>
+        </div>
+
+        <div class="review-card-landscape">
+            <div class="reviewer-info">
+                <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
+                <div class="reviewer-details">
+                    <h4>Aman Sharma</h4>
+                    <div class="stars-row">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="review-text">"The assessment was tough but brilliant. The theory-linked questions really tested my networking core."</p>
+        </div>
+        <div class="review-card-landscape">
+            <div class="reviewer-info">
+                <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
+                <div class="reviewer-details">
+                    <h4>Rohan Kapoor</h4>
+                    <div class="stars-row">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="review-text">"Never seen such a professional certification from a community. Cryptonic Area is at another level!"</p>
+        </div>
+        <div class="review-card-landscape">
+            <div class="reviewer-info">
+                <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
+                <div class="reviewer-details">
+                    <h4>Vikas Deshmukh</h4>
+                    <div class="stars-row">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star text-slate-300"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="review-text">"Packet analysis section was industry-standard. Learned more here than in my college semester."</p>
+        </div>
+        <div class="review-card-landscape">
+            <div class="reviewer-info">
+                <div class="reviewer-avatar-icon"><i class="fas fa-user"></i></div>
+                <div class="reviewer-details">
+                    <h4>Neha Patil</h4>
+                    <div class="stars-row">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="review-text">"Highly recommended for anyone looking to build a career in Ethical Hacking. Solid foundation!"</p>
+        </div>
+    </div>
+                                                                                  </div>
     
     
     <footer class="bg-white border-t border-slate-100 pt-16 pb-10 px-6">
