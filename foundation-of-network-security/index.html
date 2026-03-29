@@ -99,26 +99,29 @@
             </div>
         </section>
 
-        <div class="live-intel-section">
+<div class="hyper-intel-container">
     <style>
-        .live-intel-section {
+        .hyper-intel-container {
             width: 100%;
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1100px;
+            margin: 25px auto;
+            padding: 0 15px;
         }
 
-        .intel-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        .intel-flex-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: nowrap; /* Hamesha ek line mein rahega */
         }
 
-        .intel-box {
-            background: #ffffff;
-            border: 1px solid #e2e8f0; /* Thoda dark border kiya hai visibility ke liye */
-            padding: 25px 15px;
+        /* --- THE ULTRA SQUARE BOX --- */
+        .intel-box-mini {
+            flex: 1;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(15, 23, 42, 0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -126,105 +129,124 @@
             position: relative;
             overflow: hidden;
             transition: all 0.4s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
-        .intel-box:hover {
-            border-color: #2563eb;
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.1);
-        }
-
-        /* Bottom Animated Line */
-        .intel-box::after {
+        /* Eye-Catching Opacity/Glow Animation */
+        .intel-box-mini::before {
             content: '';
             position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 3px;
-            background: linear-gradient(90deg, #2563eb, #10b981);
-            transform: translateX(-100%);
-            animation: flow-line 3s infinite linear;
+            top: 0; left: -150%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.06), transparent);
+            animation: ultra-glow 4s infinite linear;
         }
 
-        @keyframes flow-line {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+        @keyframes ultra-glow {
+            0% { left: -150%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { left: 150%; opacity: 0; }
         }
 
-        .intel-label {
-            font-size: 10px;
-            font-weight: 800;
-            color: #64748b;
+        .intel-box-mini:hover {
+            border-color: #2563eb;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.08);
+            transform: scale(1.02);
+        }
+
+        .mini-label {
+            font-size: 8px;
+            font-weight: 900;
+            color: #94a3b8;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .intel-value {
-            font-size: 24px;
+        .mini-value {
+            font-size: 16px;
             font-weight: 900;
             color: #0f172a;
+            font-family: 'Fira Code', monospace;
+            display: flex;
+            align-items: center;
         }
 
-        .color-blue { color: #2563eb; }
-        .color-emerald { color: #10b981; }
-        .color-amber { color: #f59e0b; }
-
-        .live-ping {
-            width: 8px; height: 8px;
+        /* PING LIGHT */
+        .ping-active {
+            width: 5px; height: 5px;
             background: #10b981;
             border-radius: 50%;
             display: inline-block;
-            box-shadow: 0 0 12px #10b981;
-            animation: ping-blink 1s infinite;
+            box-shadow: 0 0 8px #10b981;
+            animation: ping-flash 1.5s infinite;
         }
 
-        @keyframes ping-blink {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.3); }
+        @keyframes ping-flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
+        .accent-blue { color: #2563eb; }
+        .accent-emerald { color: #10b981; }
+        .accent-purple { color: #7c3aed; }
+
+        /* Mobile Optimization */
         @media (max-width: 768px) {
-            .intel-grid { grid-template-columns: 1fr; }
+            .intel-flex-row { gap: 10px; }
+            .mini-label { font-size: 7px; letter-spacing: 1px; }
+            .mini-value { font-size: 13px; }
+            .intel-box-mini { height: 75px; }
         }
     </style>
 
-    <div class="intel-grid">
-        <div class="intel-box">
-            <span class="intel-label"><i class="fas fa-chart-line color-blue"></i> Global Avg. Score</span>
-            <div class="intel-value color-blue"><span id="avg-score-val">76</span>%</div>
+    <div class="intel-flex-row">
+        <div class="intel-box-mini">
+            <span class="mini-label"><i class="fas fa-bolt accent-blue"></i> AVG SCORE</span>
+            <div class="mini-value accent-blue">79.4<span style="font-size: 10px; margin-left:2px;">%</span></div>
         </div>
 
-        <div class="intel-box">
-            <span class="intel-label"><span class="live-ping"></span> Last Certified</span>
-            <div class="intel-value color-emerald" style="font-size: 14px;"><span id="last-cert-time">LOADING...</span></div>
+        <div class="intel-box-mini">
+            <span class="mini-label"><span class="ping-active"></span> LAST PASSED</span>
+            <div class="mini-value accent-emerald" id="real-time-stamp">
+                --:--
+            </div>
         </div>
 
-        <div class="intel-box">
-            <span class="intel-label"><i class="fas fa-shield-alt color-amber"></i> Success Tier</span>
-            <div class="intel-value color-amber"><span id="success-tier-val">TOP 10</span>%</div>
+        <div class="intel-box-mini">
+            <span class="mini-label"><i class="fas fa-globe accent-purple"></i> GLOBAL RANK</span>
+            <div class="mini-value accent-purple">TOP 15<span style="font-size: 10px; margin-left:2px;">%</span></div>
         </div>
     </div>
 
     <script>
-        // Use window.onload to make sure it runs after page is fully ready
-        window.addEventListener('load', () => {
-            const timeElement = document.getElementById('last-cert-time');
-            const scoreElement = document.getElementById('avg-score-val');
-            const tierElement = document.getElementById('success-tier-val');
+        function updateRealTimeStatus() {
+            const timeDisplay = document.getElementById('real-time-stamp');
+            const now = new Date();
 
-            if(timeElement) {
-                const randomMins = Math.floor(Math.random() * 20) + 2;
-                timeElement.innerText = randomMins + " MINUTES AGO";
-            }
-            if(scoreElement) scoreElement.innerText = Math.floor(Math.random() * (85 - 72 + 1)) + 72;
-            if(tierElement) tierElement.innerText = "TOP " + (Math.floor(Math.random() * 8) + 5);
-        });
+            // Logic: Current time se 6 minute piche (Adjustable)
+            now.setMinutes(now.getMinutes() - 6);
+
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; // 0 ko 12 banata hai
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            // Final Professional String
+            const timeString = hours + ":" + minutes + " " + ampm;
+            timeDisplay.innerText = timeString;
+        }
+
+        // Page load pe update karo
+        updateRealTimeStatus();
     </script>
-        </div>
+</div>
+        
         
     
         <div class="program-insight-container">
