@@ -1214,6 +1214,115 @@
     </div>
     </div>
     
+   <div class="founder-signature-container">
+    <style>
+        .founder-signature-container {
+            padding: 60px 20px;
+            background: #ffffff;
+            text-align: center;
+            border-top: 1px solid rgba(15, 23, 42, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .motivation-quote {
+            font-family: 'Fira Code', monospace;
+            font-size: 18px;
+            font-weight: 800;
+            line-height: 1.6;
+            display: inline-block;
+            /* Ultra-Premium Gradient Text */
+            background: linear-gradient(90deg, #0f172a, #2563eb, #10b981, #0f172a);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-flow 5s linear infinite;
+            margin-bottom: 20px;
+            max-width: 800px;
+            font-style: italic;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* The Typing Effect Wrapper */
+        .typing-wrapper {
+            display: block;
+            min-height: 50px;
+        }
+
+        /* Founder Identity Block */
+        .founder-id-block {
+            margin-top: 15px;
+            opacity: 0.8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .founder-name {
+            font-size: 13px;
+            font-weight: 900;
+            color: #0f172a;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .founder-name::before {
+            content: '/';
+            color: #10b981;
+            font-weight: 900;
+        }
+
+        .founder-role {
+            font-size: 9px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 4px;
+        }
+
+        /* Subtle Background Decoration */
+        .signature-bg-glow {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px; height: 100px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            .motivation-quote { font-size: 14px; }
+            .founder-name { font-size: 11px; }
+        }
+    </style>
+
+    <div class="signature-bg-glow"></div>
+
+    <div class="typing-wrapper">
+        <span class="motivation-quote">
+            "Your journey into the shadows isn't about breaking things; it's about understanding the light that protects them."
+        </span>
+    </div>
+
+    <div class="founder-id-block">
+        <div class="founder-name">
+            Karandeep Baror
+        </div>
+        <div class="founder-role">
+            Founder, Cryptonic Area
+        </div>
+    </div>
+   </div>
     
     
     <footer class="bg-white border-t border-slate-100 pt-16 pb-10 px-6">
