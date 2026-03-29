@@ -1,1 +1,165 @@
+/* =============================================
+   CRYPTOMIC AREA - ASSESSMENT COMMAND UI
+   ============================================= */
 
+/* Main Full-Screen Overlay */
+#assessment-wrapper {
+    display: none; /* JavaScript se show hoga */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #ffffff; /* Clean Professional White */
+    z-index: 10000;
+    overflow-y: auto;
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.mission-viewport {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* --- TOP HUD (Heads Up Display) --- */
+.hud-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.mission-label {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: #2563eb;
+    text-transform: uppercase;
+    background: #eff6ff;
+    padding: 6px 15px;
+    border-radius: 4px;
+}
+
+/* --- THE INTEL BRIEFING (THEORY) --- */
+.intel-briefing-card {
+    background: #0f172a; /* Dark Terminal Theme */
+    border-radius: 8px;
+    padding: 35px;
+    margin-bottom: 30px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+    border-left: 6px solid #10b981; /* Success Green Accent */
+}
+
+.intel-tag {
+    position: absolute;
+    top: -12px; left: 30px;
+    background: #10b981;
+    color: white;
+    font-size: 9px;
+    font-weight: 900;
+    padding: 5px 15px;
+    letter-spacing: 2px;
+}
+
+.intel-text {
+    color: #94a3b8;
+    font-size: 15px;
+    line-height: 1.8;
+    font-family: 'Fira Code', monospace;
+}
+
+.intel-text b { color: #f8fafc; text-decoration: underline; text-decoration-color: #2563eb; }
+
+/* --- OBJECTIVE SECTION --- */
+.objective-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 40px;
+    border-radius: 4px;
+}
+
+.objective-title {
+    font-size: 24px;
+    font-weight: 900;
+    color: #0f172a;
+    margin-bottom: 30px;
+}
+
+/* --- ACTION OPTIONS (The Grid) --- */
+.options-matrix {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.option-node {
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.node-symbol {
+    width: 40px; height: 40px;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 12px;
+    color: #64748b;
+    border-radius: 2px;
+}
+
+.option-node:hover {
+    border-color: #2563eb;
+    background: #ffffff;
+    transform: translateX(10px);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.05);
+}
+
+.option-node.selected {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+.option-node.selected .node-symbol {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+/* --- FOOTER NAV --- */
+.mission-footer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.execute-btn {
+    background: #0f172a;
+    color: white;
+    padding: 18px 50px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.execute-btn:hover {
+    background: #2563eb;
+    box-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
+}
+
+@media (max-width: 768px) {
+    .options-matrix { grid-template-columns: 1fr; }
+  }
