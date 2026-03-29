@@ -158,137 +158,145 @@
             </div>
             
         </div>
-        <section class="py-16 px-6 relative overflow-hidden bg-slate-50/50">
-    <div class="text-center mb-16">
+        <section class="py-16 px-6 relative bg-[#fcfdfe] overflow-hidden">
+    <div class="text-center mb-16 relative z-10">
         <h3 class="text-[9px] font-black text-blue-600 uppercase tracking-[0.5em] mb-2">Curriculum Architecture</h3>
         <h2 class="text-xl font-extrabold text-slate-900 italic uppercase">Network <span class="text-blue-600">Intelligence Map</span></h2>
     </div>
 
-    <div class="max-w-5xl mx-auto relative h-[400px] flex items-center justify-center">
+    <div class="max-w-6xl mx-auto relative min-h-[450px] flex items-center justify-center">
         
-        <svg class="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100" style="z-index: 0;">
-            <defs>
-                <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:rgba(37, 99, 235, 0.1)" />
-                    <stop offset="50%" style="stop-color:rgba(37, 99, 235, 0.6)" />
-                    <stop offset="100%" style="stop-color:rgba(37, 99, 235, 0.1)" />
-                </linearGradient>
-            </defs>
-            <line x1="50" y1="50" x2="15" y2="50" class="path-anim" /> <line x1="50" y1="50" x2="85" y2="50" class="path-anim" /> <line x1="50" y1="50" x2="30" y2="20" class="path-anim" /> <line x1="50" y1="50" x2="70" y2="20" class="path-anim" /> <line x1="50" y1="50" x2="30" y2="80" class="path-anim" /> <line x1="50" y1="50" x2="70" y2="80" class="path-anim" /> </svg>
-
-        <div class="absolute z-10 flex flex-col items-center justify-center">
-            <div class="core-hub">
-                <i class="fas fa-shield-halved text-2xl mb-1"></i>
-                <span class="text-[9px] font-black uppercase tracking-tighter">Cyber Security</span>
+        <div class="relative z-20">
+            <div class="cyber-core">
+                <div class="core-inner">
+                    <i class="fas fa-shield-halved text-2xl mb-1 text-white"></i>
+                    <span class="text-[8px] font-black uppercase tracking-tighter text-blue-100">Cyber Core</span>
+                </div>
+                <div class="ring-pulse"></div>
+                <div class="ring-pulse-slow"></div>
             </div>
-            <div class="core-pulse"></div>
         </div>
 
-        <div class="neural-node" style="top: 50%; left: 15%; transform: translate(-50%, -50%);">
-            <i class="fas fa-project-diagram text-blue-600"></i>
-            <span>Network Fundamentals</span>
-        </div>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            
+            <div class="absolute left-[5%] md:left-[15%] flex flex-col gap-24 pointer-events-auto">
+                <div class="map-node group" data-label="TOP-LEFT">
+                    <i class="fas fa-project-diagram text-blue-500"></i>
+                    <span>Network Fundamentals</span>
+                    <div class="connector-line-right"></div>
+                </div>
+                <div class="map-node group" data-label="BOTTOM-LEFT">
+                    <i class="fas fa-mask text-purple-500"></i>
+                    <span>Vulnerability Analysis</span>
+                    <div class="connector-line-right-up"></div>
+                </div>
+            </div>
 
-        <div class="neural-node" style="top: 20%; left: 30%; transform: translate(-50%, -50%);">
-            <i class="fas fa-sitemap text-cyan-600"></i>
-            <span>OSI Layers</span>
-        </div>
+            <div class="absolute right-[5%] md:right-[15%] flex flex-col gap-24 pointer-events-auto">
+                <div class="map-node group" data-label="TOP-RIGHT">
+                    <i class="fas fa-ethernet text-indigo-500"></i>
+                    <span>TCP/IP Logic</span>
+                    <div class="connector-line-left"></div>
+                </div>
+                <div class="map-node group" data-label="BOTTOM-RIGHT">
+                    <i class="fas fa-user-shield text-emerald-500"></i>
+                    <span>Defense Strategies</span>
+                    <div class="connector-line-left-up"></div>
+                </div>
+            </div>
 
-        <div class="neural-node" style="top: 20%; left: 70%; transform: translate(-50%, -50%);">
-            <i class="fas fa-ethernet text-indigo-600"></i>
-            <span>TCP/IP Logic</span>
-        </div>
+            <div class="absolute top-0 pointer-events-auto">
+                <div class="map-node group">
+                    <i class="fas fa-sitemap text-cyan-500"></i>
+                    <span>OSI Layers</span>
+                    <div class="connector-line-down"></div>
+                </div>
+            </div>
+            <div class="absolute bottom-0 pointer-events-auto">
+                <div class="map-node group">
+                    <i class="fas fa-lock text-blue-600"></i>
+                    <span>Auth Protocols</span>
+                    <div class="connector-line-up"></div>
+                </div>
+            </div>
 
-        <div class="neural-node" style="top: 50%; left: 85%; transform: translate(-50%, -50%);">
-            <i class="fas fa-lock text-blue-600"></i>
-            <span>Auth Protocols</span>
         </div>
-
-        <div class="neural-node" style="top: 80%; left: 30%; transform: translate(-50%, -50%);">
-            <i class="fas fa-mask text-purple-600"></i>
-            <span>VA Analysis</span>
-        </div>
-
-        <div class="neural-node" style="top: 80%; left: 70%; transform: translate(-50%, -50%);">
-            <i class="fas fa-user-shield text-emerald-600"></i>
-            <span>Defense Strategies</span>
-        </div>
-
     </div>
 </section>
 
 <style>
-    /* --- CORE HUB --- */
-    .core-hub {
-        width: 100px; height: 100px;
-        background: linear-gradient(135deg, #1e3a8a, #2563eb);
-        border-radius: 50%;
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        color: white; border: 4px solid white;
-        box-shadow: 0 0 30px rgba(37, 99, 235, 0.4);
-        position: relative; z-index: 2;
-        animation: coreFloat 4s ease-in-out infinite;
+    /* --- CYBER CORE UNIT --- */
+    .cyber-core {
+        width: 110px; height: 110px;
+        background: #2563eb;
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 0 40px rgba(37, 99, 235, 0.4);
+        animation: morph 8s ease-in-out infinite alternate, coreFloat 4s ease-in-out infinite;
+        position: relative; z-index: 5;
+    }
+    .core-inner { display: flex; flex-direction: column; align-items: center; }
+
+    @keyframes morph {
+        0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        100% { border-radius: 50% 50% 30% 70% / 50% 60% 40% 50%; }
     }
 
-    .core-pulse {
-        position: absolute; width: 110px; height: 110px;
-        background: rgba(37, 99, 235, 0.2);
-        border-radius: 50%; z-index: 1;
-        animation: pulseEffect 2s infinite;
+    .ring-pulse, .ring-pulse-slow {
+        position: absolute; inset: -15px; border: 1px solid rgba(37, 99, 235, 0.3);
+        border-radius: 50%; animation: ringScale 3s linear infinite;
     }
+    .ring-pulse-slow { animation-delay: 1.5s; }
 
-    /* --- NODE STYLES --- */
-    .neural-node {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        padding: 8px 16px;
-        border-radius: 50px;
-        border: 1px solid rgba(37, 99, 235, 0.2);
-        display: flex; align-items: center; gap: 10px;
-        font-weight: 800; text-transform: uppercase; font-size: 10px;
-        letter-spacing: 0.1em; color: #0f172a;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        transition: 0.4s;
-        z-index: 5;
-        white-space: nowrap;
-    }
-    .neural-node:hover {
-        transform: translate(-50%, -60%) scale(1.05) !important;
-        border-color: #2563eb;
-        box-shadow: 0 15px 30px rgba(37, 99, 235, 0.15);
-    }
-
-    /* --- ANIMATIONS --- */
-    @keyframes coreFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-8px); }
-    }
-
-    @keyframes pulseEffect {
+    @keyframes ringScale {
         0% { transform: scale(1); opacity: 1; }
-        100% { transform: scale(1.8); opacity: 0; }
+        100% { transform: scale(1.5); opacity: 0; }
     }
 
-    .path-anim {
-        fill: none;
-        stroke: url(#lineGrad);
-        stroke-width: 0.5; /* Keeping it thin and professional */
-        stroke-dasharray: 2;
-        animation: dashFlow 10s linear infinite;
+    /* --- MAP NODES --- */
+    .map-node {
+        background: white;
+        padding: 10px 18px;
+        border-radius: 12px;
+        border: 1px solid #eef2f6;
+        display: flex; align-items: center; gap: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+        position: relative;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .map-node:hover { transform: translateY(-5px) scale(1.05); border-color: #2563eb; box-shadow: 0 15px 35px rgba(37, 99, 235, 0.1); }
+    .map-node i { font-size: 16px; }
+    .map-node span { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #1e293b; }
+
+    /* --- CONNECTORS (CSS Lines) --- */
+    .connector-line-right, .connector-line-left, .connector-line-down, .connector-line-up, .connector-line-right-up, .connector-line-left-up {
+        position: absolute; background: linear-gradient(90deg, transparent, rgba(37,99,235,0.2), transparent);
+        z-index: -1; pointer-events: none;
     }
 
-    @keyframes dashFlow {
-        to { stroke-dashoffset: -50; }
-    }
+    /* Horizontal Lines */
+    .connector-line-right { width: 120px; height: 1px; left: 100%; top: 50%; }
+    .connector-line-left { width: 120px; height: 1px; right: 100%; top: 50%; }
+    
+    /* Vertical Lines */
+    .connector-line-down { width: 1px; height: 80px; left: 50%; top: 100%; }
+    .connector-line-up { width: 1px; height: 80px; left: 50%; bottom: 100%; }
 
-    /* Mobile Handling */
+    /* Diagonal Simulation (Simplified) */
+    .connector-line-right-up { width: 100px; height: 1px; left: 100%; top: 20%; transform: rotate(-20deg); }
+    .connector-line-left-up { width: 100px; height: 1px; right: 100%; top: 20%; transform: rotate(20deg); }
+
+    /* Animations */
+    @keyframes coreFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    /* Mobile Fix */
     @media (max-width: 768px) {
-        .neural-node span { display: none; }
-        .neural-node { padding: 10px; }
-        .max-w-5xl { transform: scale(0.9); height: 300px; }
+        .map-node span { display: none; }
+        .map-node { padding: 12px; }
+        .cyber-core { width: 80px; height: 80px; }
     }
 </style>
+        
         
         
 
