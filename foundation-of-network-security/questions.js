@@ -80,6 +80,45 @@ const missionData = [
             { symbol: "WPA3", text: "WPA3 (Next-Gen)" }
         ],
         correct: 3
+    },
+       {
+        id: "07",
+        label: "FWL-RULE-07",
+        intel: "A <b>Firewall</b> acts as a gatekeeper using an <b>ACL (Access Control List)</b>. Most enterprise firewalls follow the <b>'Implicit Deny'</b> rule, which means if a specific type of traffic isn't explicitly allowed, it is automatically blocked. To allow web browsing, an admin must specifically open <b>Port 80 (HTTP)</b> and <b>Port 443 (HTTPS)</b> for outgoing traffic.",
+        question: "A company installs a new firewall and suddenly no one can visit any websites, although they can still send internal emails. What is the most likely cause of this issue?",
+        options: [
+            { symbol: "DB", text: "The Database server is offline" },
+            { symbol: "ACL", text: "Ports 80/443 are blocked by the ACL" },
+            { symbol: "NIC", text: "The Network Card is physically broken" },
+            { symbol: "IP", text: "The computer lost its IP Address" }
+        ],
+        correct: 1
+    },
+    {
+        id: "08",
+        label: "NET-ID-08",
+        intel: "Every device on a network needs a unique <b>IP Address</b>. If two devices are manually assigned the same IP, an <b>IP Address Conflict</b> occurs, and neither device will be able to communicate reliably. Most networks use <b>DHCP</b> to automatically assign unique addresses and avoid this human error.",
+        question: "Two employees in the same office suddenly lose internet access. The system shows an error: 'Another device on this network has the same address.' What is this situation called?",
+        options: [
+            { symbol: "SUB", text: "Subnet Masking" },
+            { symbol: "DYN", text: "Dynamic Routing" },
+            { symbol: "CON", text: "IP Address Conflict" },
+            { symbol: "GAT", text: "Default Gateway Error" }
+        ],
+        correct: 2
+    },
+    {
+        id: "09",
+        label: "TRANS-PROTO-09",
+        intel: "<b>OSI Layer 4 (Transport)</b> uses two main protocols: <b>TCP</b> and <b>UDP</b>. TCP is 'Connection-Oriented' (slow but reliable, used for Files/Web), while UDP is 'Connectionless' (fast but loses data, used for Video Streaming/Gaming). If you are watching a Live Stream and the video glitches for a second, it's usually because a UDP packet was lost.",
+        question: "You are building a Real-Time Voice Chat application where speed is more important than 100% perfect data delivery. Which Transport Layer protocol should your application use?",
+        options: [
+            { symbol: "TCP", text: "TCP (Reliable/Slow)" },
+            { symbol: "UDP", text: "UDP (Fast/Unreliable)" },
+            { symbol: "ARP", text: "ARP (Hardware Mapping)" },
+            { symbol: "FTP", text: "FTP (File Transfer)" }
+        ],
+        correct: 1
     }
 ];
 
