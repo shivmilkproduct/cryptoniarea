@@ -119,6 +119,45 @@ const missionData = [
             { symbol: "FTP", text: "FTP (File Transfer)" }
         ],
         correct: 1
+    },
+       {
+        id: "10",
+        label: "IP-ADDR-10",
+        intel: "<b>Private IP Addresses</b> (like 192.168.x.x) are used inside a home or office network and cannot be seen directly from the internet. To communicate with the outside world, a router uses <b>NAT (Network Address Translation)</b> to map all internal private IPs to a single <b>Public IP Address</b> provided by the ISP. This acts as a basic security layer by hiding internal device identities.",
+        question: "A security auditor is checking a company's web server logs and notices that 50 different internal employee computers are appearing as the 'same' IP address on the internet. What technology is making this possible?",
+        options: [
+            { symbol: "DNS", text: "Domain Name System" },
+            { symbol: "NAT", text: "Network Address Translation" },
+            { symbol: "DHCP", text: "Dynamic Configuration" },
+            { symbol: "MAC", text: "MAC Filtering" }
+        ],
+        correct: 1
+    },
+    {
+        id: "11",
+        label: "GATEWAY-11",
+        intel: "The <b>Default Gateway</b> is the 'Exit Door' of your local network. It is usually the internal IP address of your router. If a computer wants to send data to an IP address that is NOT in its own local network (like a website), it automatically sends that data to the Default Gateway to be routed out.",
+        question: "An employee can print to the local office printer and share files with colleagues, but they cannot open any websites or access the internet. Which network setting is most likely misconfigured on their computer?",
+        options: [
+            { symbol: "SUB", text: "Subnet Mask" },
+            { symbol: "IP", text: "Local IP Address" },
+            { symbol: "GAT", text: "Default Gateway" },
+            { symbol: "MAC", text: "Hardware Address" }
+        ],
+        correct: 2
+    },
+    {
+        id: "12",
+        label: "DHCP-SEC-12",
+        intel: "<b>DHCP (Dynamic Host Configuration Protocol)</b> automatically assigns IP addresses, Subnet Masks, and Gateways to devices when they join a network. Without DHCP, you would have to manually type these settings into every phone and laptop. However, a 'Rogue DHCP' attack can happen if a hacker sets up a fake server to give wrong settings to users.",
+        question: "When you join a coffee shop's Wi-Fi, your phone instantly gets an IP address without you doing anything. Which protocol is responsible for this automatic assignment?",
+        options: [
+            { symbol: "HTTP", text: "Hypertext Protocol" },
+            { symbol: "DHCP", text: "Dynamic Host Configuration Protocol" },
+            { symbol: "FTP", text: "File Transfer Protocol" },
+            { symbol: "SNMP", text: "Simple Network Management" }
+        ],
+        correct: 1
     }
 ];
 
