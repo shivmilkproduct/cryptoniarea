@@ -197,8 +197,46 @@ const missionData = [
             { symbol: "DNS", text: "DNS Cache Clearing" }
         ],
         correct: 2
+    },
+       {
+        id: "16",
+        label: "FIREWALL-16",
+        intel: "A <b>Stateful Inspection Firewall</b> is smarter than a basic filter. It doesn't just look at one packet; it keeps track of the entire conversation (the 'State'). If it sees an incoming packet that wasn't requested by an internal user, it drops it immediately. This prevents hackers from sending unsolicited malicious data into your network.",
+        question: "A hacker tries to send a malicious file to an internal computer, but the firewall blocks it because no 'Session' was ever started from the inside. What type of firewall feature is providing this protection?",
+        options: [
+            { symbol: "STF", text: "Stateful Inspection" },
+            { symbol: "STL", text: "Stateless Filtering" },
+            { symbol: "MAC", text: "MAC Address Filtering" },
+            { symbol: "PRX", text: "Basic Proxy Server" }
+        ],
+        correct: 0
+    },
+    {
+        id: "17",
+        label: "PROXY-SEC-17",
+        intel: "A <b>Proxy Server</b> acts as an intermediary. Instead of your computer connecting directly to a website, it asks the Proxy to get the data for it. This hides your internal IP address from the web server and allows the company to filter out 'bad' websites (like social media or gambling sites) at a single point.",
+        question: "An organization wants to hide the internal IP addresses of all its employees while they browse the internet and also block access to non-work related websites. Which device is best suited for this?",
+        options: [
+            { symbol: "HUB", text: "Network Hub" },
+            { symbol: "PRX", text: "Proxy Server" },
+            { symbol: "MOD", text: "DSL Modem" },
+            { symbol: "REP", text: "Signal Repeater" }
+        ],
+        correct: 1
+    },
+    {
+        id: "18",
+        label: "SNIFF-SEC-18",
+        intel: "<b>Packet Sniffing</b> is a technique where a hacker captures data as it travels across a network. Tools like <b>Wireshark</b> can see everything—passwords, emails, and files—if the data is not encrypted. This is why <b>End-to-End Encryption</b> is the only way to ensure that even if a packet is captured, it cannot be read.",
+        question: "A security analyst uses Wireshark to monitor network traffic and notices they can read the 'Admin' password in clear text because the login page uses HTTP. What type of attack/activity is the analyst performing?",
+        options: [
+            { symbol: "DOS", text: "Denial of Service" },
+            { symbol: "SQL", text: "SQL Injection" },
+            { symbol: "SNI", text: "Packet Sniffing" },
+            { symbol: "BFA", text: "Brute Force Attack" }
+        ],
+        correct: 2
     }
-   
 ];
 
 let currentStep = 0;
