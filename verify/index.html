@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptonic Area | Official Verification Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-base: #f1f5f9; --surface: #ffffff; --accent: #2563eb; --border: #cbd5e1; --text-main: #0f172a; }
+        body { background-color: var(--bg-base); color: var(--text-main); font-family: 'Inter', sans-serif; overflow-x: hidden; position: relative; }
+        
+        body::before { content: " "; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.02) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.01)); z-index: 100; background-size: 100% 4px, 3px 100%; pointer-events: none; }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .terminal-grid { background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px); background-size: 30px 30px; }
+        
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.95); 
+            border: 1px solid var(--border); 
+            box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.1), inset 0 0 20px rgba(255,255,255,0.5); 
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .card-glow { position: absolute; width: 140%; height: 140%; background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%); top: -20%; left: -20%; z-index: -1; pointer-events: none; animation: pulse 8s infinite alternate; }
+
+        @keyframes pulse { from { opacity: 0.5; transform: scale(1); } to { opacity: 1; transform: scale(1.1); } }
+
+        #loading-bar { position: absolute; bottom: 0; left: 0; height: 3px; background: var(--accent); width: 0%; transition: width 0.5s ease; }
+        
+        .btn-premium { position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; }
+        .btn-premium:hover { transform: translateY(-3px); box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.3); }
+        .btn-premium::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: 0.5s; }
+        .btn-premium:hover::after { left: 100%; }
+
+        /* Floating WhatsApp Icon */
+        .whatsapp-bubble {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #25D366; color: white;
+            width: 55px; height: 55px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            z-index: 1000; transition: all 0.3s ease;
+        }
+        .whatsapp-bubble:hover { transform: scale(1.1) rotate(10deg); }
+        .whatsapp-tooltip {
+            position: absolute; right: 70px; background: white; color: #333;
+            padding: 8px 15px; border-radius: 8px; font-size: 11px; font-weight: 900;
+            text-transform: uppercase; white-space: nowrap; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            pointer-events: none; opacity: 0; transition: 0.3s; border: 1px solid #eee;
+        }
+        .whatsapp-bubble:hover .whatsapp-tooltip { opacity: 1; right: 80px; }
+
+        #decrypt-text { font-size: 10px; color: var(--accent); display: none; margin-top: 10px; font-family: 'JetBrains Mono'; }
+
+        /* Result Card Style */
+        .result-box-premium {
+            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(239,246,255,1) 100%);
+            border: 2px solid #2563eb;
+            position: relative;
+            overflow: hidden;
+        }
+        .scan-line {
+            position: absolute; width: 100%; height: 2px; background: rgba(37, 99, 235, 0.2);
+            top: 0; left: 0; animation: scanning 2s linear infinite;
+        }
+        @keyframes scanning { 0% { top: 0; } 100% { top: 100%; } }
+        .verified-logo {
+            animation: badge-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid #fff;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+        @keyframes badge-pop { 0% { transform: scale(0) rotate(-20deg); opacity: 0; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
+    </style>
+</head>
+<body class="terminal-grid min-h-screen flex flex-col">
+
+    <a href="https://wa.me/918503979765" target="_blank" class="whatsapp-bubble">
+        <i class="fab fa-whatsapp"></i>
+        <div class="whatsapp-tooltip">Direct Support</div>
+    </a>
+
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#cbd5e1] px-6 py-3">
+        <div class="max-w-[1600px] mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4 group">
+                <img src="assets/cryptonicarea.jpg" alt="Logo" class="w-8 h-8 rounded-sm border border-[#cbd5e1] object-cover transition-transform group-hover:rotate-12">
+                <div>
+                    <h1 class="text-sm font-bold text-slate-900 leading-none">CRYPTONIC AREA</h1>
+                    <span class="mono text-[9px] text-blue-600 font-bold uppercase tracking-widest">Offical Verification Portal</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 mono text-[10px] font-bold text-slate-500 uppercase">
+                <div class="flex items-center gap-2 text-green-600">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    System: Encrypted
+                </div>
+                <div class="flex items-center gap-2 text-slate-600"><i class="fas fa-microchip animate-pulse"></i> <span id="clock">00:00:00</span></div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-[800px] mx-auto px-6 pt-16 pb-6 text-center">
+        <p class="mono text-xs text-blue-600 font-bold mb-2 uppercase tracking-tighter animate-bounce">> ACCESSING_SECURE_STORAGE</p>
+        <h2 class="text-4xl md:text-5xl text-slate-900 mb-4 font-black uppercase">Official <span class="text-blue-600">Verification.</span></h2>
+    </header>
+
+    <main class="flex-grow max-w-[1400px] mx-auto px-6 pb-12 w-full">
+        <div class="flex flex-col lg:flex-row items-center justify-center gap-12">
+            
+            <div class="hidden lg:block w-48 space-y-8 opacity-40">
+                <div class="border-l-2 border-blue-600 pl-4 transition-all hover:opacity-100 hover:pl-6">
+                    <p class="mono text-[9px] font-bold uppercase tracking-widest text-slate-400">Security_Level</p>
+                    <p class="text-[10px] font-black uppercase">AES-256 Bit</p>
+                </div>
+                <div class="border-l-2 border-slate-300 pl-4 transition-all hover:opacity-100 hover:pl-6">
+                    <p class="mono text-[9px] font-bold uppercase tracking-widest text-slate-400">Database_Node</p>
+                    <p class="text-[10px] font-black uppercase">Primary_Live</p>
+                </div>
+            </div>
+
+            <div class="w-full max-w-xl glass-card p-10 relative overflow-hidden rounded-lg">
+                <div class="card-glow"></div>
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600"></div>
+                
+                <div class="mb-8 border-b border-slate-100 pb-4">
+                    <h3 class="text-xs font-black text-slate-900 uppercase tracking-widest">Input Credentials</h3>
+                    <p class="text-[9px] text-slate-400 mono mt-1">Authenticate your session by entering your unique Intern ID below.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="mono text-[10px] text-slate-400 font-bold uppercase tracking-widest block mb-2">Enter Your Intern ID</label>
+                        <div class="relative">
+                            <input type="text" id="internId" placeholder="E.G. XX000XX" 
+                            class="w-full bg-slate-50 border border-slate-200 p-4 font-bold text-slate-900 outline-none focus:border-blue-600 focus:bg-white transition-all uppercase tracking-widest">
+                            <i class="fas fa-shield-alt absolute right-4 top-1/2 -translate-y-1/2 text-slate-200"></i>
+                        </div>
+                        <p id="decrypt-text" class="mono text-center"></p>
+                    </div>
+                    
+                    <button onclick="handleSearch()" class="btn-premium w-full bg-slate-900 text-white py-4 text-xs font-black uppercase tracking-[0.2em] shadow-lg shadow-slate-200">
+                        Execute Retrieval
+                    </button>
+                    <div id="loading-bar"></div>
+                </div>
+
+                <div id="result-panel" class="hidden mt-8 pt-8 border-t border-slate-100">
+                    <div class="result-box-premium p-8 rounded-lg shadow-2xl flex flex-col items-center text-center relative overflow-hidden">
+                        <div class="scan-line"></div>
+                        
+                        <img src="assets/cryptonicarea.jpg" alt="Verified" class="verified-logo w-24 h-24 rounded-full mb-6 relative z-10 object-cover ring-8 ring-blue-50">
+                        
+                        <div class="relative z-10 space-y-2">
+                            <p class="mono text-[10px] text-blue-600 font-black uppercase tracking-[0.3em] mb-1">Authorization_Granted</p>
+                            <h4 id="studentName" class="text-2xl font-black text-slate-900 uppercase tracking-tight italic">STUDENT NAME</h4>
+                            <div class="flex items-center justify-center gap-2 py-2">
+                                <span class="h-[1px] w-8 bg-slate-200"></span>
+                                <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Verified Digital Identity</p>
+                                <span class="h-[1px] w-8 bg-slate-200"></span>
+                            </div>
+                        </div>
+
+                        <div class="w-full mt-8 relative z-10">
+                            <a href="#" id="folderLink" target="_blank" class="btn-premium w-full bg-blue-600 text-white py-4 text-[11px] font-black uppercase tracking-[0.15em] hover:bg-slate-900 transition-all flex items-center justify-center gap-4 rounded">
+                                <span>Access Secure Vault</span>
+                                <i class="fas fa-arrow-right-long text-[10px]"></i>
+                            </a>
+                        </div>
+                        
+                        <p class="mt-4 text-[8px] mono text-slate-400 font-bold uppercase tracking-tighter opacity-60">Hash_Ref: 0x77fA...881E</p>
+                    </div>
+                </div>
+                
+                <p id="error-msg" class="hidden mt-6 text-center text-[10px] font-bold text-red-500 uppercase tracking-widest animate-pulse">Error: InternID Mismatch</p>
+            </div>
+
+            <div class="hidden lg:block w-48 space-y-8 opacity-40 text-right">
+                <div class="border-r-2 border-blue-600 pr-4 transition-all hover:opacity-100 hover:pr-6">
+                    <p class="mono text-[9px] font-bold uppercase tracking-widest text-slate-400">Session_Auth</p>
+                    <p class="text-[10px] font-black uppercase">Verified_Link</p>
+                </div>
+                <div class="border-r-2 border-slate-300 pr-4 transition-all hover:opacity-100 hover:pr-6">
+                    <p class="mono text-[9px] font-bold uppercase tracking-widest text-slate-400">Response_Time</p>
+                    <p class="text-[10px] font-black uppercase">124ms</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-20">
+        <div class="max-w-[1400px] mx-auto px-8 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-10">
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-black tracking-tighter text-slate-900">CRYPTONIC <span class="text-blue-600">AREA</span></h3>
+                    <p class="text-[10px] font-bold text-slate-500 max-w-xs uppercase leading-relaxed tracking-tight">Innovating Cyber-Intelligence & Research Global community dedicated to industrial-grade technical development.</p>
+                    
+                    <div class="flex gap-4 pt-4">
+                        <a href="https://linkedin.com/company/cryptonicarea" class="w-9 h-9 rounded bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all"><i class="fab fa-linkedin-in text-sm"></i></a>
+                        <a href="https://instagram.com/cryptonicarea" class="w-9 h-9 rounded bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="https://whatsapp.com/channel/0029Vb6plDSBKfi3qGz2fq0f" class="w-9 h-9 rounded bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-green-600 hover:text-white hover:border-green-600 transition-all"><i class="fab fa-whatsapp text-sm"></i></a>
+                        <a href="mailto:cryptonicarea@gmail.com" class="w-9 h-9 rounded bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-red-600 hover:text-white hover:border-red-600 transition-all"><i class="fas fa-envelope text-sm"></i></a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-12">
+                    <div>
+                        <p class="mono text-[10px] text-slate-400 font-bold mb-4 uppercase">Navigation</p>
+                        <ul class="space-y-2 text-[10px] font-black text-slate-700">
+                            <li><a href="https://cryptonicarea.wuaze.com/about-us" class="hover:text-blue-600 transition">ABOUT COMMUNITY</a></li>
+                            <li><a href="https://whatsapp.com/channel/0029Vb6plDSBKfi3qGz2fq0f" class="hover:text-blue-600 transition">JOIN COMMUNITY</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="mono text-[10px] text-slate-400 font-bold mb-4 uppercase">System_Lead</p>
+                        <p class="text-[10px] font-black text-slate-900 uppercase tracking-widest">Karndeep Baror</p>
+                        <p class="text-[8px] font-bold text-blue-600 uppercase">CEO & Founder</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-100 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="mono text-[8px] text-slate-400 font-bold uppercase tracking-[0.4em]">&copy; 2026 Cryptonic Area Global Ops.</p>
+                <div class="flex gap-4 opacity-30 text-xs">
+                    <i class="fas fa-fingerprint"></i>
+                    <i class="fas fa-network-wired"></i>
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        google.charts.load('current', {packages: ['corechart']});
+
+        function handleSearch() {
+            const id = document.getElementById('internId').value.trim().toUpperCase();
+            const panel = document.getElementById('result-panel');
+            const error = document.getElementById('error-msg');
+            const loadBar = document.getElementById('loading-bar');
+            const decText = document.getElementById('decrypt-text');
+
+            if(!id) return;
+
+            error.classList.add('hidden');
+            panel.classList.add('hidden');
+            loadBar.style.width = "0%";
+            decText.style.display = "block";
+            
+            let count = 0;
+            const words = ["FETCHING...", "DECRYPTING...", "VERIFYING...", "SUCCESS!"];
+            const interval = setInterval(() => {
+                decText.innerText = words[Math.floor(Math.random() * words.length)] + " [LOG_" + Math.random().toString(16).substr(2, 4).toUpperCase() + "]";
+                loadBar.style.width = (count * 10) + "%";
+                count++;
+                if(count > 10) {
+                    clearInterval(interval);
+                    decText.style.display = "none";
+                    processSearch(id);
+                }
+            }, 100);
+        }
+
+        function processSearch(inputId) {
+            const spreadsheetId = '1F2QAckDNLAx2VA_ZDmfALbxLGqCBAWZF21JrPqL6aoQ';
+            const query = new google.visualization.Query(`https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:html&tq=SELECT A, B, C`);
+            
+            query.send((response) => {
+                const panel = document.getElementById('result-panel');
+                const error = document.getElementById('error-msg');
+                const nameDisplay = document.getElementById('studentName');
+                const linkDisplay = document.getElementById('folderLink');
+
+                if (response.isError()) {
+                    console.error('Error in query: ' + response.getMessage());
+                    error.classList.remove('hidden');
+                    return;
+                }
+
+                const data = response.getDataTable();
+                let found = false;
+
+                for (let i = 0; i < data.getNumberOfRows(); i++) {
+                    const sheetId = data.getValue(i, 0).toString().trim().toUpperCase();
+                    if (sheetId === inputId) {
+                        nameDisplay.innerText = data.getValue(i, 1);
+                        linkDisplay.href = data.getValue(i, 2);
+                        panel.classList.remove('hidden');
+                        confetti({ 
+                            particleCount: 200, 
+                            spread: 90, 
+                            origin: { y: 0.6 }, 
+                            colors: ['#2563eb', '#0f172a', '#ffffff', '#60a5fa'] 
+                        });
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    error.classList.remove('hidden');
+                }
+            });
+        }
+
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.getHours().toString().padStart(2, '0') + ":" + 
+                           now.getMinutes().toString().padStart(2, '0') + ":" + 
+                           now.getSeconds().toString().padStart(2, '0');
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
