@@ -1391,26 +1391,40 @@
         initCanvas(); 
         draw();
 
-        // Naya Professional Launch Protocol
+                // Final Professional Launch Protocol
         function launchExamProtocol() {
             const landing = document.getElementById('landing-wrapper');
             const assessment = document.getElementById('assessment-wrapper');
 
-            // Fade out effect
-            landing.style.transition = "opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s ease";
-            landing.style.opacity = "0";
-            landing.style.transform = "scale(0.98)";
-            landing.style.pointerEvents = "none";
+            if (landing && assessment) {
+                // 1. Smooth Fade out effect
+                landing.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+                landing.style.opacity = "0";
+                landing.style.transform = "scale(0.95)";
+                landing.style.pointerEvents = "none";
 
-            setTimeout(() => {
-                landing.style.display = 'none';
-                assessment.style.display = 'block';
-                // questions.js ka function call karega
-                if (typeof startAssessment === "function") {
-                    startAssessment();
-                }
-            }, 800);
-        }
+                setTimeout(() => {
+                    // 2. Switch Displays
+                    landing.style.display = 'none';
+                    assessment.style.display = 'block';
+                    
+                    // 3. Screen ko top par le jayein
+                    window.scrollTo(0, 0);
+
+                    // 4. Check karein ki questions.js loaded hai ya nahi
+                    if (typeof startAssessment === "function") {
+                        startAssessment();
+                    } else {
+                        // Agar file missing hai toh error na aaye, ye message dikhe
+                        assessment.innerHTML = `
+                            <div style="text-align:center; padding:100px; font-family:sans-serif;">
+                                <h1 style="color:#0f172a;">System Initialized</h1>
+                                <p style="color:#64748b;">Loading Mission Data... (Check if questions.js is linked)</p>
+                            </div>`;
+                    }
+                }, 500);
+            }
+        }                    
     </script>
 
     <link rel="stylesheet" href="assessment-style.css">
