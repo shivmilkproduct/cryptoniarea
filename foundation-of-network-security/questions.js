@@ -158,7 +158,47 @@ const missionData = [
             { symbol: "SNMP", text: "Simple Network Management" }
         ],
         correct: 1
+    },
+       {
+        id: "13",
+        label: "SEGMENT-13",
+        intel: "A <b>VLAN (Virtual Local Area Network)</b> allows an administrator to divide a single physical switch into multiple logical networks. This is crucial for security; for example, you can put <b>Guest Wi-Fi</b> users on one VLAN and <b>Server Admins</b> on another. Even if they are plugged into the same switch, they cannot talk to each other unless a router specifically allows it.",
+        question: "A company wants to ensure that the 'Sales' department cannot access the private 'Finance' servers, even though all computers are connected to the same physical network switch. What technology should be used to create this internal boundary?",
+        options: [
+            { symbol: "VPN", text: "Virtual Private Network" },
+            { symbol: "VLAN", text: "Virtual Local Area Network" },
+            { symbol: "WLAN", text: "Wireless Local Area Network" },
+            { symbol: "ISP", text: "Internet Service Provider" }
+        ],
+        correct: 1
+    },
+    {
+        id: "14",
+        label: "SUBNET-14",
+        intel: "The <b>Subnet Mask</b> (e.g., 255.255.255.0) tells a computer which part of its IP address belongs to the <b>Network</b> and which part belongs to the <b>Host</b> (the device). If two computers have the same network part, they can talk directly. If the network parts are different, they MUST use a router to communicate.",
+        question: "Computer A has an IP of 192.168.1.5 and Computer B has 192.168.2.10. Both have a Subnet Mask of 255.255.255.0. Why can't they communicate with each other directly without a router?",
+        options: [
+            { symbol: "DUP", text: "They have Duplicate IP Addresses" },
+            { symbol: "DIF", text: "They belong to different Subnets" },
+            { symbol: "MAC", text: "Their MAC Addresses are identical" },
+            { symbol: "OFF", text: "One of the computers is turned off" }
+        ],
+        correct: 1
+    },
+    {
+        id: "15",
+        label: "FORWARD-15",
+        intel: "<b>Port Forwarding</b> is used when you want an external user on the internet to reach a specific device inside your private home network. For example, if you host a web server at home, you tell your router: 'Any traffic coming to my Public IP on <b>Port 80</b> should be sent directly to <b>192.168.1.10</b> (my internal server).'",
+        question: "You have set up a security camera system at home (Private IP: 192.168.1.50). You want to view the live feed from your office using the internet. What must you configure on your home router to allow this external access?",
+        options: [
+            { symbol: "DHCP", text: "DHCP Reservation" },
+            { symbol: "MAC", text: "MAC Address Filtering" },
+            { symbol: "FWD", text: "Port Forwarding" },
+            { symbol: "DNS", text: "DNS Cache Clearing" }
+        ],
+        correct: 2
     }
+   
 ];
 
 let currentStep = 0;
