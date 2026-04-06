@@ -41,6 +41,45 @@ const missionData = [
             { symbol: "HTTP", text: "Hypertext Transfer Protocol (Port 80)" }
         ],
         correct: 2
+    },
+       {
+        id: "04",
+        label: "HANDSHAKE-04",
+        intel: "The <b>TCP 3-Way Handshake</b> is the foundation of reliable communication. It uses three steps: <b>SYN</b> (Synchronize), <b>SYN-ACK</b>, and <b>ACK</b> (Acknowledge). If a hacker sends thousands of SYN packets but never sends the final ACK, it creates a <b>SYN Flood Attack</b>, which can crash a server by exhausting its resources.",
+        question: "During a standard TCP connection setup, what is the specific second packet sent by the Server back to the Client to acknowledge the connection request?",
+        options: [
+            { symbol: "SYN", text: "Initial SYN Packet" },
+            { symbol: "ACK", text: "Final ACK Packet" },
+            { symbol: "S-A", text: "SYN-ACK Packet" },
+            { symbol: "FIN", text: "FIN (Finish) Packet" }
+        ],
+        correct: 2
+    },
+    {
+        id: "05",
+        label: "PORT-SCAN-05",
+        intel: "Networking services use specific <b>Ports</b> to communicate. For example, <b>DNS</b> (Domain Name System) uses <b>Port 53</b> to translate website names into IP addresses. If Port 53 is blocked or hijacked (DNS Spoofing), users might be redirected to fake phishing websites even if they type the correct URL.",
+        question: "A network administrator is troubleshooting why employees cannot access websites by their domain names (e.g., google.com) but can access them via direct IP. Which port is likely being blocked by the firewall?",
+        options: [
+            { symbol: "P25", text: "Port 25 (SMTP)" },
+            { symbol: "P53", text: "Port 53 (DNS)" },
+            { symbol: "P80", text: "Port 80 (HTTP)" },
+            { symbol: "P110", text: "Port 110 (POP3)" }
+        ],
+        correct: 1
+    },
+    {
+        id: "06",
+        label: "WIFI-CRYPTO-06",
+        intel: "Wireless networks use encryption to protect data. <b>WEP</b> is the oldest and weakest (can be hacked in minutes). <b>WPA2</b> is the current standard using <b>AES encryption</b>, while <b>WPA3</b> is the newest, most secure version that protects against 'Brute Force' dictionary attacks on Wi-Fi passwords.",
+        question: "Which Wi-Fi security protocol is considered the most secure today and provides the best protection against offline dictionary attacks on the network password?",
+        options: [
+            { symbol: "WEP", text: "WEP (Wired Equivalent Privacy)" },
+            { symbol: "WPA", text: "WPA (Legacy)" },
+            { symbol: "WPA2", text: "WPA2-AES" },
+            { symbol: "WPA3", text: "WPA3 (Next-Gen)" }
+        ],
+        correct: 3
     }
 ];
 
