@@ -1,46 +1,46 @@
 /* =============================================
-   CRYPTOMIC AREA - ASSESSMENT ENGINE
+   CRYPTOMIC AREA - ASSESSMENT ENGINE (V2.0)
    ============================================= */
 
 const missionData = [
     {
         id: "01",
-        label: "NET-ARCH-01",
-        intel: "The <b>OSI Model</b> is a 7-layer architecture. <b>Layer 2 (Data Link)</b> uses physical MAC addresses, while <b>Layer 3 (Network)</b> handles logical IP routing. Switches work at L2, Routers at L3.",
-        question: "When a host communicates with another device in the same local network, which address is primarily used for final delivery?",
+        label: "NET-SEC-PRO-01",
+        intel: "In networking, <b>Data Encapsulation</b> is the process of wrapping data in layers. As data moves from the application to the physical layer, each layer adds its own 'Header'. At the <b>Data Link Layer (Layer 2)</b>, data is called a <b>'Frame'</b>, which contains the <b>MAC Address</b> (Physical Identity). Without this, data can never reach the correct hardware port.",
+        question: "A network switch receives data from Computer 'A' intended for Computer 'B'. The switch inspects the 'Frame' to ensure delivery to the correct hardware port. Which physical identity is the switch looking for inside this frame?",
         options: [
-            { symbol: "IP", text: "IP Address (Layer 3)" },
-            { symbol: "MAC", text: "MAC Address (Layer 2)" },
-            { symbol: "PORT", text: "Port Number (Layer 4)" },
-            { symbol: "DNS", text: "Domain Name" }
+            { symbol: "IP", text: "Logical IP Address" },
+            { symbol: "MAC", text: "Hardware MAC Address" },
+            { symbol: "PORT", text: "Application Port Number" },
+            { symbol: "TTL", text: "Time To Live (TTL) Value" }
         ],
         correct: 1
     },
     {
         id: "02",
-        label: "TCP-HANDSHAKE-01",
-        intel: "The <b>TCP 3-Way Handshake</b> is essential for connection-oriented communication. It consists of three steps: <b>SYN</b> (Synchronize), <b>SYN-ACK</b>, and <b>ACK</b> (Acknowledge).",
-        question: "In the TCP 3-way handshake, what is the second packet sent back from the server to the client?",
+        label: "PROT-ANALYST-02",
+        intel: "The <b>ICMP (Internet Control Message Protocol)</b> is used by network devices to send error messages and operational information. The most common tool using this is <b>PING</b>. However, hackers can use ICMP for 'Reconnaissance' to check if a target server is online before launching an attack.",
+        question: "You are performing a connectivity test to see if a remote server is 'Alive' and reachable across the network. Which protocol are you utilizing when you execute a 'Ping' command?",
         options: [
-            { symbol: "SYN", text: "SYN Packet" },
-            { symbol: "ACK", text: "ACK Packet" },
-            { symbol: "S-A", text: "SYN-ACK Packet" },
-            { symbol: "FIN", text: "FIN Packet" }
+            { symbol: "UDP", text: "User Datagram Protocol" },
+            { symbol: "TCP", text: "Transmission Control Protocol" },
+            { symbol: "ICMP", text: "Internet Control Message Protocol" },
+            { symbol: "DHCP", text: "Dynamic Host Configuration Protocol" }
         ],
         correct: 2
     },
     {
         id: "03",
-        label: "SEC-PORT-01",
-        intel: "Common ports are targets for hackers. <b>Port 80 (HTTP)</b> is insecure, while <b>Port 443 (HTTPS)</b> uses TLS encryption to protect data in transit.",
-        question: "Which of the following ports is used by default for encrypted web traffic?",
+        label: "VULN-IDENT-03",
+        intel: "Unencrypted protocols like <b>Telnet (Port 23)</b> and <b>HTTP (Port 80)</b> transmit data in 'Plain Text'. This means a hacker performing a <b>Packet Sniffing</b> attack can easily read usernames and passwords. To prevent this, secure alternatives like <b>SSH (Port 22)</b> and <b>HTTPS (Port 443)</b> must be used.",
+        question: "An administrator is remotely managing a server. Which secure protocol should they use to ensure that their login credentials are encrypted and safe from 'Man-in-the-Middle' sniffing attacks?",
         options: [
-            { symbol: "P21", text: "Port 21 (FTP)" },
-            { symbol: "P22", text: "Port 22 (SSH)" },
-            { symbol: "P80", text: "Port 80 (HTTP)" },
-            { symbol: "P443", text: "Port 443 (HTTPS)" }
+            { symbol: "TEL", text: "Telnet (Port 23)" },
+            { symbol: "FTP", text: "File Transfer Protocol (Port 21)" },
+            { symbol: "SSH", text: "Secure Shell (Port 22)" },
+            { symbol: "HTTP", text: "Hypertext Transfer Protocol (Port 80)" }
         ],
-        correct: 3
+        correct: 2
     }
 ];
 
@@ -105,7 +105,7 @@ function handleExecution() {
     }
 
     if (selectedIdx === missionData[currentStep].correct) {
-        score += 4;
+        score++;
     }
 
     currentStep++;
@@ -114,17 +114,14 @@ function handleExecution() {
     if (currentStep < missionData.length) {
         renderMission();
     } else {
-        finishAssessment();
+        // We will setup the final UI here later
+        const wrapper = document.getElementById('assessment-wrapper');
+        wrapper.innerHTML = `
+            <div class="mission-viewport" style="text-align:center; padding-top:100px;">
+                <h1 style="font-size:32px; font-weight:900; color:#10b981;">ALL MISSIONS COMPLETE</h1>
+                <p style="color:#94a3b8; font-size:18px; margin:20px 0;">Wait for Final Result Analysis...</p>
+                <button class="execute-btn" onclick="location.reload()">Back to Home</button>
+            </div>
+        `;
     }
-}
-
-function finishAssessment() {
-    const wrapper = document.getElementById('assessment-wrapper');
-    wrapper.innerHTML = `
-        <div class="mission-viewport" style="text-align:center; padding-top:100px;">
-            <h1 style="font-size:32px; font-weight:900; color:#10b981;">MISSION COMPLETE</h1>
-            <p style="color:#94a3b8; font-size:16px; margin:20px 0;">Final Analysis Score: ${score}%</p>
-            <button class="execute-btn" onclick="location.reload()">Return to Briefing</button>
-        </div>
-    `;
-   }
+               }
