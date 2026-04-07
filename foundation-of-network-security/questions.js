@@ -327,7 +327,267 @@ const missionData = [
             { symbol: "IPC", text: "There is an IP Address Conflict" }
         ],
         correct: 2
-       }
+       },
+       {
+        id: "26",
+        label: "NET-AUTO-26",
+        intel: "<b>DHCP</b> is a service that automatically hands out IP addresses to devices when they join a network. Without it, you would have to manually type in an IP, Subnet Mask, and Gateway for every single phone or laptop. If DHCP fails, your device might show an 'Automatic Private IP' (starting with 169.254.x.x), which means it can't talk to the internet.",
+        question: "When you connect your phone to a new Wi-Fi, it gets an IP address instantly without you doing anything. Which network protocol is responsible for this automatic configuration?",
+        options: [
+            { symbol: "HTTP", text: "Hypertext Transfer Protocol" },
+            { symbol: "DHCP", text: "Dynamic Host Configuration Protocol" },
+            { symbol: "FTP", text: "File Transfer Protocol" },
+            { symbol: "SSH", text: "Secure Shell Protocol" }
+        ],
+        correct: 1
+    },
+    {
+        id: "27",
+        label: "NET-NAME-27",
+        intel: "The <b>DNS (Domain Name System)</b> acts like the internet's phonebook. Computers only understand numbers (IP addresses), but humans prefer names like 'google.com'. When you type a name, DNS finds the matching IP address. If your DNS is wrong, you can't open websites by their names, even if your internet is technically 'on'.",
+        question: "An employee can ping an IP address (like 8.8.8.8) successfully, but they cannot open 'google.com' in their browser. Which network service is most likely having an issue?",
+        options: [
+            { symbol: "NIC", text: "Network Interface Card" },
+            { symbol: "ARP", text: "Address Resolution Protocol" },
+            { symbol: "DNS", text: "Domain Name System" },
+            { symbol: "MAC", text: "Media Access Control" }
+        ],
+        correct: 2
+    },
+    {
+        id: "28",
+        label: "NET-ID-28",
+        intel: "Every network device has a <b>MAC Address</b>, which is a permanent hardware ID assigned by the manufacturer. While an <b>IP Address</b> changes depending on which network you join, the MAC address stays the same for the life of the device. It is used by switches to deliver data to the correct physical machine.",
+        question: "Which of the following is a unique hardware identifier that is 'burned' into a network card and does not change, regardless of which network the device joins?",
+        options: [
+            { symbol: "MAC", text: "MAC Address" },
+            { symbol: "IPV4", text: "IPv4 Address" },
+            { symbol: "SUB", text: "Subnet Mask" },
+            { symbol: "GAT", text: "Default Gateway" }
+        ],
+        correct: 0
+    },
+       {
+        id: "29",
+        label: "IP-TYPES-29",
+        intel: "<b>Private IP Addresses</b> (like 192.168.x.x) are used inside your home or office. They are free and hidden from the outside world. Your <b>Public IP Address</b> is the unique ID given by your ISP (Internet Service Provider) that identifies your entire house to the rest of the internet. It's like your house number vs. the rooms inside.",
+        question: "You are checking your IP address at home and it says 192.168.1.15. However, when you visit 'whatismyip.com', it shows a completely different number. What is that second number called?",
+        options: [
+            { symbol: "MAC", text: "MAC Address" },
+            { symbol: "DYN", text: "Dynamic Internal IP" },
+            { symbol: "PUB", text: "Public IP Address" },
+            { symbol: "LCL", text: "Localhost Address" }
+        ],
+        correct: 2
+    },
+    {
+        id: "30",
+        label: "GATEWAY-30",
+        intel: "The <b>Default Gateway</b> is the 'Exit Door' of your local network. It is usually the IP address of your <b>Router</b>. When your computer wants to send data to a website (which is outside your home), it sends the data to the Default Gateway first. If this address is wrong, you can talk to other PCs in your house, but you can't reach the internet.",
+        question: "In a network configuration, which setting acts as the 'Exit' point that allows local devices to communicate with external networks and the internet?",
+        options: [
+            { symbol: "GAT", text: "Default Gateway" },
+            { symbol: "SUB", text: "Subnet Mask" },
+            { symbol: "DNS", text: "DNS Suffix" },
+            { symbol: "LOOP", text: "Loopback Address" }
+        ],
+        correct: 0
+    },
+    {
+        id: "31",
+        label: "OSI-LAY-31",
+        intel: "The <b>OSI Model</b> has 7 layers. The <b>Physical Layer (Layer 1)</b> is all about the actual hardware like cables, pins, and electricity. The <b>Application Layer (Layer 7)</b> is what you interact with, like your Browser or Email app. Understanding these layers helps you figure out if a problem is a 'broken cable' or a 'software bug'.",
+        question: "At which layer of the OSI model do physical components like Ethernet cables, Hubs, and Fiber Optic connectors operate?",
+        options: [
+            { symbol: "L7", text: "Layer 7 (Application)" },
+            { symbol: "L3", text: "Layer 3 (Network)" },
+            { symbol: "L1", text: "Layer 1 (Physical)" },
+            { symbol: "L4", text: "Layer 4 (Transport)" }
+        ],
+        correct: 2
+           },
+       {
+        id: "32",
+        label: "PORT-WEB-32",
+        intel: "<b>Port Numbers</b> are like virtual doors on a server. <b>Port 80</b> is used for HTTP (Unsecured web traffic), and <b>Port 443</b> is used for HTTPS (Secured/Encrypted web traffic). When you see a 'Lock' icon in your browser, it means you are communicating over Port 443. This prevents hackers from reading your passwords in plain text.",
+        question: "You are setting up a secure e-commerce website where customers enter credit card details. Which port must be open on your web server to allow 'HTTPS' encrypted connections?",
+        options: [
+            { symbol: "P21", text: "Port 21" },
+            { symbol: "P80", text: "Port 80" },
+            { symbol: "P443", text: "Port 443" },
+            { symbol: "P53", text: "Port 53" }
+        ],
+        correct: 2
+    },
+    {
+        id: "33",
+        label: "FIREWALL-33",
+        intel: "A <b>Firewall</b> is a security system that monitors and controls incoming and outgoing network traffic based on <b>Rules</b>. It acts as a barrier between your safe internal network and the dangerous internet. It can block specific IP addresses or entire countries from accessing your server.",
+        question: "What is the primary purpose of a Network Firewall in a company's infrastructure?",
+        options: [
+            { symbol: "SPD", text: "To increase the internet speed" },
+            { symbol: "FIL", text: "To filter and block unauthorized traffic" },
+            { symbol: "STG", text: "To store large amounts of data" },
+            { symbol: "PRT", text: "To print documents wirelessly" }
+        ],
+        correct: 1
+    },
+    {
+        id: "34",
+        label: "WIFI-SEC-34",
+        intel: "Wi-Fi security has evolved over time. <b>WEP</b> is the oldest and weakest (can be hacked in minutes). <b>WPA2</b> is the current standard, and <b>WPA3</b> is the latest and most secure. For a modern office, using WPA2 or WPA3 with a strong password is the minimum requirement to prevent unauthorized access.",
+        question: "You are configuring a new Wi-Fi router for a small business. Which security protocol should you choose to provide the strongest protection against modern hackers?",
+        options: [
+            { symbol: "WEP", text: "WEP (Wired Equivalent Privacy)" },
+            { symbol: "WPA", text: "WPA2 or WPA3" },
+            { symbol: "OPN", text: "Open (No Password)" },
+            { symbol: "HTTP", text: "HTTP Secure" }
+        ],
+        correct: 1
+    },
+       {
+        id: "35",
+        label: "NAT-LOGIC-35",
+        intel: "<b>NAT (Network Address Translation)</b> is a technique used by your router to allow multiple devices (phones, laptops, TVs) to share a <b>Single Public IP Address</b>. It acts like a receptionist in an office who takes all incoming mail and delivers it to the correct internal desk. Without NAT, we would have run out of IPv4 addresses many years ago.",
+        question: "Your home has 10 devices connected to the Wi-Fi, but your ISP only gives you 1 Public IP address. Which technology allows all 10 devices to access the internet simultaneously using that one IP?",
+        options: [
+            { symbol: "DNS", text: "Domain Name System" },
+            { symbol: "NAT", text: "Network Address Translation" },
+            { symbol: "FTP", text: "File Transfer Protocol" },
+            { symbol: "ARP", text: "Address Resolution Protocol" }
+        ],
+        correct: 1
+    },
+    {
+        id: "36",
+        label: "LOOP-TEST-36",
+        intel: "The <b>Loopback Address (127.0.0.1)</b> is a special IP address that points back to your own computer. It is used to test if your computer's <b>Network Stack</b> (software) is working correctly. If you can 'Ping' 127.0.0.1 but cannot reach the internet, it means your computer is fine, but the problem is with the cable, router, or ISP.",
+        question: "An IT technician wants to verify if the networking software on a computer is functioning correctly, regardless of any external cables or hardware. Which IP address should they 'Ping'?",
+        options: [
+            { symbol: "888", text: "8.8.8.8 (Google DNS)" },
+            { symbol: "GTW", text: "192.168.1.1 (Gateway)" },
+            { symbol: "LBP", text: "127.0.0.1 (Loopback)" },
+            { symbol: "BRD", text: "255.255.255.255 (Broadcast)" }
+        ],
+        correct: 2
+    },
+    {
+        id: "37",
+        label: "LAYER3-RT-37",
+        intel: "A <b>Router</b> operates at <b>OSI Layer 3 (Network Layer)</b>. Its main job is to find the best path for data to travel between <b>Different Networks</b> (like your home network and the internet). While a Switch connects devices *inside* a network, a Router connects *multiple networks* together using <b>IP Addresses</b>.",
+        question: "Which networking device is responsible for directing data traffic between different networks and operates at Layer 3 of the OSI model?",
+        options: [
+            { symbol: "RTR", text: "Router" },
+            { symbol: "SWI", text: "Network Switch" },
+            { symbol: "HUB", text: "Hub" },
+            { symbol: "NIC", text: "Network Interface Card" }
+        ],
+        correct: 0
+               },
+       {
+        id: "38",
+        label: "REMOTE-SEC-38",
+        intel: "<b>SSH (Secure Shell)</b> and <b>Telnet</b> are both used to manage network devices (like routers) remotely. The big difference is security: <b>Telnet</b> sends everything in plain text (passwords can be seen by hackers), while <b>SSH</b> encrypts all data. In modern networking, Telnet is considered 'Dead' and SSH is the only professional choice.",
+        question: "An admin needs to log into a remote router to change its settings. Which protocol should they use to ensure their login password is encrypted and safe from sniffers?",
+        options: [
+            { symbol: "TEL", text: "Telnet" },
+            { symbol: "FTP", text: "FTP (File Transfer)" },
+            { symbol: "SSH", text: "SSH (Secure Shell)" },
+            { symbol: "UDP", text: "UDP Protocol" }
+        ],
+        correct: 2
+    },
+    {
+        id: "39",
+        label: "VLAN-LOGIC-39",
+        intel: "A <b>VLAN (Virtual Local Area Network)</b> allows you to split one physical switch into multiple 'Virtual' networks. For example, you can put the 'Accounting' computers and 'Guest Wi-Fi' on the same switch but keep them completely separated so they can't talk to each other. This increases security without buying more hardware.",
+        question: "A company wants to separate the 'HR' department's traffic from the 'Sales' department, even though they are plugged into the same physical switch. What technology should they use?",
+        options: [
+            { symbol: "VPN", text: "VPN (Virtual Private Network)" },
+            { symbol: "VLA", text: "VLAN (Virtual LAN)" },
+            { symbol: "NAT", text: "NAT (Address Translation)" },
+            { symbol: "MAC", text: "MAC Filtering" }
+        ],
+        correct: 1
+    },
+    {
+        id: "40",
+        label: "SUBNET-LOG-40",
+        intel: "<b>Subnetting</b> is the process of breaking a large network into smaller, manageable pieces called <b>Subnets</b>. This reduces 'Broadcast Traffic' (noise) and improves security. For example, a <b>/24 subnet</b> (255.255.255.0) allows for 254 usable IP addresses, which is the standard for most small offices.",
+        question: "What is the primary reason an IT architect would use 'Subnetting' when designing a large corporate network?",
+        options: [
+            { symbol: "SPD", text: "To increase the physical speed of the cables" },
+            { symbol: "DNC", text: "To divide a large network into smaller, efficient segments" },
+            { symbol: "WEB", text: "To host more websites on a single server" },
+            { symbol: "POW", text: "To reduce the power consumption of routers" }
+        ],
+        correct: 1
+    },
+       {
+        id: "41",
+        label: "PROXY-LOGIC-41",
+        intel: "A <b>Proxy Server</b> acts as an intermediary between your computer and the internet. When you request a website, the Proxy fetches it for you. This helps in <b>Anonymity</b> (the website sees the Proxy's IP, not yours) and <b>Caching</b> (storing popular pages so they load faster for everyone in the office).",
+        question: "An organization wants to hide the internal IP addresses of its employees' computers when they browse the web and also block certain unproductive websites. Which device or service should they implement?",
+        options: [
+            { symbol: "HUB", text: "Network Hub" },
+            { symbol: "PRX", text: "Proxy Server" },
+            { symbol: "MOD", text: "DSL Modem" },
+            { symbol: "REP", text: "Signal Repeater" }
+        ],
+        correct: 1
+    },
+    {
+        id: "42",
+        label: "DHCP-RES-42",
+        intel: "<b>DHCP Reservation</b> is a feature where the router is told to 'Always give THIS specific IP to THIS specific MAC address'. It's the best of both worlds: you get the stability of a <b>Static IP</b> but the ease of <b>DHCP</b> management. It's commonly used for office printers and shared file servers.",
+        question: "A network admin wants a specific server to always receive the same IP address (192.168.1.50) automatically every time it reboots, without manually configuring the server's OS. What should they configure on the DHCP server?",
+        options: [
+            { symbol: "DNS", text: "DNS Record" },
+            { symbol: "SCP", text: "DHCP Scope Delete" },
+            { symbol: "RES", text: "DHCP Reservation (IP-to-MAC Binding)" },
+            { symbol: "NAT", text: "NAT Forwarding" }
+        ],
+        correct: 2
+    },
+    {
+        id: "43",
+        label: "APIPA-LOGIC-43",
+        intel: "<b>APIPA (Automatic Private IP Addressing)</b> is a backup plan. If your computer is set to get an IP automatically but the <b>DHCP Server fails</b> to respond, Windows assigns itself an address in the <b>169.254.x.x</b> range. If you see this IP, it's a 100% sign that your computer cannot talk to the Router's DHCP service.",
+        question: "A user restarts their laptop and notices they cannot access the internet. You check their IP address and see it is '169.254.10.45'. What does this specific IP range indicate?",
+        options: [
+            { symbol: "CON", text: "The connection is perfectly fine" },
+            { symbol: "DHF", text: "The device failed to reach a DHCP server" },
+            { symbol: "PUB", text: "The device has a valid Public IP" },
+            { symbol: "VPN", text: "The VPN is currently active" }
+        ],
+        correct: 1
+    },
+       {
+        id: "44",
+        label: "OSI-RECAP-44",
+        intel: "The <b>OSI Model</b> is the language of networking. If a technician says 'It's a Layer 1 issue,' they mean a cable is unplugged. If they say 'Layer 3 issue,' they mean a Router or IP problem. <b>Layer 4 (Transport)</b> is where TCP and UDP live, ensuring data arrives in the right order and without errors.",
+        question: "A technician is troubleshooting a connection and says, 'The hardware is fine, but the data packets are not being routed to the correct network.' Which layer of the OSI model is they referring to?",
+        options: [
+            { symbol: "L2", text: "Layer 2 (Data Link)" },
+            { symbol: "L1", text: "Layer 1 (Physical)" },
+            { symbol: "L3", text: "Layer 3 (Network)" },
+            { symbol: "L7", text: "Layer 7 (Application)" }
+        ],
+        correct: 2
+    },
+    {
+        id: "45",
+        label: "FINAL-SCENARIO-45",
+        intel: "A complete network setup requires: a <b>Modem</b> for internet, a <b>Router</b> to manage traffic (DHCP/NAT), a <b>Switch</b> to connect devices, and a <b>Firewall</b> for security. If any one of these fails, the whole chain can break. Understanding how they all work together is the true 'Foundation of Network Security'.",
+        question: "FINAL CHALLENGE: You are building a secure office network. You need a device to connect to the ISP, a device to assign IPs automatically, and a device to block hackers. Which combination is correct?",
+        options: [
+            { symbol: "C1", text: "Hub, Repeater, and Bridge" },
+            { symbol: "C2", text: "Modem, DHCP Server (Router), and Firewall" },
+            { symbol: "C3", text: "Switch, Access Point, and Monitor" },
+            { symbol: "C4", text: "Cable, Connector, and Battery" }
+        ],
+        correct: 1
+    }
 ];
 
 let currentStep = 0;
