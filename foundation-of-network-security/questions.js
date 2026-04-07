@@ -236,7 +236,98 @@ const missionData = [
             { symbol: "BFA", text: "Brute Force Attack" }
         ],
         correct: 2
-    }
+    },
+       {
+        id: "19",
+        label: "VPN-TUNNEL-19",
+        intel: "A <b>VPN (Virtual Private Network)</b> creates an encrypted 'Tunnel' between your device and a remote server. Even if you are using an untrusted Public Wi-Fi, anyone sniffing the packets will only see scrambled, unreadable data. It also masks your real <b>Public IP Address</b>, making it appear as if your traffic is coming from the VPN server's location.",
+        question: "A journalist is working from a public coffee shop and needs to send sensitive documents to their office. Which technology should they use to ensure their ISP or a local hacker cannot see the content of their traffic?",
+        options: [
+            { symbol: "INC", text: "Browser Incognito Mode" },
+            { symbol: "VPN", text: "VPN (Virtual Private Network)" },
+            { symbol: "DNS", text: "Public DNS (8.8.8.8)" },
+            { symbol: "MAC", text: "MAC Address Changer" }
+        ],
+        correct: 1
+    },
+    {
+        id: "20",
+        label: "DETECTION-20",
+        intel: "An <b>IDS (Intrusion Detection System)</b> is like a security camera; it watches traffic and alerts you if it sees something suspicious. An <b>IPS (Intrusion Prevention System)</b> is like a security guard; it not only watches but also acts immediately to <b>Block</b> or drop the malicious packets the moment they are detected.",
+        question: "Your network is under a 'Brute Force' attack. You want a system that will not just 'notify' you about the attack but will also automatically 'disconnect' the hacker's IP address. What do you need?",
+        options: [
+            { symbol: "IDS", text: "IDS (Detection Only)" },
+            { symbol: "IPS", text: "IPS (Prevention/Blocking)" },
+            { symbol: "HUB", text: "Network Hub" },
+            { symbol: "AVS", text: "Standard Antivirus" }
+        ],
+        correct: 1
+    },
+    {
+        id: "21",
+        label: "TOPOLOGY-21",
+        intel: "In a <b>Star Topology</b>, every device is connected to a central <b>Switch</b> or Hub. If one cable breaks, only that one computer loses connection. However, if the central Switch fails, the entire network goes down. This is the most common setup in modern offices and homes.",
+        question: "In your home network, all laptops and phones are connected to a single central Wi-Fi Router. If one laptop's Wi-Fi fails, the others still work. But if the Router is turned off, everyone loses access. What topology is this?",
+        options: [
+            { symbol: "BUS", text: "Bus Topology" },
+            { symbol: "RING", text: "Ring Topology" },
+            { symbol: "STAR", text: "Star Topology" },
+            { symbol: "MESH", text: "Mesh Topology" }
+        ],
+        correct: 2
+    },
+       {
+        id: "22",
+        label: "ZERO-TRUST-22",
+        intel: "The <b>Zero Trust</b> model operates on the principle of <b>'Never Trust, Always Verify'</b>. In traditional security, once you were inside the office Wi-Fi, you were trusted. In Zero Trust, every single request (even from inside the office) must be authenticated and encrypted. This prevents a hacker who has stolen one password from moving freely across the entire network.",
+        question: "A company decides to stop trusting devices just because they are connected to the internal office cable. Now, every user must provide a code and a fingerprint every time they access a server. What security strategy is this?",
+        options: [
+            { symbol: "PER", text: "Perimeter-Based Security" },
+            { symbol: "ZTR", text: "Zero Trust Architecture" },
+            { symbol: "WPA", text: "Standard WPA Encryption" },
+            { symbol: "MAC", text: "MAC Address Cloning" }
+        ],
+        correct: 1
+    },
+    {
+        id: "23",
+        label: "MAC-FILTER-23",
+        intel: "<b>MAC Filtering</b> is a security method where a router is given a list of 'Allowed' hardware addresses. If a device's MAC address is not on that list, the router will refuse to give it an IP address. While this is a good basic step, professional hackers can use <b>MAC Spoofing</b> to pretend their laptop is one of the allowed devices.",
+        question: "An administrator wants to ensure that ONLY the 5 specific company laptops can connect to the breakroom Wi-Fi. What feature should they enable on the Wireless Access Point?",
+        options: [
+            { symbol: "DNS", text: "DNS Redirect" },
+            { symbol: "DHCP", text: "DHCP IP Pool" },
+            { symbol: "MFB", text: "MAC Address Filtering" },
+            { symbol: "NAT", text: "Network Translation" }
+        ],
+        correct: 2
+    },
+    {
+        id: "24",
+        label: "TTL-RECON-24",
+        intel: "<b>TTL (Time To Live)</b> is a value in an IP packet that tells it how many 'Hops' (routers) it can pass through before it expires. This prevents packets from looping forever if there is a mistake in the network. Interestingly, different Operating Systems use different default TTLs (e.g., <b>Linux is usually 64</b>, <b>Windows is 128</b>), which helps hackers identify the OS during a scan.",
+        question: "A security investigator pings a target and notices the returned packets have a TTL value of 64. Based on common networking standards, which operating system is the target likely running?",
+        options: [
+            { symbol: "WIN", text: "Windows Server" },
+            { symbol: "LNX", text: "Linux / Unix" },
+            { symbol: "CIS", text: "Cisco Router (Legacy)" },
+            { symbol: "UNK", text: "Unknown OS" }
+        ],
+        correct: 1
+    },
+       {
+        id: "25",
+        label: "FINAL-BOSS-25",
+        intel: "In a real-world cyber attack, investigators look for the <b>'Point of Failure'</b>. If you can <b>Ping</b> a server (ICMP works), the <b>Physical and Network layers</b> are fine. If you can't access the website, the issue is at the <b>Application Layer</b> (Port 80/443). If you can access it via IP but not by Name, <b>DNS</b> is the problem. Understanding this 'Elimination Process' is the mark of a true Network Security Professional.",
+        question: "A web server (192.168.1.100) is 'Up'. You can Ping it successfully. However, when you try to open the website 'http://internal.test', the browser says 'Connection Refused'. You then try 'https://internal.test' and it works perfectly. What is the most likely security configuration causing this?",
+        options: [
+            { symbol: "CAB", text: "The Ethernet cable is unplugged" },
+            { symbol: "DNS", text: "The DNS Server is completely offline" },
+            { symbol: "FWL", text: "Firewall is blocking Port 80 but allowing 443" },
+            { symbol: "IPC", text: "There is an IP Address Conflict" }
+        ],
+        correct: 2
+       }
 ];
 
 let currentStep = 0;
