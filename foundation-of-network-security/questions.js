@@ -647,31 +647,41 @@ function renderMission() {
 
 // Step 1: Ye naya logic hai jo 45th question ke baad Result dikhayega
 function handleExecution() {
-    // Agar user ne koi option select nahi kiya toh alert dikhao
     if (selectedIdx === null) {
         alert("Action Required: Select an option before proceeding.");
         return;
     }
 
-    // 1. User ne jo jawab diya usse "userAnswers" naam ki list mein save karo (Review ke liye)
+    // 1. Answer save karo
     userAnswers[currentStep] = selectedIdx;
 
-    // 2. Check karo jawab sahi hai ya nahi, aur score badhao
+    // 2. Score update karo
     if (selectedIdx === missionData[currentStep].correct) {
         score++;
     }
 
-    // 3. Agle sawal par jao
+    // 3. Step badhao
     currentStep++;
     selectedIdx = null;
 
-    // 4. Check karo ki kya abhi aur sawal baki hain?
     if (currentStep < missionData.length) {
-        renderMission(); // Agla sawal dikhao
+        renderMission(); 
     } else {
-        // AGAR SAARE SAWAL KHATAM HO GAYE (45/45)
-        // Toh hum Result wala UI chalayenge
-        renderFinalResult(score, missionData.length); 
+        // --- YE WALA PART BUTTON KO ACTIVATE KAREGA ---
+        const assessment = document.getElementById('assessment-wrapper');
+        const resultPage = document.getElementById('result-page');
+
+        if (assessment && resultPage) {
+            // Quiz hide karo
+            assessment.style.display = 'none';
+            // Result page dikhao
+            resultPage.style.display = 'block';
+            
+            // Ab final UI function chalao
+            renderFinalResult(score, missionData.length); 
+        } else {
+            console.error("Error: Result-page div index.html mein nahi mili!");
+        }
     }
 }
 
