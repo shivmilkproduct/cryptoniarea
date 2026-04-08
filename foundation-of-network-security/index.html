@@ -1393,42 +1393,33 @@
         draw();
 
                 // Final Professional Launch Protocol
-        function launchExamProtocol() {
-            const landing = document.getElementById('landing-wrapper');
-            const assessment = document.getElementById('assessment-wrapper');
+       function launchExamProtocol() {
+    const landing = document.getElementById('landing-wrapper');
+    const assessment = document.getElementById('assessment-wrapper');
+    const resultPage = document.getElementById('result-page');
 
-            if (landing && assessment) {
-                // 1. Smooth Fade out effect
-                landing.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-                landing.style.opacity = "0";
-                landing.style.transform = "scale(0.95)";
-                landing.style.pointerEvents = "none";
+    if (landing && assessment) {
+        landing.style.opacity = "0";
+        setTimeout(() => {
+            landing.style.display = 'none';
+            assessment.style.display = 'block';
+            if(resultPage) resultPage.style.display = 'none';
+            
+            window.scrollTo(0, 0);
 
-                setTimeout(() => {
-                    // 2. Switch Displays
-                    landing.style.display = 'none';
-                    assessment.style.display = 'block';
-                    
-                    // 3. Screen ko top par le jayein
-                    window.scrollTo(0, 0);
-
-                    // 4. Check karein ki questions.js loaded hai ya nahi
-                    if (typeof startAssessment === "function") {
-                        startAssessment();
-                    } else {
-                        // Agar file missing hai toh error na aaye, ye message dikhe
-                        assessment.innerHTML = `
-                            <div style="text-align:center; padding:100px; font-family:sans-serif;">
-                                <h1 style="color:#0f172a;">System Initialized</h1>
-                                <p style="color:#64748b;">Loading Mission Data... (Check if questions.js is linked)</p>
-                            </div>`;
-                    }
-                }, 500);
+            // Yahan check ho raha hai ki questions.js load hui ya nahi
+            if (typeof startAssessment === "function") {
+                startAssessment();
+            } else {
+                console.error("questions.js file load nahi ho payi!");
+                assessment.innerHTML = `
+                    <div style="text-align:center; padding:100px; font-family:sans-serif; color:white; background:#0f172a; height:100vh;">
+                        <h1 style="color:#ef4444;">SYSTEM ERROR: 404</h1>
+                        <p style="color:#94a3b8;">Mission Data (questions.js) not found in root directory.</p>
+                        <button onclick="location.reload()" style="background:#2563eb; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; margin-top:20px;">RELOAD SYSTEM</button>
+                    </div>`;
             }
-        }                    
-    </script>
-
-    <link rel="stylesheet" href="assessment-style.css">
-    <script src="questions.js"></script>
-</body>
-</html>
+        }, 500);
+    }
+        }
+        
