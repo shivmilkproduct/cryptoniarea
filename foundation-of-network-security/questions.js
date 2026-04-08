@@ -690,26 +690,26 @@ function renderFinalResult(score, total) {
     const isPass = percent >= 60;
     const resultDiv = document.getElementById('result-page');
 
-    // 1. Review items generate karo
-    let reviewHTML = "";
-    missionData.forEach((q, i) => {
-        const isCorrect = userAnswers[i] === q.correct;
-        reviewHTML += `
-            <div class="review-box ${isCorrect ? 'correct-box' : 'wrong-box'}">
-                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                    <span style="font-size:12px; font-weight:800; color:#64748b; text-transform:uppercase;">Task ${i+1} Result</span>
-                    <span style="color:${isCorrect ? '#059669' : '#dc2626'}; font-weight:900; font-size:13px;">
-                        ${isCorrect ? '● SUCCESSFUL' : '● COMPROMISED'}
-                    </span>
-                </div>
-                <p style="font-weight:700; font-size:17px; margin:0 0 12px 0; color:#0f172a; line-height:1.4;">${q.question}</p>
-                <div style="font-size:14px; color:#475569;">
-                    <span style="font-weight:600;">Correct Intel:</span> 
-                    <span style="color:#2563eb; font-weight:600;">${q.options[q.correct].text}</span>
+    // ... (baki reviewHTML wala logic wahi rahega) ...
+
+    resultDiv.innerHTML = `
+        <div class="res-card">
+            <div style="display:flex; justify-content:center; align-items:center; margin-bottom:20px;">
+                <img src="YOUR_LOGO_URL_HERE" alt="Logo" class="res-company-logo">
+                <h2 style="color:#2563eb; letter-spacing:3px; font-weight:900; margin:0;">CRYPTONIC AREA</h2>
+            </div>
+            
+            <p style="font-size:12px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:2px;">Official Certification Result</p>
+            
+            <div class="circular-progress" style="background: conic-gradient(#2563eb ${percent * 3.6}deg, #f1f5f9 0deg);">
+                <div class="inner-circle">
+                    <span>${percent}%</span>
                 </div>
             </div>
-        `;
-    });
+            
+            </div>
+    `;
+}
 
     // 2. Motivational Lines
     const quote = isPass 
