@@ -652,35 +652,35 @@ function handleExecution() {
         return;
     }
 
-    // 1. Answer save karo
     userAnswers[currentStep] = selectedIdx;
 
-    // 2. Score update karo
     if (selectedIdx === missionData[currentStep].correct) {
         score++;
     }
 
-    // 3. Step badhao
     currentStep++;
     selectedIdx = null;
 
     if (currentStep < missionData.length) {
         renderMission(); 
     } else {
-        // --- YE WALA PART BUTTON KO ACTIVATE KAREGA ---
+        // --- FINAL UI SWITCH LOGIC ---
+        // 1. Sabse pehle poore body ka overflow hide karo taaki background scroll na ho
+        document.body.style.overflow = "hidden";
+
+        // 2. Quiz aur Landing page dono ko poori tarah hide karo
         const assessment = document.getElementById('assessment-wrapper');
+        const landing = document.getElementById('landing-wrapper') || document.querySelector('.landing-page');
         const resultPage = document.getElementById('result-page');
 
-        if (assessment && resultPage) {
-            // Quiz hide karo
-            assessment.style.display = 'none';
-            // Result page dikhao
+        if (assessment) assessment.style.display = 'none';
+        if (landing) landing.style.display = 'none';
+
+        if (resultPage) {
             resultPage.style.display = 'block';
-            
-            // Ab final UI function chalao
+            // Screen ko top par le jao
+            window.scrollTo(0, 0);
             renderFinalResult(score, missionData.length); 
-        } else {
-            console.error("Error: Result-page div index.html mein nahi mili!");
         }
     }
 }
