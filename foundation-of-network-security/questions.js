@@ -674,3 +674,85 @@ function handleExecution() {
         renderFinalResult(score, missionData.length); 
     }
 }
+
+function renderFinalResult(score, total) {
+    const percent = Math.round((score / total) * 100);
+    const isPass = percent >= 60;
+    const resultDiv = document.getElementById('result-page');
+
+    // 1. Review items generate karo
+    let reviewHTML = "";
+    missionData.forEach((q, i) => {
+        const isCorrect = userAnswers[i] === q.correct;
+        reviewHTML += `
+            <div class="review-box ${isCorrect ? 'correct-box' : 'wrong-box'}">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <span style="font-size:12px; font-weight:800; color:#64748b; text-transform:uppercase;">Task ${i+1} Result</span>
+                    <span style="color:${isCorrect ? '#059669' : '#dc2626'}; font-weight:900; font-size:13px;">
+                        ${isCorrect ? '● SUCCESSFUL' : '● COMPROMISED'}
+                    </span>
+                </div>
+                <p style="font-weight:700; font-size:17px; margin:0 0 12px 0; color:#0f172a; line-height:1.4;">${q.question}</p>
+                <div style="font-size:14px; color:#475569;">
+                    <span style="font-weight:600;">Correct Intel:</span> 
+                    <span style="color:#2563eb; font-weight:600;">${q.options[q.correct].text}</span>
+                </div>
+            </div>
+        `;
+    });
+
+    // 2. Motivational Lines
+    const quote = isPass 
+        ? "“Success is not just about passing; it's about the discipline to protect the digital world. You are the future of security.”"
+        : "“A hacker never fails, they only learn what didn't work. Analyze your logs, strengthen your defense, and return for the mission.”";
+
+    // 3. UI Render
+    resultDiv.innerHTML = `
+        <div class="res-card">
+            <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:10px;">
+                <div style="width:40px; height:40px; background:#2563eb; border-radius:8px;"></div>
+                <h2 style="color:#2563eb; letter-spacing:3px; font-weight:900; margin:0;">CRYPTONIC AREA</h2>
+            </div>
+            <p style="font-size:13px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:2px;">Advanced Security Clearance Assessment</p>
+            
+            <div class="circular-progress" style="background: conic-gradient(#2563eb ${percent * 3.6}deg, #f1f5f9 0deg);">
+                <div class="inner-circle">
+                    <span>${percent}%</span>
+                    <small style="font-size:12px; color:#94a3b8; font-weight:700;">ACCURACY</small>
+                </div>
+            </div>
+
+            <h1 style="font-size:42px; font-weight:900; margin:20px 0; color:${isPass ? '#10b981' : '#ef4444'}">
+                ${isPass ? 'MISSION ACCOMPLISHED' : 'MISSION FAILED'}
+            </h1>
+
+            <div class="res-grid">
+                <div class="res-stat"><h4>TOTAL TASKS</h4><span>${total}</span></div>
+                <div class="res-stat"><h4>SUCCESSFUL</h4><span style="color:#10b981">${score}</span></div>
+                <div class="res-stat"><h4>FAILED</h4><span style="color:#ef4444">${total - score}</span></div>
+            </div>
+
+            <p style="color:#475569; font-style:italic; font-size:18px; line-height:1.6; max-width:600px; margin:0 auto 40px auto; font-weight:500;">
+                ${quote}
+            </p>
+
+            ${isPass ? `
+                <div style="background:#f8fafc; padding:40px; border-radius:30px; border:1px solid #e2e8f0;">
+                    <h3 style="color:#0f172a; margin-bottom:20px; font-weight:800;">REDEEM YOUR OFFICIAL CERTIFICATE</h3>
+                    <input type="text" id="certName" placeholder="ENTER YOUR FULL NAME" 
+                           style="width:100%; max-width:450px; padding:20px; border-radius:15px; border:3px solid #e2e8f0; margin-bottom:25px; text-align:center; font-size:18px; font-weight:800; outline:none; transition:0.3s;"
+                           onfocus="this.style.borderColor='#2563eb'">
+                    <br>
+                    <button class="cert-btn" onclick="startCelebration()">CLAIM CERTIFICATE 🛡️</button>
+                </div>
+            ` : `
+                <button class="cert-btn" style="background:#0f172a" onclick="location.reload()">RE-ATTEMPT MISSION 🔄</button>
+            `}
+
+            <div style="margin-top:70px; border-top:2px solid #f1f5f9; padding-top:40px;">
+                <h3 style="color:#1e293b; margin-bottom:30px; text-align:left; font-weight:900; font-size:22px;">DETAILED MISSION LOGS</h3>
+                <div class="review-list">${reviewHTML}</div>
+            </div>
+        </div>
+    `;
+                                     }
