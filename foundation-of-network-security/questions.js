@@ -713,8 +713,6 @@ function renderFinalResult(score, total) {
 
 
 
-const questions = missionData;
-
     // 2. Motivational Lines
     const quote = isPass 
         ? "“Success is not just about passing; it's about the discipline to protect the digital world. You are the future of security.”"
