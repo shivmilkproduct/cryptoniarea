@@ -1393,42 +1393,40 @@
         draw();
 
                 // Final Professional Launch Protocol
-      function launchExamProtocol() {
-    // ID check: Tumhare HTML mein id="landing-page" hai
+     function launchExamProtocol() {
+    // Tumhare HTML mein ID 'landing-page' hai, 'landing-wrapper' nahi.
     const landing = document.getElementById('landing-page'); 
     const assessment = document.getElementById('assessment-wrapper');
     const resultPage = document.getElementById('result-page');
 
     if (landing && assessment) {
-        // 1. Smooth Fade out effect
+        // Smooth transition
         landing.style.transition = "opacity 0.5s ease, transform 0.5s ease";
         landing.style.opacity = "0";
         landing.style.transform = "scale(0.95)";
         landing.style.pointerEvents = "none";
 
         setTimeout(() => {
-            // 2. Switch Displays
             landing.style.display = 'none';
             assessment.style.display = 'block';
             if(resultPage) resultPage.style.display = 'none';
             
-            // 3. Screen ko top par le jayein
             window.scrollTo(0, 0);
 
-            // 4. Check karein ki questions.js loaded hai ya nahi
+            // Check if questions.js is correctly linked
             if (typeof startAssessment === "function") {
                 startAssessment();
             } else {
-                // Agar questions.js load nahi hui toh ye error dikhegi
                 assessment.innerHTML = `
                     <div style="text-align:center; padding:100px; background:#0f172a; color:white; min-height:100vh;">
-                        <h1 style="color:#ef4444; font-size:40px; font-weight:900;">SYSTEM ERROR: 404</h1>
-                        <p style="color:#94a3b8; font-size:18px;">Mission Data (questions.js) not found in root directory.</p>
-                        <button onclick="location.reload()" style="background:#2563eb; color:white; border:none; padding:12px 30px; border-radius:10px; cursor:pointer; margin-top:20px; font-weight:800;">RETRY SYSTEM</button>
+                        <h1 style="color:#ef4444; font-size:40px; font-weight:900;">SYSTEM ERROR</h1>
+                        <p style="color:#94a3b8; font-size:18px;">Mission Data (questions.js) load nahi ho payi. File name check karein.</p>
+                        <button onclick="location.reload()" style="background:#2563eb; color:white; border:none; padding:12px 30px; border-radius:10px; cursor:pointer; margin-top:20px; font-weight:800;">RELOAD SYSTEM</button>
                     </div>`;
             }
         }, 500);
     } else {
-        console.error("Critical Error: Landing or Assessment container not found!");
+        console.error("Critical Error: 'landing-page' ya 'assessment-wrapper' div nahi mili!");
     }
-}
+        }
+        
