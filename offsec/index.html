@@ -2685,85 +2685,40 @@
 
                 <label>Current Level</label>
 
-                <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
+                <select id="level"
+                        class="form-control"
+                        required
+                        style="cursor:pointer;
+                               appearance:none;
+                               -webkit-appearance:none;
+                               -moz-appearance:none;
+                               background:
+                               linear-gradient(45deg, transparent 50%, #f1ff0a 50%),
+                               linear-gradient(135deg, #f1ff0a 50%, transparent 50%);
+                               background-position:
+                               calc(100% - 20px) calc(50% - 3px),
+                               calc(100% - 14px) calc(50% - 3px);
+                               background-size:6px 6px, 6px 6px;
+                               background-repeat:no-repeat;
+                               padding-right:50px;">
 
-                    <label style="cursor:pointer;">
+                    <option value="" disabled selected>
+                        Select your level
+                    </option>
 
-                        <input type="radio"
-                               name="level"
-                               value="Beginner"
-                               required
-                               style="display:none;">
+                    <option value="Beginner">
+                        Beginner
+                    </option>
 
-                        <div style="display:flex;
-                                    align-items:center;
-                                    gap:12px;
-                                    padding:16px 18px;
-                                    border:1px solid rgba(255,255,255,0.08);
-                                    border-radius:14px;
-                                    background:rgba(255,255,255,0.03);">
+                    <option value="Intermediate">
+                        Intermediate
+                    </option>
 
-                            <span style="font-size:1rem;">◈</span>
+                    <option value="Advanced">
+                        Advanced
+                    </option>
 
-                            <span style="font-size:0.95rem;">
-                                Beginner
-                            </span>
-
-                        </div>
-
-                    </label>
-
-                    <label style="cursor:pointer;">
-
-                        <input type="radio"
-                               name="level"
-                               value="Intermediate"
-                               style="display:none;">
-
-                        <div style="display:flex;
-                                    align-items:center;
-                                    gap:12px;
-                                    padding:16px 18px;
-                                    border:1px solid rgba(255,255,255,0.08);
-                                    border-radius:14px;
-                                    background:rgba(255,255,255,0.03);">
-
-                            <span style="font-size:1rem;">⬡</span>
-
-                            <span style="font-size:0.95rem;">
-                                Intermediate
-                            </span>
-
-                        </div>
-
-                    </label>
-
-                    <label style="cursor:pointer;">
-
-                        <input type="radio"
-                               name="level"
-                               value="Advanced"
-                               style="display:none;">
-
-                        <div style="display:flex;
-                                    align-items:center;
-                                    gap:12px;
-                                    padding:16px 18px;
-                                    border:1px solid rgba(255,255,255,0.08);
-                                    border-radius:14px;
-                                    background:rgba(255,255,255,0.03);">
-
-                            <span style="font-size:1rem;">✦</span>
-
-                            <span style="font-size:0.95rem;">
-                                Advanced
-                            </span>
-
-                        </div>
-
-                    </label>
-
-                </div>
+                </select>
 
             </div>
 
@@ -2775,9 +2730,12 @@
                     Have you attended any previous Cryptonic Area session or masterclass?
                 </label>
 
-                <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
+                <div style="display:flex;
+                            gap:10px;
+                            margin-top:12px;">
 
-                    <label style="cursor:pointer;">
+                    <label style="flex:1;
+                                  cursor:pointer;">
 
                         <input type="radio"
                                name="previousSession"
@@ -2785,44 +2743,37 @@
                                required
                                style="display:none;">
 
-                        <div style="display:flex;
-                                    align-items:center;
-                                    gap:12px;
-                                    padding:16px 18px;
+                        <div style="padding:12px 14px;
                                     border:1px solid rgba(255,255,255,0.08);
-                                    border-radius:14px;
-                                    background:rgba(255,255,255,0.03);">
+                                    border-radius:12px;
+                                    background:rgba(255,255,255,0.03);
+                                    text-align:center;
+                                    font-size:0.9rem;
+                                    transition:0.3s ease;">
 
-                            <span style="font-size:1rem;">▣</span>
-
-                            <span style="font-size:0.95rem;">
-                                Yes
-                            </span>
+                            Yes
 
                         </div>
 
                     </label>
 
-                    <label style="cursor:pointer;">
+                    <label style="flex:1;
+                                  cursor:pointer;">
 
                         <input type="radio"
                                name="previousSession"
                                value="No"
                                style="display:none;">
 
-                        <div style="display:flex;
-                                    align-items:center;
-                                    gap:12px;
-                                    padding:16px 18px;
+                        <div style="padding:12px 14px;
                                     border:1px solid rgba(255,255,255,0.08);
-                                    border-radius:14px;
-                                    background:rgba(255,255,255,0.03);">
+                                    border-radius:12px;
+                                    background:rgba(255,255,255,0.03);
+                                    text-align:center;
+                                    font-size:0.9rem;
+                                    transition:0.3s ease;">
 
-                            <span style="font-size:1rem;">▢</span>
-
-                            <span style="font-size:0.95rem;">
-                                No
-                            </span>
+                            No
 
                         </div>
 
