@@ -65,7 +65,7 @@ document.querySelectorAll(".faq-trigger").forEach((button) => {
 
         const faqItem = button.parentElement;
 
-        faqItem.classList.toggle("active");
+        faqItem.classList.toggle("faq-active");
 
     });
 
