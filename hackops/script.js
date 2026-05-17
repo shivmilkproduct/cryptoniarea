@@ -56,3 +56,17 @@ document.getElementById("registrationForm").addEventListener("submit", async fun
     }
 
 });
+
+// FAQ Accordion Fix
+
+document.querySelectorAll(".faq-trigger").forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+        const faqItem = button.parentElement;
+
+        faqItem.classList.toggle("active");
+
+    });
+
+});
