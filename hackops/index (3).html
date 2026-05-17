@@ -1,0 +1,3511 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-World HackOps & Recon Psychology | CRYPTONIC AREA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/intlTelInput.css">
+    <script src="js/typed.umd.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-yellow: #F1FF0A;
+            --black: #000000;
+            --dark-grey: #0D0D11;
+            --text-white: #FFFFFF;
+            --text-grey: #dbdbdb;
+            --accent-red: #FF4D4D;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* intl-tel-input customization for dark theme */
+        .iti {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .iti__country-list {
+            background-color: #0d0d11 !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #fff !important;
+            border-radius: 12px !important;
+            margin-top: 5px !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
+            width: 300px !important;
+            z-index: 1000000 !important;
+            padding: 0 !important;
+            overflow-y: auto !important;
+            position: absolute !important;
+            left: 0 !important;
+        }
+
+        .iti__country-name {
+            display: none !important;
+        }
+
+        .iti__dial-code {
+            color: #fff !important;
+            font-weight: 600;
+        }
+
+        .iti__country {
+            padding: 12px 15px !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .iti__country:hover,
+        .iti__country.iti__highlight {
+            background-color: rgba(241, 255, 10, 0.1) !important;
+        }
+
+        .iti__search-input {
+            background-color: #0d0d11 !important;
+            color: #fff !important;
+            border: none !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 0 !important;
+            padding: 15px !important;
+            margin: 0 !important;
+            width: 100% !important;
+            font-size: 1rem;
+            display: block !important;
+            outline: none !important;
+        }
+
+        /* Added search container styling to eliminate white gap */
+        .iti__dropdown-content,
+        .iti__search-container {
+            background-color: #0d0d11 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .iti__country-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .iti__country-list::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        .iti__country-list::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+
+        .iti__search-input::placeholder {
+            color: #666;
+        }
+
+        .iti__selected-dial-code {
+            color: #fff !important;
+            margin-left: 4px !important;
+            font-weight: 500;
+        }
+
+        .iti__arrow {
+            border-top-color: #999 !important;
+        }
+
+        .iti__arrow--up {
+            border-bottom-color: #999 !important;
+        }
+
+        .iti__flag-container {
+            padding: 2px !important;
+            z-index: 10 !important;
+            cursor: pointer;
+        }
+
+        .iti--separate-dial-code .iti__selected-flag {
+            background-color: rgba(255, 255, 255, 0.03) !important;
+            border: none !important;
+            border-radius: 12px;
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 0 10px !important;
+            pointer-events: auto !important;
+            cursor: pointer !important;
+        }
+
+        .iti__selected-dial-code {
+            order: 1 !important;
+            margin-right: 2px !important;
+            color: #fff !important;
+        }
+
+        .iti__arrow {
+            order: 2 !important;
+            margin-right: 4px !important;
+        }
+
+        .iti__flag {
+            order: 3 !important;
+        }
+
+        #reg-country {
+            color: transparent !important;
+            caret-color: transparent !important;
+            user-select: none;
+            background: rgba(255, 255, 255, 0.05) !important;
+            pointer-events: none !important;
+            /* Pass clicks to flag container */
+        }
+
+        /* Prevent input from being typed in but allow clicks */
+        #reg-country:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        /* Ensure dropdown is above all other elements and has no white background */
+        .iti--container {
+            z-index: 10000000 !important;
+            background-color: transparent !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html,
+        body {
+            background-color: var(--black);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            width: 100%;
+        }
+
+        section {
+            overflow: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* --- Scroll Animation --- */
+        .syne-bold {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal.slide-left {
+            transform: translateX(-80px);
+        }
+
+        .reveal.slide-right {
+            transform: translateX(80px);
+        }
+
+        .reveal.active {
+            opacity: 1 !important;
+            transform: translate(0, 0) !important;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0px 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--neon-yellow);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(241, 255, 10, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+            color: #fff;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        /* --- Hero Section Styles --- */
+        .hero {
+            padding: 0;
+            background: #000;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-card {
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            padding: 40px 20px;
+            margin: 0 50px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: calc(70vh - 40px);
+        }
+
+        .hero-arc {
+            position: absolute;
+            top: -500px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160%;
+            height: 950px;
+            background: radial-gradient(circle at 50% 100%, var(--neon-yellow) 0%, rgba(241, 255, 10, 0.1) 70%, transparent 100%);
+            border-radius: 50%;
+            z-index: 2;
+            opacity: 0.8;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .top-badge-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .pill-white {
+            background: #fff;
+            color: #000;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .pill-sub {
+            color: var(--text-grey);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .dots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            background: var(--neon-yellow);
+            border-radius: 50%;
+        }
+
+        .dot.op-4 {
+            opacity: 0.4;
+        }
+
+        .dot.op-6 {
+            opacity: 0.6;
+        }
+
+        .brand-name {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #fff;
+            letter-spacing: -1px;
+        }
+
+        .hero-headline {
+            font-size: 2rem;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: 600;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-sub {
+            color: #fff;
+            font-size: 0.9rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .instructor-unity-card {
+            background: rgba(13, 13, 17, 0.8);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            display: inline-flex;
+            gap: 24px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .instr-unity-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            object-fit: cover;
+            filter: grayscale(1);
+            margin-bottom: 10px;
+            background: #222;
+        }
+
+        .instr-unity-item p {
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .sched-pills-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .sched-pill-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            color: var(--text-grey);
+        }
+
+        .sched-pill-box b {
+            color: #fff;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .hero-cta {
+            margin-bottom: 30px;
+        }
+
+        .hero-cta .value-tag {
+            text-decoration: line-through;
+            opacity: 0.5;
+            font-size: 0.85em;
+            margin: 0 8px;
+        }
+
+        .hero-footer-info {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .urgency-text {
+            font-size: 0.85rem;
+            color: var(--text-grey);
+        }
+
+        .chairs-flex {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chairs-flex i {
+            font-size: 0.9rem;
+            color: var(--neon-yellow);
+        }
+
+        .chairs-flex i.empty {
+            color: #222;
+        }
+
+        .price-strip {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            font-size: 1rem;
+        }
+
+        .price-strip .label {
+            color: var(--text-grey);
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        .price-strip .val {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .price-strip .neon {
+            color: var(--neon-yellow);
+        }
+
+        /* --- Mentor Card Styles --- */
+        /* --- Mentors Header --- */
+        .hero-mentors img {
+            transition: transform 0.3s ease;
+        }
+
+        .hero-mentors img:hover {
+            transform: scale(1.02);
+        }
+
+        .metrics-section {
+            padding: 60px 0 80px;
+            text-align: center;
+            background: #000;
+            color: #fff;
+        }
+
+        .metrics-section h3 {
+            font-size: 0.95rem;
+            color: #888;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .metric-card {
+            background: #111;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-card i {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            display: block;
+            color: var(--neon-yellow);
+        }
+
+        .metric-card h4 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .metric-card h4 i {
+            margin: 0 !important;
+            font-size: 1.1rem !important;
+        }
+
+        .metric-card p {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Audience Section Styles --- */
+        .audience-card {
+            background-image: url('images/group.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            margin: 60px auto;
+            min-height: 520px;
+            width: 70%;
+        }
+
+        .audience-card::before {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, 0.95) 0%,
+                    rgba(0, 0, 0, 0.8) 60%,
+                    rgba(0, 0, 0, 0.4) 100%);
+            z-index: 1;
+            border-radius: 20px;
+        }
+
+        .audience-card::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            background: var(--neon-yellow);
+            mix-blend-mode: color;
+            opacity: 0.15;
+            z-index: 2;
+            border-radius: 20px;
+        }
+
+        .audience-col {
+            flex: 1;
+            padding-bottom: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .audience-col h3 {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            color: #fff;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .audience-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .audience-list li {
+            font-size: 0.75rem;
+            color: var(--text-grey);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .audience-list li i {
+            color: var(--neon-yellow);
+            font-size: 0.65rem;
+            margin-top: 3px;
+        }
+
+        /* --- Eligibility Section --- */
+        .eligibility-section {
+            padding: 80px 0;
+            background: #000;
+        }
+
+        .eligibility-header {
+            text-align: left;
+            margin-bottom: 50px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .eligibility-header span {
+            color: #999;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .eligibility-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--neon-yellow);
+            letter-spacing: -1px;
+        }
+
+        .eligibility-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .eligibility-card {
+            background: rgba(13, 13, 17, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 30px;
+            transition: all 0.4s ease;
+        }
+
+        .eligibility-card.yes {
+            border: 1px solid rgba(241, 255, 10, 0.3);
+        }
+
+        .eligibility-card.no {
+            border: 1px solid rgba(255, 77, 77, 0.2);
+        }
+
+        .eligibility-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .eligibility-card.yes:hover {
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 20px rgba(241, 255, 10, 0.1);
+        }
+
+        .eligibility-card.no:hover {
+            border-color: rgba(255, 77, 77, 0.5);
+        }
+
+        .eligibility-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .eligibility-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .eligibility-list li {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            display: flex;
+            gap: 12px;
+            color: #ccc;
+        }
+
+        .eligibility-card.no h3,
+        .eligibility-card.no .eligibility-list li {
+            color: #666;
+        }
+
+        .eligibility-list li i {
+            margin-top: 4px;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .eligibility-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .eligibility-header h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* --- New Registration Form & OTP Styles --- */
+        .registration-section {
+            padding: 100px 0;
+            background: #07090F;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reg-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.25fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 992px) {
+            .reg-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .reg-info {
+                text-align: center;
+            }
+
+            .reg-benefits {
+                text-align: left;
+                max-width: 400px;
+                margin: 20px auto;
+            }
+
+            .reg-card {
+                padding: 25px 15px;
+            }
+
+            .reg-btn {
+                padding: 14px 10px;
+                font-size: 0.85rem;
+            }
+        }
+
+        .reg-card {
+            background: rgba(13, 13, 17, 0.4);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            padding: 45px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .form-step {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: #fff;
+            transition: all 0.3s;
+            font-size: 1rem;
+            appearance: none;
+        }
+
+        select.form-control {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: calc(100% - 15px) center;
+            padding-right: 40px;
+        }
+
+        select.form-control option {
+            background: #0d0d11;
+            color: #fff;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--neon-yellow);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 15px rgba(241, 255, 10, 0.1);
+        }
+
+        .step-indicator {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .step-dot {
+            height: 4px;
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .step-dot.active {
+            background: var(--neon-yellow);
+        }
+
+        .checkbox-group {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .checkbox-item input {
+            margin-top: 3px;
+        }
+
+        .otp-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .otp-input {
+            width: 45px;
+            height: 55px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--neon-yellow);
+        }
+
+        .otp-input:focus {
+            outline: none;
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 15px rgba(241, 255, 10, 0.2);
+        }
+
+        .resend-timer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 15px;
+        }
+
+        .resend-btn {
+            background: none;
+            border: none;
+            color: var(--neon-yellow);
+            cursor: pointer;
+            font-weight: 600;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .resend-btn.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Curriculum Styles --- */
+        .curriculum-section {
+            background-color: #000;
+            color: #fff;
+            padding: 80px 0 120px;
+        }
+
+        .curriculum-header {
+            text-align: left;
+            margin-bottom: 60px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .curriculum-header span {
+            color: #999;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .curriculum-header h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #fff;
+        }
+
+        .day-label {
+            display: block;
+            text-align: left;
+            font-weight: 700;
+            color: #fff;
+            margin: 40px 0 20px;
+            font-size: 1.1rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .curriculum-grid.two-cols {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .curr-card {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 0;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .curr-card-header {
+            padding: 24px 32px 16px;
+            border-bottom: 1px solid #333;
+        }
+
+        .curr-card-header .session {
+            font-size: 0.75rem;
+            color: #999;
+            font-weight: 600;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .curr-card-header h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        .curr-card-body {
+            padding: 24px 32px 32px;
+        }
+
+        .curr-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .curr-list li {
+            display: flex;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .curr-list li i {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-top: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .curriculum-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .curriculum-header h2 {
+                font-size: 2rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 0 15px;
+            }
+
+            .metric-card {
+                padding: 20px 10px;
+            }
+
+            .metric-card h4 {
+                font-size: 1.4rem;
+            }
+
+            .metric-card p {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* --- Tools & Mentors Dark Sections --- */
+        .dark-section {
+            background-color: #0a0a0a;
+            color: #fff;
+            padding: 100px 0;
+        }
+
+        .dark-section .section-header {
+            text-align: left;
+            margin-bottom: 60px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dark-section .section-header span {
+            color: var(--text-grey);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .dark-section .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #fff;
+        }
+
+        .dark-section .section-header p {
+            color: var(--text-grey);
+            max-width: 800px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Tools Grid */
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .logo-box-hero {
+            border-radius: 8px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .logo-box {
+            background: #fff;
+            border-radius: 8px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .logo-box span {
+            color: #000;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Mentor Cards */
+        .mentor-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mentor-grid .reveal:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+
+        .mentor-grid .reveal:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .mentor-card-premium {
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px 20px;
+            text-align: center;
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .mentor-card-premium:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .mentor-photo-box {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 15px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mentor-photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mentor-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .badge-green {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .badge-blue {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+        }
+
+        .badge-gold {
+            background: rgba(234, 179, 8, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .mentor-card-premium h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+
+        .mentor-card-premium .title {
+            font-size: 0.75rem;
+            color: var(--neon-yellow);
+            margin-bottom: 12px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .mentor-card-premium .about {
+            font-size: 0.7rem;
+            color: #999;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mentor-quals {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .mentor-quals li {
+            font-size: 0.75rem;
+            color: #bbb;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mentor-quals li i {
+            color: var(--neon-yellow);
+            width: 16px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .linkedin-link {
+            color: #fff;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+            font-size: 1.1rem;
+        }
+
+        .linkedin-link:hover {
+            opacity: 1;
+            color: #0077B5;
+        }
+
+        /* --- FAQ Accordion Styles --- */
+        .faq-section {
+            background-color: #000;
+            color: #fff;
+            padding: 80px 0 120px;
+        }
+
+        .faq-section .section-header {
+            text-align: left;
+            max-width: 1000px;
+            margin: 0 auto 40px;
+        }
+
+        .faq-section .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+
+        .faq-accordion {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item:hover {
+            border-color: rgba(241, 255, 10, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .faq-trigger {
+            padding: 24px 30px;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .faq-trigger i {
+            font-size: 0.8rem;
+            color: #666;
+            transition: transform 0.3s;
+        }
+
+        .faq-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            opacity: 0;
+            padding: 0 30px;
+        }
+
+        .faq-inner {
+            overflow: hidden;
+            color: #999;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .faq-item.faq-active {
+            border-color: var(--neon-yellow);
+            background: rgba(241, 255, 10, 0.05);
+        }
+
+        .faq-item.faq-active .faq-trigger i {
+            transform: rotate(180deg);
+            color: var(--neon-yellow);
+        }
+
+        .faq-item.faq-active .faq-content {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            padding: 0 30px 24px;
+        }
+
+        /* --- Bento Testimonials Styles --- */
+        .testimonials-section {
+            background-color: #000;
+            color: #fff;
+            padding: 80px 0;
+        }
+
+        .testimonials-header {
+            text-align: left;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+        }
+
+        .testimonials-header h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 200px;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .bento-item {
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-item:hover {
+            border-color: var(--neon-yellow);
+            transform: translateY(-5px);
+        }
+
+        .bento-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .bento-item.wide {
+            grid-column: span 2;
+        }
+
+        .bento-item.tall {
+            grid-row: span 2;
+        }
+
+        .bento-item p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #ccc;
+            font-style: italic;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            /* Standard property */
+            margin-bottom: 15px;
+        }
+
+        .bento-item.large p,
+        .bento-item.tall p {
+            -webkit-line-clamp: 8;
+            line-clamp: 8;
+            /* Standard property */
+        }
+
+        .bento-item .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .bento-item .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .bento-item .user-info .name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .bento-item .user-info .role {
+            font-size: 0.75rem;
+            color: var(--neon-yellow);
+        }
+
+        .bento-item .quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: rgba(241, 255, 10, 0.1);
+        }
+
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: auto;
+            }
+
+            .bento-item {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- Mentor Card Highlighting --- */
+        .card-highlight {
+            border-color: rgba(74, 222, 128, 0.3);
+            background: linear-gradient(180deg, rgba(34, 197, 94, 0.05) 0%, rgba(17, 17, 17, 1) 100%);
+        }
+
+        @media (max-width: 1024px) {
+            .logo-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .mentor-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .mentor-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dark-section .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* --- Registration Styles --- */
+        .registration-section {
+            background: #000;
+            padding: 100px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .reg-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .reg-info h2 {
+            font-size: 2.8rem;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+
+        .reg-info p {
+            color: #999;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .reg-benefits {
+            list-style: none;
+            padding: 0;
+        }
+
+        .reg-benefits li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        .reg-benefits i {
+            color: var(--neon-yellow);
+        }
+
+        .reg-card {
+            background: #111;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+        }
+
+        .form-control {
+            width: 100%;
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 14px 20px;
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 0 4px rgba(241, 255, 10, 0.1);
+        }
+
+        .phone-input {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 10px;
+        }
+
+        .reg-btn {
+            width: 100%;
+            background: var(--neon-yellow);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            margin-top: 10px;
+        }
+
+        .reg-btn:hover {
+            transform: scale(1.02);
+            background: #e6f300;
+        }
+
+        @media (max-width: 900px) {
+            .reg-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .reg-info {
+                text-align: center;
+            }
+
+            .reg-benefits {
+                display: inline-block;
+                text-align: left;
+            }
+        }
+
+        /* --- Footer Styles --- */
+        .site-footer {
+            background: #000;
+            padding: 80px 0 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-brand .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-brand .brand span {
+            color: var(--neon-yellow);
+        }
+
+        .footer-brand p {
+            color: #999;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 36px;
+            height: 36px;
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-yellow);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .contact-item p {
+            font-size: 0.95rem;
+            color: #fff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: #666;
+            font-size: 1.3rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--neon-yellow);
+        }
+
+        .footer-bottom {
+            max-width: 1000px;
+            margin: 60px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #444;
+        }
+
+        .bottom-strip {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .bottom-strip .price-info {
+            color: #fff;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .bottom-strip .cta-btn {
+            background: var(--neon-yellow);
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .bottom-strip .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(241, 255, 10, 0.3);
+        }
+
+        .encrypted-notice {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .encrypted-notice i {
+            color: #444;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: left;
+            }
+
+            .footer-brand p {
+                margin: 0;
+            }
+
+            .contact-item {
+                justify-content: flex-start;
+            }
+
+            .social-links {
+                justify-content: flex-start;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .audience-card {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                align-items: start;
+                height: auto;
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .audience-card {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+            }
+
+            .bottom-strip {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 12px 20px;
+                gap: 10px;
+            }
+
+            .bottom-strip .price-info {
+                font-size: 0.85rem;
+                text-align: left;
+            }
+
+            .bottom-strip .cta-btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-card {
+                margin: 10px 10px;
+                padding: 0px 10px;
+                min-height: calc(100vh - 20px);
+            }
+
+            .top-badge-container {
+                margin-bottom: 20px;
+            }
+
+            .logo-box-hero {
+                height: auto;
+                padding: 10px 0;
+            }
+
+            .hero-arc {
+                top: -300px;
+                width: 220%;
+                height: 800px;
+            }
+
+            .hero-headline {
+                font-size: 1.6rem;
+            }
+
+            .hero-sub {
+                font-size: 0.85rem;
+                padding: 0 10px;
+            }
+
+            .hero-mentors img {
+                max-width: 250px;
+            }
+
+            .sched-pills-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .sched-pill-box {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            .metrics-grid {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .metric-card {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-padding h2 {
+                font-size: 1.8rem !important;
+            }
+
+            .audience-card {
+                width: 100%;
+                margin: 30px auto;
+                padding: 30px 20px;
+            }
+        }
+
+        /* --- Success Modal Redesign --- */
+        .modal-overlay.active {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 999999 !important;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(15px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .success-card {
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--neon-yellow);
+            position: relative;
+            padding: 50px 40px;
+            animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%);
+        }
+
+        @keyframes modalPop {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon-box {
+            width: 80px;
+            height: 80px;
+            background: var(--neon-yellow);
+            color: var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 30px;
+            box-shadow: 0 0 30px rgba(241, 255, 10, 0.4);
+        }
+
+        .registration-status {
+            color: var(--neon-yellow);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .success-title {
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .success-message {
+            color: var(--text-grey);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .highlight-date {
+            color: #fff;
+            font-weight: 700;
+            border-bottom: 2px solid var(--neon-yellow);
+        }
+
+        .join-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 18px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .redirect-wrapper {
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .redirect-text {
+            font-size: 0.9rem;
+            color: var(--text-grey);
+            margin-bottom: 10px;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 100%;
+            background: var(--neon-yellow);
+            transform-origin: left;
+            transform: scaleX(1);
+        }
+
+        .progress-bar.animate {
+            transition: transform 5s linear;
+            transform: scaleX(0);
+        }
+
+        @media (max-width: 768px) {
+            .success-card {
+                padding: 40px 20px;
+            }
+
+            .success-title {
+                font-size: 1.8rem;
+            }
+
+            .certificate-grid {
+                grid-template-columns: 1fr !important;
+                gap: 40px !important;
+                text-align: center;
+            }
+
+            .cert-image-box img {
+                transform: none !important;
+            }
+        }
+
+        /* --- Scroll Triggered Urgency Bar --- */
+        #urgency-bar {
+            transform: translateY(-100%);
+            transition: transform 0.3s ease-in-out;
+            visibility: hidden;
+        }
+
+        #urgency-bar.visible {
+            transform: translateY(0);
+            visibility: visible;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .typed-cursor {
+            color: var(--neon-yellow);
+            font-weight: 300;
+        }
+
+ /* Premium Community Box */
+.community-premium-box {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 20;
+
+    padding: 10px 14px;
+
+    background: rgba(10, 10, 10, 0.55);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+
+    box-shadow:
+        0 8px 24px rgba(0,0,0,0.38),
+        0 0 15px rgba(255, 221, 0, 0.05);
+}
+
+.community-box-flex {
+    display: flex;
+    align-items: center;
+}
+
+.community-premium-box img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.15);
+
+    margin-right: 10px;
+}
+
+.community-box-text {
+    text-align: left;
+}
+
+.community-box-text h3 {
+    color: var(--neon-yellow);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    margin-bottom: 2px;
+}
+
+.community-box-text p {
+    color: #cfcfcf;
+    font-size: 0.58rem;
+    line-height: 1.25;
+    margin: 0;
+}
+        
+    </style>
+</head>
+
+<body>
+
+    <!-- Urgency Bar -->
+    <div id="urgency-bar" style="background: var(--accent-red); color: white; text-align: center; padding: 8px 0; font-size: 12px; font-weight: 700; position: fixed; top: 0; width: 100%; z-index: 1000;">
+        🚨 SEATS ARE STRICTLY LIMITED <br> Registration closes when the seats are full.
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-card">
+            <div class="hero-arc"></div>
+            <div class="hero-grid"></div>
+            <div class="community-premium-box">
+
+    <div class="community-box-flex">
+        <img src="images/cryptonicarea.png" alt="Cryptonic Area Logo">
+
+        <div class="community-box-text">
+            <h3>CRYPTONIC AREA</h3>
+            <p>Empowering The Digital Defenders</p>
+        </div>
+    </div>
+
+            </div>
+            
+
+            <div class="hero-content container">
+    <div class="top-badge-container">
+        <span class="pill-white">OffSec Live Masterclass</span>
+        <span class="pill-sub">FOR ASPIRING CYBERSECURITY ANALYSTS</span>
+    </div>
+
+    <div class="logo-box-hero">
+        <div class="brand-name">CRYPTONIC AREA</div>
+    </div>
+
+    <h1 class="hero-headline">
+        Real-World Recon Psychology:<br>
+        <span id="typed-text"></span>
+    </h1>
+
+    <p class="hero-sub">
+        Master modern reconnaissance, hacker methodology, and real-world attack psychology — beyond theory.
+    </p>
+
+    <div class="hero-mentors" style="margin-bottom: 20px; display: flex; justify-content: center;">
+        <img src="images/mentor_banner.png" alt="Mentors" style="max-width: 200px; width: 100%; border-radius: 5px;">
+    </div>
+
+    <div class="sched-pills-row">
+        <div class="sched-pill-box">
+            <b>Timming</b> 24 May, Sun - 7:30PM to 8:30PM IST
+        </div>
+    </div>
+
+    <div class="hero-cta" style="display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap;">
+        <a href="#register" class="btn btn-primary" style="font-size: 0.9rem; padding: 12px 28px;">
+            Grab My FREE Spot
+        </a>
+
+        <a href="#curriculum" class="btn btn-outline" style="font-size: 0.9rem; padding: 12px 28px;">
+            View Master Class Details
+        </a>
+    </div>
+</div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics-section" id="metrics">
+        <div class="container">
+            <h3>This Workshop is brought to you by</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h4>Live Session</h4>
+                    <p>Interactive Learning Experience</p>
+                </div>
+                <div class="metric-card">
+                    <i class="fas fa-layer-group"></i>
+                    <h4>Recon <i class="fas fa-arrow-right"></i> Attack</h4>
+                    <p>Real Security Workflow</p>
+                </div>
+                <div class="metric-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>100% Free</h4>
+                    <p>Zero Cost, Real Skills</p>
+                </div>
+                <div class="metric-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h4>Guest Speaker</h4>
+                    <p>Industry Practitioners</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who Is This For Section -->
+    <section style="padding-top: 40px; padding-bottom: 40px;" class="section-padding bg-black" id="audience">
+        <div class="container">
+            <div style="margin-bottom: 40px; text-align: center;">
+                <span style="color: #666; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">CYBERSECURITY
+                    FOR ALL CAREER STAGES</span>
+                <h2 style="font-size: 2.5rem; font-weight: 300; color: var(--neon-yellow);">Who is CRYPTONIC AREA
+                    for?</h2>
+            </div>
+            <div class="audience-card">
+                <div class="audience-col">
+                    <h3>Aspiring Security Analysts</h3>
+                    <ul class="audience-list">
+                        <li><i class="fas fa-check"></i> Fresh CS Graduates</li>
+                        <li><i class="fas fa-check"></i> Cybersecurity Students</li>
+                        <li><i class="fas fa-check"></i> Tech Enthusiasts</li>
+                        <li><i class="fas fa-check"></i> Career Starters</li>
+                    </ul>
+                </div>
+                <div class="audience-col">
+                    <h3>IT Professionals</h3>
+                    <ul class="audience-list">
+                        <li><i class="fas fa-check"></i> System Administrators</li>
+                        <li><i class="fas fa-check"></i> Network Engineers</li>
+                        <li><i class="fas fa-check"></i> Help Desk Techs</li>
+                        <li><i class="fas fa-check"></i> Support Specialists</li>
+                    </ul>
+                </div>
+                <div class="audience-col">
+                    <h3>Career Transitioners</h3>
+                    <ul class="audience-list">
+                        <li><i class="fas fa-check"></i> Quality Assurance</li>
+                        <li><i class="fas fa-check"></i> Software Developers</li>
+                        <li><i class="fas fa-check"></i> Non-tech Professionals</li>
+                        <li><i class="fas fa-check"></i> Career Switchers</li>
+                    </ul>
+                </div>
+                <div class="audience-col">
+                    <h3>Tech Leaders</h3>
+                    <ul class="audience-list">
+                        <li><i class="fas fa-check"></i> IT Managers</li>
+                        <li><i class="fas fa-check"></i> Security Operation Leads</li>
+                        <li><i class="fas fa-check"></i> Infrastructure Managers</li>
+                        <li><i class="fas fa-check"></i> Tech Entrepreneurs</li>
+                    </ul>
+                </div>
+                <div class="audience-col">
+                    <h3>Security Enthusiasts</h3>
+                    <ul class="audience-list">
+                        <li><i class="fas fa-check"></i> Bug Bounty Hunters</li>
+                        <li><i class="fas fa-check"></i> Home Lab Builders</li>
+                        <li><i class="fas fa-check"></i> Self-Taught Learners</li>
+                        <li><i class="fas fa-check"></i> Cybersecurity Hobbyists</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Section -->
+    <section class="curriculum-section" id="curriculum">
+        <div class="container" style="max-width: 1000px;">
+            <div class="curriculum-header">
+                <span>CURRICULUM</span>
+<h2 style="color: var(--neon-yellow);">What You'll Learn in This Masterclass</h2>
+</div>
+
+<span class="day-label">HACKER METHODOLOGY</span>
+<div class="curriculum-grid">
+    <div class="curr-card">
+        <div class="curr-card-header">
+            <span class="session">REAL-WORLD HACKOPS FOUNDATION</span>
+            <h4>Understanding Hacker Thinking & Recon Psychology</h4>
+        </div>
+        <div class="curr-card-body">
+            <ul class="curr-list">
+                <li><i class="fas fa-check"></i> Understanding how real attackers think and approach targets</li>
+                <li><i class="fas fa-check"></i> The psychology behind reconnaissance and information gathering</li>
+                <li><i class="fas fa-check"></i> How attack surfaces are discovered in modern environments</li>
+                <li><i class="fas fa-check"></i> Practical methodologies used during real-world recon operations</li>
+                <li><i class="fas fa-check"></i> Understanding digital footprints and exposed public assets</li>
+                <li><i class="fas fa-check"></i> Building an offensive security mindset beyond theory</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<span class="day-label" style="margin-top: 40px;">PRACTICAL INSIGHTS</span>
+<div class="curriculum-grid">
+    <div class="curr-card">
+        <div class="curr-card-header">
+            <span class="session">MODERN RECON WORKFLOW</span>
+            <h4>From Target Analysis to Professional Methodology</h4>
+        </div>
+        <div class="curr-card-body">
+            <ul class="curr-list">
+                <li><i class="fas fa-check"></i> Understanding modern reconnaissance workflow and structure</li>
+                <li><i class="fas fa-check"></i> How professionals map and analyze public attack surfaces</li>
+                <li><i class="fas fa-check"></i> Real-world mindset used during offensive security engagements</li>
+                <li><i class="fas fa-check"></i> Strategic thinking behind ethical hacker operations</li>
+                <li><i class="fas fa-check"></i> Beginner to intermediate roadmap for offensive security</li>
+                <li><i class="fas fa-check"></i> Industry expectations and practical learning approach</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+        <!-- Eligibility Section -->
+        <section class="eligibility-section" id="eligibility">
+            <div class="container">
+                <div class="eligibility-header">
+                    <span>ELIGIBILITY</span>
+<h2 style="color: var(--neon-yellow);">Is This For You?</h2>
+</div>
+<div class="eligibility-grid">
+    <!-- YES Column -->
+    <div class="eligibility-card yes">
+        <h3><i class="fas fa-check-circle" style="color: var(--neon-yellow);"></i> YES — This is for you
+        </h3>
+        <ul class="eligibility-list">
+            <li><i class="fas fa-check" style="color: var(--neon-yellow);"></i> You're a student or beginner exploring technology</li>
+            <li><i class="fas fa-check" style="color: var(--neon-yellow);"></i> You want to understand offensive security professionally</li>
+            <li><i class="fas fa-check" style="color: var(--neon-yellow);"></i> You have learned theory but need practical clarity</li>
+            <li><i class="fas fa-check" style="color: var(--neon-yellow);"></i> You want to understand how real security assessments work</li>
+            <li><i class="fas fa-check" style="color: var(--neon-yellow);"></i> You want real insights beyond basic online content</li>
+            <li><i class="fas fa-check" style="color: var(--neon-yellow);"></i> You're serious about building skills in security</li>
+        </ul>
+    </div>
+                    <!-- NO Column -->
+                    <div class="eligibility-card no">
+                        <h3><i class="fas fa-times-circle" style="color: #ff4d4d;"></i> NO — Skip this</h3>
+                        <ul class="eligibility-list">
+                            <li><i class="fas fa-times" style="color: #ff4d4d;"></i> You're looking for a recorded
+                                course</li>
+                            <li><i class="fas fa-times" style="color: #ff4d4d;"></i> You want certificates without
+                                learning</li>
+                            <li><i class="fas fa-times" style="color: #ff4d4d;"></i> You're not willing to show up live
+                            </li>
+                            <li><i class="fas fa-times" style="color: #ff4d4d;"></i> You think theory is enough to get
+                                hired</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificate Section -->
+        <section class="section-padding bg-black" style="padding: 100px 0; border-top: 1px solid rgba(255,255,255,0.05);" id="certificate">
+            <div class="container" style="max-width: 1100px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;" class="certificate-grid">
+                    <div class="cert-info">
+                        <span style="color: var(--text-grey); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">GET
+    RECOGNIZED</span>
+<h2 style="font-size: 2.5rem; color: var(--neon-yellow); margin-top: 15px; margin-bottom: 25px;">
+    Professional Participation Certificate</h2>
+<p style="color: #999; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
+    Each participant who attends the live masterclass will receive a verified certificate of participation
+    from Cryptonic Area.
+</p>
+<ul class="reg-benefits" style="margin-bottom: 40px;">
+    <li><i class="fas fa-check-circle" style="color: var(--neon-yellow);"></i> Verified proof of participation</li>
+    <li><i class="fas fa-check-circle" style="color: var(--neon-yellow);"></i> Recognition from a live professional session</li>
+    <li><i class="fas fa-check-circle" style="color: var(--neon-yellow);"></i> Add to your LinkedIn & Resume</li>
+</ul>
+</div>
+                    <div class="cert-image-box" style="position: relative;">
+                        <div style="position: absolute; inset: -40px; background: radial-gradient(circle, rgba(241, 255, 10, 0.1) 0%, transparent 70%); z-index: -1;">
+                        </div>
+                        <img src="images/cert.jpeg" alt="Certification Demo" style="width: 100%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.1); transform: perspective(1000px) rotateY(-5deg);">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mentors Section -->
+        <section class="dark-section" id="mentors">
+            <div class="container">
+                <div class="section-header">
+                    <span>EXPERT-LED LEARNING</span>
+                    <h2 style="color: var(--neon-yellow);">Meet our lead speaker</h2>
+                    <p>Our mentors, who are recognized leaders in their respective fields, are chosen not just for their
+                        success, but for their capability to mold the next generation of professionals.</p>
+                </div>
+                <div class="mentor-grid">
+                    <!-- AkashDas Barman-->
+                    <div class="mentor-card-premium card-highlight">
+                        <div class="mentor-photo-box">
+                            <img src="images/akashdas.png" alt="AkashDas Barman">
+                        </div>
+                        <span class="mentor-badge badge-green">Active Industry Pro</span>
+
+                        <h3>
+                            AkashDas Barman
+                            <a href="https://www.linkedin.com/in/akashdas-barman-85a7a6319"
+                               target="_blank"
+                               class="linkedin-link"
+                               style="margin-left:8px; vertical-align:middle;">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </h3>
+
+                        <span class="title">Lead Mentor — Offensive Security @ Cryptonic Area</span>
+
+                        <p class="about">Security professional with real-world offensive workflow experience.</p>
+
+                        <ul class="mentor-quals">
+                            <li><i class="fas fa-crosshairs"></i> Recon Methodology & Attack Surface Analysis</li>
+                            <li><i class="fas fa-user-secret"></i> Offensive Security Mindset & Hacker Psychology</li>
+                            <li><i class="fas fa-network-wired"></i> Real-World Security Operations & Workflow</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Testimonials Section -->
+        <section class="testimonials-section" id="testimonials">
+            <div class="container">
+                <div class="testimonials-header">
+                    <span>SUCCESS STORIES</span>
+                    <h2 style="color: var(--neon-yellow);">What our Alumni say</h2>
+                </div>
+
+                <div class="bento-grid">
+                    <!-- Large Card -->
+                    <div class="bento-item large" style="border-color: rgba(241, 10, 10, 0.3); background: linear-gradient(180deg, rgba(241, 10, 10, 0.05) 0%, rgba(17, 17, 17, 1) 100%);">
+                        <i class="fas fa-quote-right quote-icon"></i>
+                        <div class="stars" style="color: #ff3131; margin-bottom: 15px; font-size: 0.8rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"One of the most practical cybersecurity masterclasses I’ve attended. The session was focused on real methodologies, recon thinking, and industry-level mindset instead of just basic theory."</p>
+                        <div class="user-info">
+                            <div class="name">Aarav Sharma<br><span class="role" style="color: #ff3131;">Masterclass • Verified Participant</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Wide Card -->
+                    <div class="bento-item wide">
+                        <div class="stars" style="color: var(--neon-yellow); margin-bottom: 15px; font-size: 0.8rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Cryptonic Area genuinely delivers quality learning. The live session was highly engaging and gave deep insights into how modern offensive security operations actually work."</p>
+                        <div class="user-info">
+                            <div class="name">Rudra Nagar<br><span class="role">Security Cohort • Active Learner</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Small Card -->
+                    <div class="bento-item">
+                        <div class="stars" style="color: var(--neon-yellow); margin-bottom: 15px; font-size: 0.8rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p>"The teaching style was simple, practical, and beginner-friendly. I finally understood how recon and hacker psychology connect in real-world security."</p>
+                        <div class="user-info">
+                            <div class="name">Vihaan<br><span class="role">Training Participant</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Tall Card -->
+                    <div class="bento-item tall">
+                        <div class="stars" style="color: var(--neon-yellow); margin-bottom: 15px; font-size: 0.8rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"The masterclass gave a completely different perspective on offensive security. Instead of random tools, the mentor explained how professionals think, analyze targets, and approach security operations strategically."</p>
+                        <div class="user-info">
+                            <div class="name">Ananya Verma<br><span class="role">Cybersecurity Student • Community Member</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Small Card -->
+                    <div class="bento-item">
+                        <div class="stars" style="color: var(--neon-yellow); margin-bottom: 15px; font-size: 0.8rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Very professional session with real industry-oriented explanations. Loved how everything was connected with practical workflows and modern attack surface analysis."</p>
+                        <div class="user-info">
+                            <div class="name">Kunal<br><span class="role">Offensive Security Enthusiast</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Wide Card -->
+                    <div class="bento-item wide" style="border-color: rgba(255, 49, 49, 0.4); box-shadow: 0 0 20px rgba(255, 49, 49, 0.1);">
+                        <div class="stars" style="color: #ff3131; margin-bottom: 15px; font-size: 0.8rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"This was not a generic cybersecurity webinar. The content felt premium, practical, and focused on real-world hacker methodology. Huge respect to the Cryptonic Area team for such valuable insights."</p>
+                        <div class="user-info">
+                            <div class="name">Yash Pandey<br><span class="role" style="color: #ff3131;">Live Masterclass • Verified Attendee</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Registration Section -->
+        <section class="registration-section" id="register">
+            <div class="container">
+                <div class="reg-grid" id="reg-form-container">
+                    <div class="reg-info">
+                        <div class="curriculum-header" style="margin-bottom: 30px;">
+                            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--neon-yellow); letter-spacing: 3px; display: block; margin-bottom: 10px;">REGISTRATION
+    OPEN</span>
+<h2 class="syne-bold" style="font-size: 3rem; line-height: 1.1; color: #fff;">Secure Your
+    Virtual Seat Now
+</h2>
+</div>
+<p style="font-size: 1.1rem; color: #aaa; margin-bottom: 30px; line-height: 1.6;">Join this exclusive live
+    masterclass and gain practical insight into offensive security from a real-world professional perspective.</p>
+<ul class="reg-benefits" style="list-style: none; padding: 0;">
+    <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 12px; color: #fff; font-size: 1rem;">
+        <i class="fas fa-check-circle" style="color: var(--neon-yellow);"></i> 100% Free Live
+        Masterclass
+    </li>
+    <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 12px; color: #fff; font-size: 1rem;">
+        <i class="fas fa-check-circle" style="color: var(--neon-yellow);"></i> Practical Security
+        Insights
+    </li>
+    <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 12px; color: #fff; font-size: 1rem;">
+        <i class="fas fa-check-circle" style="color: var(--neon-yellow);"></i>
+        Session with an Industry Expert
+    </li>
+    <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 12px; color: #fff; font-size: 1rem;">
+        <i class="fas fa-check-circle" style="color: var(--neon-yellow);"></i> Access to the
+        Official Community
+    </li>
+</ul>
+</div>
+                    <div class="reg-card">
+
+    <form id="registrationForm">
+
+        <div class="step-indicator">
+            <div class="step-dot active"></div>
+        </div>
+
+        <div class="form-step active">
+
+            <h3 class="syne-bold"
+                style="font-size: 1.2rem; margin-bottom: 20px;">
+
+                Masterclass Registration
+
+            </h3>
+
+            <!-- Email -->
+
+            <div class="form-group">
+
+                <label>Email Address</label>
+
+                <input type="email"
+                       id="email"
+                       class="form-control"
+                       placeholder="name@email.com"
+                       required
+                       oninput="this.value = this.value.toLowerCase()">
+
+            </div>
+
+            <!-- Full Name -->
+
+            <div class="form-group">
+
+                <label>Full Name</label>
+
+                <input type="text"
+                       id="fullName"
+                       class="form-control"
+                       placeholder="Enter your full name"
+                       required
+                       maxlength="50"
+                       oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
+
+            </div>
+
+            <!-- Mobile Number -->
+
+            <div class="form-group">
+
+                <label>Mobile Number</label>
+
+                <input type="tel"
+                       id="mobile"
+                       class="form-control"
+                       placeholder="Enter mobile number"
+                       required
+                       maxlength="15"
+                       oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+            </div>
+
+            <!-- College -->
+
+            <div class="form-group">
+
+                <label>College / Organization</label>
+
+                <input type="text"
+                       id="college"
+                       class="form-control"
+                       placeholder="Enter college or organization"
+                       required>
+
+            </div>
+
+            <!-- Current Level -->
+
+            <div class="form-group">
+
+                <label>Current Level</label>
+
+                <select id="level"
+                        class="form-control"
+                        required
+                        style="cursor:pointer;
+                               appearance:none;
+                               -webkit-appearance:none;
+                               -moz-appearance:none;
+                               background:
+                               linear-gradient(45deg, transparent 50%, #f1ff0a 50%),
+                               linear-gradient(135deg, #f1ff0a 50%, transparent 50%);
+                               background-position:
+                               calc(100% - 20px) calc(50% - 3px),
+                               calc(100% - 14px) calc(50% - 3px);
+                               background-size:6px 6px, 6px 6px;
+                               background-repeat:no-repeat;
+                               padding-right:50px;">
+
+                    <option value="" disabled selected>
+                        Select your level
+                    </option>
+
+                    <option value="Beginner">
+                        Beginner
+                    </option>
+
+                    <option value="Intermediate">
+                        Intermediate
+                    </option>
+
+                    <option value="Advanced">
+                        Advanced
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- Previous Session -->
+
+<div class="form-group">
+
+    <label>
+        Have you attended any previous Cryptonic Area session or masterclass?
+    </label>
+
+    <div style="display:flex;
+                gap:8px;
+                margin-top:10px;">
+
+        <label style="cursor:pointer;">
+
+            <input type="radio"
+                   name="previousSession"
+                   value="Yes"
+                   required
+                   style="accent-color:#f1ff0a;
+                          width:16px;
+                          height:16px;
+                          cursor:pointer;">
+
+            <span style="margin-left:6px;
+                         font-size:0.92rem;">
+                Yes
+            </span>
+
+        </label>
+
+        <label style="cursor:pointer;
+                      margin-left:18px;">
+
+            <input type="radio"
+                   name="previousSession"
+                   value="No"
+                   style="accent-color:#f1ff0a;
+                          width:16px;
+                          height:16px;
+                          cursor:pointer;">
+
+            <span style="margin-left:6px;
+                         font-size:0.92rem;">
+                No
+            </span>
+
+        </label>
+
+    </div>
+
+</div>
+            <!-- Checkbox -->
+
+            <div class="checkbox-group">
+
+                <label class="checkbox-item">
+
+                    <input type="checkbox"
+                           id="commitment"
+                           required>
+
+                    <span>
+                        I am joining this session to improve my practical skills and grow consistently in the field of cyber security.
+                    </span>
+
+                </label>
+
+            </div>
+
+            <!-- Submit -->
+
+            <button type="submit"
+                    class="reg-btn"
+                    style="margin-top: 30px; width: 100%;">
+
+                Secure My Spot
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+        <section class="faq-section" id="faq">
+            <div class="container">
+                <div class="section-header">
+                    <span>MORE DOUBTS?</span>
+                    <h2 style="font-weight: 300; color: var(--neon-yellow);">Frequently Asked Questions</h2>
+                </div>
+
+               <div class="faq-accordion">
+    <div class="faq-item">
+        <button class="faq-trigger">
+            Is the masterclass completely free?
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+            <div class="faq-inner">
+                Yes, this masterclass is completely free. There are no hidden charges or registration fees.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-trigger">
+            Who can join this masterclass?
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+            <div class="faq-inner">
+                Anyone interested in technology and security can join. It is ideal for students, beginners, and professionals looking to understand offensive security.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-trigger">
+            What are the system requirements?
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+            <div class="faq-inner">
+                A laptop or desktop with a stable internet connection is enough. No additional tools need to be installed beforehand.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-trigger">
+            Is attendance important?
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+            <div class="faq-inner">
+                Yes, this is a live interactive session, so attending the full masterclass will help you get the best learning experience.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-trigger">
+            Will I get a certificate?
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+            <div class="faq-inner">
+                Yes, a certificate of participation will be provided to all attendees after the session.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-trigger">
+            I am a complete beginner — can I join?
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+            <div class="faq-inner">
+                Absolutely. This masterclass is designed to be beginner-friendly and easy to understand.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-trigger">
+            What will I learn in this masterclass?
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+            <div class="faq-inner">
+                You will learn offensive security fundamentals, attack surface analysis, vulnerability identification, and real-world security workflows.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-trigger">
+            How do I join the live session?
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+            <div class="faq-inner">
+                After registering, you will receive the joining details through the official WhatsApp group before the session begins.
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+        <!-- Success Modal -->
+<div id="successModal" class="modal-overlay">
+    <div class="success-card glass-card">
+        <div class="success-icon-box">
+            <i class="fas fa-check-circle" style="font-size: 3rem;"></i>
+        </div>
+
+        <span class="registration-status">REGISTRATION CONFIRMED</span>
+
+        <h2 class="success-title">You're on the list!</h2>
+
+        <p class="success-message">
+            Your credentials have been verified. Welcome to the <strong>Live Offensive Security Masterclass</strong>.
+        </p>
+
+        <a href="https://chat.whatsapp.com/DAgkUaYt5XS393Xn5netF1?mode=gi_t"
+           id="communityLink"
+           class="btn btn-primary join-btn">
+            <span>JOIN WHATSAPP COMMUNITY</span>
+            <i class="fas fa-arrow-right"></i>
+        </a>
+
+        <div class="redirect-wrapper">
+            <p class="redirect-text">
+                Auto-redirecting in <span id="timerCount">5</span>s...
+            </p>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="redirectProgress"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function startRedirectTimer() {
+
+        let timeLeft = 5;
+
+        const timer = document.getElementById('timerCount');
+
+        const countdown = setInterval(() => {
+
+            timeLeft--;
+
+            if (timer) {
+                timer.innerText = timeLeft;
+            }
+
+            if (timeLeft <= 0) {
+
+                clearInterval(countdown);
+
+                window.location.href =
+                    "https://chat.whatsapp.com/DAgkUaYt5XS393Xn5netF1?mode=gi_t";
+            }
+
+        }, 1000);
+    }
+</script>
+                    
+        <!-- Sticky Bottom Strip -->
+        <div class="bottom-strip">
+            <div class="price-info">
+                <span>OffSec Live Masterclass</span>
+            </div>
+            <a href="#register" class="cta-btn">Register Free</a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <span class="brand">CRYPTONIC<span>AREA</span></span>
+                        <p>Empowering the next generation of cybersecurity professionals with practical, industry-ready
+                            skills.</p>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>CONTACT</h4>
+                        <div class="contact-list">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                                <p>info@cryptonicarea.site</p>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                                <p>+91 9509622197</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>SOCIALS</h4>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/company/cryptonicarea"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://instagram.com/karndeepbaror"><i class="fab fa-instagram"></i></a>
+                            <a href="https://t.me/'CryptonicArea"><i class="fab fa-telegram-plane"></i></a>
+                            <a href="https://youtube.com/@CryptonicArea"><i class="fab fa-youtube"></i></a>
+                            <a href="https://whatsapp.com/channel/0029Vb6plDSBKfi3qGz2fq0f"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2025 CRYPTONIC AREA All rights reserved.</p>
+                    <div class="encrypted-notice">
+                        <i class="fas fa-shield-alt"></i>
+                        End-to-end encrypted data transmission
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+        <script src="js/intlTelInput.min.js"></script>
+        <script>
+            // Initialize intl-tel-input
+            const countryInput = document.querySelector("#reg-country");
+            const phoneInput = document.querySelector("#reg-phone");
+            const iti = window.intlTelInput(countryInput, {
+                initialCountry: "in",
+                separateDialCode: true,
+                countrySearch: true,
+                autoPlaceholder: "off",
+                utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/utils.js",
+            });
+
+            // Prevent typing and handle dropdown opening
+            countryInput.addEventListener('keydown', (e) => e.preventDefault());
+            countryInput.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                const container = countryInput.closest('.iti');
+                const flag = container ? container.querySelector('.iti__selected-flag') : null;
+                if (flag) flag.click();
+            });
+
+            // Auto-append + for numeric searches to improve filtering without +
+            document.addEventListener('input', (e) => {
+                if (e.target.classList.contains('iti__search-input')) {
+                    const input = e.target;
+                    let val = input.value;
+                    if (val && /^[0-9]/.test(val) && !val.startsWith('+')) {
+                        input.value = '+' + val;
+                        // Dispatch event so the library registers the change
+                        input.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
+                }
+            });
+
+            // Scroll Reveal Implementation - Move to separate block to avoid interference
+            (function () {
+                try {
+                    const revealObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('active');
+                                revealObserver.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.1 });
+
+                    const elementsToReveal = document.querySelectorAll('.hero-content, .metric-card, .audience-card, .curr-card, .mentor-card-premium, .bento-item, .reg-container, .faq-item, .cert-info, .cert-image-box, h2, .container > div, .eligibility-card, .eligibility-header');
+
+                    elementsToReveal.forEach(el => {
+                        el.classList.add('reveal');
+                        revealObserver.observe(el);
+                    });
+                    console.log('Scroll Reveal initialized for ' + elementsToReveal.length + ' elements');
+                } catch (e) {
+                    console.error('Scroll Reveal failed:', e);
+                }
+            })();
+
+            // Scroll-triggered Urgency Bar
+            const urgencyBar = document.getElementById('urgency-bar');
+            const heroSection = document.querySelector('.hero');
+            if (urgencyBar && heroSection) {
+                window.addEventListener('scroll', () => {
+                    const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                    if (window.scrollY > heroBottom - 50) {
+                        urgencyBar.classList.add('visible');
+                    } else {
+                        urgencyBar.classList.remove('visible');
+                    }
+                });
+            }
+
+            // Parallax Effect for Mentor Cards
+            window.addEventListener('scroll', () => {
+                const cards = document.querySelectorAll('.mentor-card-premium');
+                const windowHeight = window.innerHeight;
+
+                cards.forEach((card, index) => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < windowHeight && rect.bottom > 0) {
+                        const speed = 0.05 + (index * 0.03);
+                        const yPos = (windowHeight - rect.top) * speed;
+                        // Integrate with reveal animation (only if already revealed)
+                        if (card.classList.contains('active')) {
+                            card.style.transform = `translateY(${-yPos}px)`;
+                        }
+                    }
+                });
+            });
+
+            // FAQ Accordion
+            // FAQ Accordion (Independent of Reveal state)
+            document.querySelectorAll('.faq-trigger').forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const item = trigger.parentElement;
+                    const isOpened = item.classList.contains('faq-active');
+
+                    // Close all other FAQ items
+                    document.querySelectorAll('.faq-item').forEach(i => {
+                        i.classList.remove('faq-active');
+                    });
+
+                    // Toggle the clicked one
+                    if (!isOpened) {
+                        item.classList.add('faq-active');
+                    }
+                });
+            });
+
+            // Countdown Timer
+            const countdownDate = new Date("May 1, 2026 19:00:00").getTime();
+            const updateCountdown = () => {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+                if (distance < 0) return;
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                const d = document.getElementById("days");
+                const h = document.getElementById("hours");
+                const m = document.getElementById("mins");
+                const s = document.getElementById("secs");
+                if (d) d.innerText = days.toString().padStart(2, '0');
+                if (h) h.innerText = hours.toString().padStart(2, '0');
+                if (m) m.innerText = minutes.toString().padStart(2, '0');
+                if (s) s.innerText = seconds.toString().padStart(2, '0');
+            };
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            // --- Multi-Step Form Logic ---
+            let currentStep = 1;
+            let regData = {};
+
+            function nextStep(step) {
+                // Validation for Step 1
+                if (currentStep === 1 && step === 2) {
+                    const name = document.getElementById('reg-name').value.trim();
+                    const email = document.getElementById('reg-email').value.trim();
+                    const phone = document.getElementById('reg-phone').value.trim();
+                    const city = document.getElementById('reg-city').value.trim();
+
+                    if (!name || !email || !phone || !city) {
+                        alert('Please fill all basic details.');
+                        return;
+                    }
+
+                    if (name.length < 3) { alert('Name must be at least 3 characters.'); return; }
+                    if (!/^[a-zA-Z\s]+$/.test(name)) { alert('Name should only contain alphabets and spaces.'); return; }
+                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Please enter a valid email.'); return; }
+                    // Combine for validation
+                    const fullNumber = iti.getSelectedCountryData().dialCode + phone;
+                    if (!iti.isValidNumber() && phone.length < 7) { // Basic fallback check
+                        alert("Please enter a valid mobile number.");
+                        return;
+                    }
+                    // More precise check using internal number setter
+                    iti.setNumber("+" + iti.getSelectedCountryData().dialCode + phone);
+                    if (!iti.isValidNumber()) {
+                        alert("Please enter a valid mobile number for " + iti.getSelectedCountryData().name);
+                        return;
+                    }
+                }
+
+                document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+                document.querySelectorAll('.step-dot').forEach(d => d.classList.remove('active'));
+
+                document.getElementById('step-' + step).classList.add('active');
+                for (let i = 1; i <= step; i++) {
+                    const dot = document.getElementById('dot-' + i);
+                    if (dot) dot.classList.add('active');
+                }
+                currentStep = step;
+            }
+
+            function handleStatusChange(val) {
+                const label = document.getElementById('org-label');
+                const input = document.getElementById('reg-org');
+                if (val === 'Student') {
+                    label.innerText = 'College Name';
+                    input.placeholder = 'Enter your college name';
+                } else {
+                    label.innerText = 'Current Organization';
+                    input.placeholder = 'Company name or "NA"';
+                }
+            }
+
+            // --- OTP Input Logic ---
+            function moveNext(input, index) {
+                if (input.value.length === 1 && index < 6) {
+                    input.parentElement.querySelectorAll('.otp-input')[index].focus();
+                }
+            }
+
+            function movePrev(input, index) {
+                if (event.key === "Backspace" && input.value === "" && index > 1) {
+                    input.parentElement.querySelectorAll('.otp-input')[index - 2].focus();
+                }
+            }
+
+            // --- Registration Submission ---
+            const admissionForm = document.getElementById('admissionForm');
+            admissionForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Checkboxes
+                if (!document.getElementById('opt-whatsapp').checked || !document.getElementById('opt-terms').checked) {
+                    alert('Please accept the mandatory terms and updates.');
+                    return;
+                }
+
+                const submitBtn = admissionForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerText;
+                submitBtn.innerText = 'Sending OTP...';
+                submitBtn.disabled = true;
+
+                const formData = new FormData(admissionForm);
+                // Get full phone number
+                const fullPhone = "+" + iti.getSelectedCountryData().dialCode + document.getElementById('reg-phone').value;
+                formData.set('phone', fullPhone);
+                formData.append('country_code', '');
+
+                // Append checkboxes status
+                formData.append('whatsapp_opt_in', document.getElementById('opt-whatsapp').checked ? 1 : 0);
+                formData.append('terms_accepted', document.getElementById('opt-terms').checked ? 1 : 0);
+                formData.append('future_updates_opt_in', document.getElementById('opt-future').checked ? 1 : 0);
+
+                // Append UTM Parameters from URL
+                const urlParams = new URLSearchParams(window.location.search);
+                ['utm_source', 'utm_medium', 'utm_campaign'].forEach(p => {
+                    if (urlParams.has(p)) formData.append(p, urlParams.get(p));
+                });
+
+                try {
+                    const response = await fetch('send_otp.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+
+                    if (result.success) {
+                        // Switch to OTP view
+                        document.getElementById('step-1').classList.remove('active');
+                        document.getElementById('step-2').classList.remove('active');
+                        document.getElementById('step-otp').classList.add('active');
+                        document.getElementById('dot-3').classList.add('active');
+                        startTimer();
+                    } else {
+                        alert(result.error || 'Registration failed');
+                    }
+                } catch (err) {
+                    alert('Connection error. Please try again.');
+                } finally {
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+            });
+
+            // --- OTP Verification ---
+            const verifyBtn = document.getElementById('verifyBtn');
+            verifyBtn.addEventListener('click', async () => {
+                const inputs = document.querySelectorAll('.otp-input');
+                let otp = "";
+                inputs.forEach(input => otp += input.value);
+
+                if (otp.length < 6) {
+                    alert('Please enter 6-digit OTP');
+                    return;
+                }
+
+                verifyBtn.innerText = 'Verifying...';
+                verifyBtn.disabled = true;
+
+                try {
+                    const response = await fetch('verify_otp.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            otp: otp,
+                            email: document.getElementById('reg-email').value,
+                            phone: "+" + iti.getSelectedCountryData().dialCode + document.getElementById('reg-phone').value
+                        })
+                    });
+                    const result = await response.json();
+
+                    if (result.success) {
+                        // Success! Show Modal
+                        const modal = document.getElementById('successModal');
+                        if (modal) {
+                            modal.classList.add('active');
+                            confetti({
+                                particleCount: 150,
+                                spread: 70,
+                                origin: { y: 0.6 },
+                                colors: ['#F1FF0A', '#ffffff', '#000000']
+                            });
+                            startRedirectTimer();
+                        }
+                    } else {
+                        alert(result.error || 'Verification failed');
+                        // Reset OTP inputs on failure
+                        if (result.attempts_left <= 0) {
+                            alert('Too many attempts. Request new OTP.');
+                            location.reload();
+                        }
+                    }
+                } catch (err) {
+                    alert('Error verifying OTP.');
+                } finally {
+                    verifyBtn.innerText = 'Verify & Confirm Registration';
+                    verifyBtn.disabled = false;
+                }
+            });
+
+            // --- Utils ---
+            let timerInterval;
+            function startTimer() {
+                let sec = 60;
+                const timerEle = document.getElementById('timer-sec');
+                const resendBtn = document.getElementById('resendBtn');
+                resendBtn.classList.remove('active');
+
+                clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    sec--;
+                    timerEle.innerText = sec;
+                    if (sec <= 0) {
+                        clearInterval(timerInterval);
+                        resendBtn.classList.add('active');
+                    }
+                }, 1000);
+            }
+
+            async function resendOTP() {
+                const resendBtn = document.getElementById('resendBtn');
+                if (!resendBtn.classList.contains('active')) return;
+
+                resendBtn.innerText = 'Resending...';
+                const email = document.getElementById('reg-email').value;
+                const phone = "+" + iti.getSelectedCountryData().dialCode + document.getElementById('reg-phone').value;
+
+                try {
+                    const response = await fetch('send_otp.php?resend=1', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: email, phone: phone })
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('OTP resent successfully!');
+                        startTimer();
+                    } else {
+                        alert(result.error);
+                    }
+                } catch (e) { alert('Error resending OTP'); }
+                finally { resendBtn.innerText = 'Resend OTP'; }
+            }
+
+            function startRedirectTimer() {
+                const progressBar = document.getElementById('redirectProgress');
+                const timerDisplay = document.getElementById('timerCount');
+                const communityLink = document.getElementById('communityLink').href;
+
+                if (progressBar) progressBar.classList.add('animate');
+
+                let secondsLeft = 5;
+                const interval = setInterval(() => {
+                    secondsLeft--;
+                    if (timerDisplay) timerDisplay.innerText = secondsLeft;
+                    if (secondsLeft <= 0) {
+                        clearInterval(interval);
+                        window.location.href = communityLink;
+                    }
+                }, 1000);
+            }
+            // Close Modal on Click Outside
+            const modal = document.getElementById('successModal');
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            }
+            // --- Typing Effect ---
+            if (document.getElementById('typed-text')) {
+                new Typed('#typed-text', {
+                    strings: [
+                        'LEARN WHAT ACTUALLY GETS YOU HIRED.',
+                        'MASTER REAL-WORLD OFFSEC.',
+                        'SECURE YOUR FUTURE IN CYBER.',
+                        'EXPERIENCE A LIVE INTERACTIVE SESSION.'
+                    ],
+                    typeSpeed: 50,
+                    backSpeed: 30,
+                    backDelay: 2000,
+                    loop: true,
+                    cursorChar: '|'
+                });
+            }
+        </script>
+
+</section>
+
+<script src="script.js"></script>
+
+</body>
+                </html>
