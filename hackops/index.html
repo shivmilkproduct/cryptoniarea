@@ -2989,30 +2989,59 @@
 </div>
 </section>
         <!-- Success Modal -->
-        <div id="successModal" class="modal-overlay">
-            <div class="success-card glass-card">
-                <div class="success-icon-box">
-                    <i class="fas fa-check-circle" style="font-size: 3rem;"></i>
-                </div>
-                <span class="registration-status">REGISTRATION CONFIRMED</span>
-                <h2 class="success-title">You're on the list!</h2>
-                <p class="success-message">
-                    Your credentials have been verified. Welcome to the <strong>Live Offensive Security Masterclass</strong>.
-                </p>
+<div id="successModal" class="modal-overlay">
+    <div class="success-card glass-card">
+        <div class="success-icon-box">
+            <i class="fas fa-check-circle" style="font-size: 3rem;"></i>
+        </div>
 
-                <a href="https://chat.whatsapp.com/DAgkUaYt5XS393Xn5netF1?mode=gi_t" id="communityLink" class="btn btn-primary join-btn">
-                    <span>JOIN WHATSAPP COMMUNITY</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+        <span class="registration-status">REGISTRATION CONFIRMED</span>
 
-                <div class="redirect-wrapper">
-                    <p class="redirect-text">Auto-redirecting in <span id="timerCount">5</span>s...</p>
-                    <div class="progress-container">
-                        <div class="progress-bar" id="redirectProgress"></div>
-                    </div>
-                </div>
+        <h2 class="success-title">You're on the list!</h2>
+
+        <p class="success-message">
+            Your credentials have been verified. Welcome to the <strong>Live Offensive Security Masterclass</strong>.
+        </p>
+
+        <a href="https://chat.whatsapp.com/DAgkUaYt5XS393Xn5netF1?mode=gi_t"
+           id="communityLink"
+           class="btn btn-primary join-btn">
+            <span>JOIN WHATSAPP COMMUNITY</span>
+            <i class="fas fa-arrow-right"></i>
+        </a>
+
+        <div class="redirect-wrapper">
+            <p class="redirect-text">
+                Auto-redirecting in <span id="timerCount">5</span>s...
+            </p>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="redirectProgress"></div>
             </div>
         </div>
+    </div>
+</div>
+
+<script>
+    let timeLeft = 5;
+
+    const timer = document.getElementById('timerCount');
+
+    const countdown = setInterval(() => {
+        timeLeft--;
+
+        if (timer) {
+            timer.innerText = timeLeft;
+        }
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+
+            window.location.href =
+                "https://chat.whatsapp.com/DAgkUaYt5XS393Xn5netF1?mode=gi_t";
+        }
+    }, 1000);
+</script>
 
         <!-- Sticky Bottom Strip -->
         <div class="bottom-strip">
