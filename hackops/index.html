@@ -3023,26 +3023,32 @@
 </div>
 
 <script>
-    let timeLeft = 5;
+    function startRedirectTimer() {
 
-    const timer = document.getElementById('timerCount');
+        let timeLeft = 5;
 
-    const countdown = setInterval(() => {
-        timeLeft--;
+        const timer = document.getElementById('timerCount');
 
-        if (timer) {
-            timer.innerText = timeLeft;
-        }
+        const countdown = setInterval(() => {
 
-        if (timeLeft <= 0) {
-            clearInterval(countdown);
+            timeLeft--;
 
-            window.location.href =
-                "https://chat.whatsapp.com/DAgkUaYt5XS393Xn5netF1?mode=gi_t";
-        }
-    }, 1000);
+            if (timer) {
+                timer.innerText = timeLeft;
+            }
+
+            if (timeLeft <= 0) {
+
+                clearInterval(countdown);
+
+                window.location.href =
+                    "https://chat.whatsapp.com/DAgkUaYt5XS393Xn5netF1?mode=gi_t";
+            }
+
+        }, 1000);
+    }
 </script>
-
+                    
         <!-- Sticky Bottom Strip -->
         <div class="bottom-strip">
             <div class="price-info">
