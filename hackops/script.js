@@ -37,6 +37,8 @@ document.getElementById("registrationForm").addEventListener("submit", async fun
 
             document.getElementById("successModal").classList.add("active");
 
+            startRedirectTimer();
+
             document.getElementById("registrationForm").reset();
 
         } else {
