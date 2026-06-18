@@ -337,45 +337,53 @@
         </div>
     </section>
 
-    <!-- FOUNDER SPOTLIGHT -->
-<!-- COMPACT LANDSCAPE MENTOR SECTION -->
+   <!-- ULTRA-PREMIUM LANDSCAPE MENTOR SECTION -->
 <section id="mentor-profile" class="px-6 py-10 max-w-4xl mx-auto">
-    <div class="premium-cyber-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-500 relative overflow-hidden group">
+    <div class="relative group p-[1px] rounded-2xl bg-gradient-to-r from-red-600 via-slate-400 to-red-600 shadow-[0_0_20px_rgba(220,38,38,0.15)] transition-all duration-500 hover:shadow-[0_0_40px_rgba(220,38,38,0.3)]">
         
-        <!-- Animated Scanner Line -->
-        <div class="absolute inset-x-0 top-0 h-[2px] bg-red-600 transform -translate-x-full group-hover:animate-[scan_2s_linear_infinite]"></div>
+        <div class="bg-white p-6 rounded-[calc(1rem-1px)] relative overflow-hidden">
+            <!-- Background Pulse Animation -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(220,38,38,0.03),transparent_70%)] animate-pulse"></div>
 
-        <div class="flex items-center gap-6">
-            <!-- Photo (Compact) -->
-            <a href="https://linkedin.com/" target="_blank" class="shrink-0">
-                <div class="w-24 h-24 rounded-xl border border-slate-200 overflow-hidden group-hover:border-red-500 transition-colors">
-                    <img src="images/mentor.png" alt="Mentor" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" class="w-full h-full object-cover">
-                    <i class="fas fa-user-ninja text-3xl text-slate-300 hidden w-full h-full items-center justify-center"></i>
+            <div class="flex items-center gap-6 relative z-10">
+                <!-- Photo with Glow -->
+                <div class="shrink-0 relative">
+                    <div class="absolute -inset-1 bg-gradient-to-tr from-red-600 to-slate-400 rounded-xl blur opacity-30 group-hover:opacity-70 transition-opacity"></div>
+                    <div class="w-24 h-24 rounded-xl border border-slate-200 overflow-hidden relative bg-white">
+                        <img src="images/mentor.png" alt="Mentor" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" class="w-full h-full object-cover">
+                        <i class="fas fa-user-ninja text-3xl text-slate-300 hidden w-full h-full items-center justify-center"></i>
+                    </div>
                 </div>
-            </a>
 
-            <!-- Name & Details -->
-            <div class="flex-grow">
-                <a href="https://linkedin.com/" target="_blank">
-                    <h2 class="text-2xl font-black text-slate-900 uppercase italic leading-none hover:text-red-600 transition-colors">
-                        KARNDEEP BAROR
-                    </h2>
-                </a>
-                <p class="text-[10px] font-bold text-red-600 uppercase tracking-widest mt-1 mb-3">
-                    ETHICAL HACKER | CYBER CRIME INVESTIGATOR
-                </p>
+                <!-- Name & Details -->
+                <div class="flex-grow">
+                    <div class="flex items-center gap-3">
+                        <h2 class="text-2xl font-black text-slate-900 uppercase italic leading-none">
+                            KARNDEEP BAROR
+                        </h2>
+                        <!-- LinkedIn Logo -->
+                        <a href="https://linkedin.com/" target="_blank" class="text-slate-400 hover:text-[#0A66C2] transition-colors duration-300 transform hover:scale-110">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                    </div>
+                    
+                    <p class="text-[10px] font-bold text-red-600 uppercase tracking-widest mt-1 mb-3">
+                        ETHICAL HACKER | CYBER CRIME INVESTIGATOR
+                    </p>
 
-                <!-- Status Lines -->
-                <div class="flex gap-3">
-                    <span class="text-[8px] font-black text-slate-500 uppercase bg-slate-100 px-2 py-1 rounded">Active Professional</span>
-                    <span class="text-[8px] font-black text-slate-500 uppercase bg-slate-100 px-2 py-1 rounded">Infrastructure Expert</span>
+                    <div class="flex gap-3">
+                        <span class="text-[8px] font-black text-slate-600 uppercase bg-slate-100 border border-slate-200 px-3 py-1 rounded-full shadow-inner">Active Professional</span>
+                        <span class="text-[8px] font-black text-slate-600 uppercase bg-slate-100 border border-slate-200 px-3 py-1 rounded-full shadow-inner">Infrastructure Expert</span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Quote Box (Inside same section) -->
-        <div class="mt-4 pt-4 border-t border-slate-100 italic text-[11px] font-medium text-slate-600">
-            "Security is not a product, but a process of constant innovation and vigilance."
+            <!-- Quote Box with Premium Border -->
+            <div class="mt-5 pt-4 border-t border-slate-100 italic text-[11px] font-semibold text-slate-500 relative">
+                <span class="text-red-500 text-lg absolute -top-3 left-0">"</span>
+                <span class="pl-4">Security is not a product, but a process of constant innovation and vigilance.</span>
+                <span class="text-red-500 text-lg">"</span>
+            </div>
         </div>
     </div>
 </section>
