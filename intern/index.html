@@ -338,63 +338,52 @@
     </section>
 
     <!-- FOUNDER SPOTLIGHT -->
-            <section id="mentor-profile" class="px-6 py-16 max-w-6xl mx-auto relative">
+<!-- COMPACT LANDSCAPE MENTOR SECTION -->
+<section id="mentor-profile" class="px-6 py-10 max-w-4xl mx-auto">
+    <div class="premium-cyber-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-500 relative overflow-hidden group">
         
-        <div class="text-center mb-12">
-            <p class="mono text-[10px] font-bold text-red-600 uppercase tracking-[0.4em] mb-2">Program Leadership</p>
-            <h3 class="text-2xl md:text-3xl font-black uppercase italic text-slate-900">Lead Mentor</h3>
-        </div>
+        <!-- Animated Scanner Line -->
+        <div class="absolute inset-x-0 top-0 h-[2px] bg-red-600 transform -translate-x-full group-hover:animate-[scan_2s_linear_infinite]"></div>
 
-        <div class="premium-cyber-card relative group w-full rounded-[2.5rem] p-8 md:p-10 overflow-hidden transition-all duration-700 hover:shadow-[0_20px_50px_-12px_rgba(220,38,38,0.15)] bg-white border border-slate-300">
-            
-            <div class="grid md:grid-cols-12 gap-10 items-center">
-                
-                <div class="md:col-span-4 relative">
-                    <a href="https://www.linkedin.com/in/karndeepbaror" target="_blank" class="block group/img transition-transform duration-500 hover:scale-[1.02]">
-                        <div class="relative w-full aspect-square rounded-[2rem] border-2 border-slate-200 group-hover/img:border-red-500 overflow-hidden shadow-xl transition-colors duration-500">
-                            <img src="images/mentor.png" alt="Mentor Profile" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" class="w-full h-full object-cover">
-                            <i class="fas fa-user-ninja text-6xl text-slate-400 group-hover/img:text-red-500 transition-colors hidden absolute inset-0 flex items-center justify-center"></i>
-                        </div>
-                        <div class="absolute -bottom-3 -right-3 px-4 py-1.5 bg-red-600 text-white text-[9px] font-black uppercase tracking-widest rounded-lg shadow-lg">Elite Tier</div>
-                    </a>
+        <div class="flex items-center gap-6">
+            <!-- Photo (Compact) -->
+            <a href="https://linkedin.com/" target="_blank" class="shrink-0">
+                <div class="w-24 h-24 rounded-xl border border-slate-200 overflow-hidden group-hover:border-red-500 transition-colors">
+                    <img src="images/mentor.png" alt="Mentor" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" class="w-full h-full object-cover">
+                    <i class="fas fa-user-ninja text-3xl text-slate-300 hidden w-full h-full items-center justify-center"></i>
                 </div>
+            </a>
 
-                <div class="md:col-span-8 space-y-6">
-                    <div>
-                        <a href="https://www.linkedin.com/in/karndeepbaror" target="_blank" class="inline-block">
-                            <h2 class="text-4xl md:text-5xl font-black text-slate-900 uppercase italic tracking-tighter hover:text-red-600 transition-colors">
-                                KARNDEEP <span class="text-red-600">BAROR</span>
-                            </h2>
-                        </a>
-                        <p class="mono text-[11px] font-bold text-red-600 uppercase tracking-widest mt-1">
-                            Ethical Hacker <span class="text-slate-300 mx-2">|</span> Security Professional
-                        </p>
-                    </div>
+            <!-- Name & Details -->
+            <div class="flex-grow">
+                <a href="https://linkedin.com/" target="_blank">
+                    <h2 class="text-2xl font-black text-slate-900 uppercase italic leading-none hover:text-red-600 transition-colors">
+                        KARNDEEP BAROR
+                    </h2>
+                </a>
+                <p class="text-[10px] font-bold text-red-600 uppercase tracking-widest mt-1 mb-3">
+                    ETHICAL HACKER | CYBER CRIME INVESTIGATOR
+                </p>
 
-                    <div class="flex flex-wrap gap-4">
-                        <div class="px-5 py-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-3">
-                            <span class="relative flex h-3 w-3">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                            </span>
-                            <span class="text-[10px] font-black text-slate-700 uppercase tracking-widest">Active Industry Professional</span>
-                        </div>
-                        <div class="px-5 py-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-3">
-                            <i class="fas fa-network-wired text-[12px] text-red-500"></i>
-                            <span class="text-[10px] font-black text-slate-700 uppercase tracking-widest">Senior Infrastructure Auditor</span>
-                        </div>
-                    </div>
-
-                    <div class="bg-gradient-to-r from-red-50 to-white border-l-4 border-red-600 p-6 rounded-r-2xl">
-                        <p class="text-[12px] text-slate-700 font-bold italic leading-relaxed uppercase tracking-wide">
-                            "Mastering security isn't just about finding vulnerabilities; it's about engineering the elite mindset to anticipate them before they exist."
-                        </p>
-                    </div>
+                <!-- Status Lines -->
+                <div class="flex gap-3">
+                    <span class="text-[8px] font-black text-slate-500 uppercase bg-slate-100 px-2 py-1 rounded">Active Professional</span>
+                    <span class="text-[8px] font-black text-slate-500 uppercase bg-slate-100 px-2 py-1 rounded">Infrastructure Expert</span>
                 </div>
-
             </div>
         </div>
-    </section>
+
+        <!-- Quote Box (Inside same section) -->
+        <div class="mt-4 pt-4 border-t border-slate-100 italic text-[11px] font-medium text-slate-600">
+            "Security is not a product, but a process of constant innovation and vigilance."
+        </div>
+    </div>
+</section>
+
+<!-- Add this to your style tag if not present -->
+<style>
+@keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+</style>
 
 
  <!-- INTERACTIVE CYBER NETWORKING SCRIPT -->
