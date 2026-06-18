@@ -343,6 +343,89 @@
         </div>
     </section>
 
+    <!-- PREMIUM FAQ SECTION -->
+<section id="faq" class="px-6 py-20 max-w-3xl mx-auto">
+    <div class="text-center mb-12">
+        <p class="mono text-[10px] font-bold text-red-600 uppercase tracking-[0.4em] mb-2">Knowledge Base</p>
+        <h3 class="text-2xl md:text-3xl font-black uppercase italic text-slate-900">Frequently Asked Queries</h3>
+    </div>
+
+    <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <div class="faq-item group border border-slate-200 rounded-2xl bg-white hover:border-red-500 transition-all duration-300">
+            <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+                <span class="font-black text-slate-900 uppercase tracking-tight">How to apply for the internship?</span>
+                <i class="fas fa-chevron-down text-red-600 transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content hidden px-6 pb-6 text-[12px] text-slate-600 font-medium leading-relaxed border-t border-slate-50 pt-2">
+                <p class="typing-effect">Click on the 'Apply Now' button on our dashboard. Fill in your details in the application form, and our core team will review your profile. Shortlisted candidates will be contacted via email or WhatsApp within 48 hours.</p>
+            </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item group border border-slate-200 rounded-2xl bg-white hover:border-red-500 transition-all duration-300">
+            <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+                <span class="font-black text-slate-900 uppercase tracking-tight">Are there any fees or charges?</span>
+                <i class="fas fa-chevron-down text-red-600 transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content hidden px-6 pb-6 text-[12px] text-slate-600 font-medium leading-relaxed border-t border-slate-50 pt-2">
+                <p class="typing-effect">Absolutely not. Cryptonic Area believes in skill accessibility. The entire internship program is 100% free of cost. We do not charge any registration, training, or certification fees.</p>
+            </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item group border border-slate-200 rounded-2xl bg-white hover:border-red-500 transition-all duration-300">
+            <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+                <span class="font-black text-slate-900 uppercase tracking-tight">Will I get a certificate?</span>
+                <i class="fas fa-chevron-down text-red-600 transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content hidden px-6 pb-6 text-[12px] text-slate-600 font-medium leading-relaxed border-t border-slate-50 pt-2">
+                <p class="typing-effect">Yes. Upon successful completion of your internship project and evaluation, you will be awarded an industry-recognized certificate of completion.</p>
+            </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item group border border-slate-200 rounded-2xl bg-white hover:border-red-500 transition-all duration-300">
+            <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+                <span class="font-black text-slate-900 uppercase tracking-tight">Do you provide Letter of Recommendation?</span>
+                <i class="fas fa-chevron-down text-red-600 transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content hidden px-6 pb-6 text-[12px] text-slate-600 font-medium leading-relaxed border-t border-slate-50 pt-2">
+                <p class="typing-effect">We provide a formal Letter of Recommendation (LOR) to interns based on their overall performance, project contribution, and professional conduct during the program.</p>
+            </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item group border border-slate-200 rounded-2xl bg-white hover:border-red-500 transition-all duration-300">
+            <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+                <span class="font-black text-slate-900 uppercase tracking-tight">Any recognition for top interns?</span>
+                <i class="fas fa-chevron-down text-red-600 transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content hidden px-6 pb-6 text-[12px] text-slate-600 font-medium leading-relaxed border-t border-slate-50 pt-2">
+                <p class="typing-effect">Top performers are recognized within our official community and may be invited for advanced research collaborations or internal project contributions at Cryptonic Area.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ LOGIC SCRIPT -->
+<script>
+    function toggleFaq(btn) {
+        const content = btn.nextElementSibling;
+        const icon = btn.querySelector('i');
+        
+        // Close others
+        document.querySelectorAll('.faq-content').forEach(item => {
+            if(item !== content) item.classList.add('hidden');
+        });
+        document.querySelectorAll('i').forEach(i => i.classList.remove('rotate-180'));
+
+        // Toggle current
+        content.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+    }
+</script>
+    
     <!-- ADVANCED SLIDER FOR COMPLIANCE LOGOS -->
     <section class="py-10 overflow-hidden relative">
         <div class="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10"></div>
