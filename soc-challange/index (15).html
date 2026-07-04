@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOC Simulation Lab | Cryptonic Area</title>
+<meta name="description" content="A live Security Operations Center simulation by Cryptonic Area. Five real-world analyst challenges, one access key, zero theory.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+    --platinum:#f7f8fa; --platinum-2:#eef0f3; --line: rgba(15,23,42,.08);
+    --ink:#0f1420; --steel:#64748b; --crimson:#e0122f; --crimson-bright:#ff3552; --crimson-deep:#8a0f22; --cyan:#0891b2;
+    --bronze:#b3641d; --bronze-l:#e0a458; --silver:#8a94a3; --silver-l:#d8dee6; --gold:#b8860b; --gold-l:#ffd76a;
+    --plat-t:#2a7f9e; --plat-l:#8fd6ee; --obs:#141422; --obs-l:#7c6bff;
+}
+*{ scroll-behavior:smooth; box-sizing:border-box; }
+body{ font-family:'Plus Jakarta Sans', sans-serif; color:var(--ink); background:
+        radial-gradient(circle at 12% 8%, rgba(224,18,48,.05), transparent 40%),
+        radial-gradient(circle at 88% 92%, rgba(8,145,178,.04), transparent 40%),
+        var(--platinum); overflow-x:hidden; position:relative; }
+body::before{ content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:radial-gradient(rgba(224,18,48,.05) 1px, transparent 1px); background-size:22px 22px; }
+.f-display{ font-family:'Sora', sans-serif; letter-spacing:-.01em; } .f-mono{ font-family:'JetBrains Mono', monospace; }
+h1.f-display, h2.f-display, h3.f-display{ font-weight:800; }
+h1.f-display{ text-shadow:0 4px 30px rgba(224,18,48,.12); }
+.grad-underline{ position:relative; display:inline-block; }
+.grad-underline::after{ content:''; position:absolute; left:2px; right:2px; bottom:-4px; height:4px; border-radius:4px;
+    background:linear-gradient(90deg, var(--crimson-bright), var(--cyan), var(--crimson-bright)); background-size:200% 100%;
+    animation:underlineShift 3.5s linear infinite; opacity:.85; }
+@keyframes underlineShift{ 0%{ background-position:0% 0; } 100%{ background-position:200% 0; } }
+::-webkit-scrollbar{ width:5px; } ::-webkit-scrollbar-track{ background:var(--platinum); }
+::-webkit-scrollbar-thumb{ background:var(--crimson); border-radius:6px; }
+#mesh{ position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:.4; }
+.site-header{ backdrop-filter:blur(16px); background:rgba(255,255,255,.82); border-bottom:1px solid var(--line); }
+.nav-link{ position:relative; color:var(--steel); font-size:.72rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; transition:color .25s ease; }
+.nav-link::after{ content:''; position:absolute; left:0; right:0; bottom:-5px; height:2px; background:var(--crimson); transform:scaleX(0); transform-origin:left; transition:transform .3s cubic-bezier(.4,0,.2,1); }
+.nav-link:hover{ color:var(--ink); } .nav-link:hover::after{ transform:scaleX(1); }
+.eyebrow{ display:inline-flex; align-items:center; gap:.4rem; font-family:'JetBrains Mono', monospace; font-size:.62rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:.3rem .7rem; border-radius:100px; background:rgba(224,18,48,.06); border:1px solid rgba(224,18,48,.18); color:var(--crimson); box-shadow:0 0 0 0 rgba(224,18,48,.25); animation:eyebrowGlow 3s ease-in-out infinite; }
+@keyframes eyebrowGlow{ 0%,100%{ box-shadow:0 0 0 0 rgba(224,18,48,0); } 50%{ box-shadow:0 0 18px -2px rgba(224,18,48,.35); } }
+.dot-pulse{ width:5px; height:5px; border-radius:50%; background:var(--crimson-bright); animation:pulseDot 1.8s ease-in-out infinite; }
+@keyframes pulseDot{ 0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(255,53,82,.5);} 50%{ opacity:.5; box-shadow:0 0 0 5px rgba(255,53,82,0);} }
+.btn-primary{ background:linear-gradient(135deg, var(--crimson-bright), var(--crimson-deep)); background-size:180% 180%; color:#fff; font-weight:800; box-shadow:0 12px 30px -8px rgba(224,18,48,.55); transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s ease, background-position .6s ease; border:none; cursor:pointer; letter-spacing:.01em; }
+.btn-primary:hover{ transform:translateY(-3px) scale(1.015); box-shadow:0 20px 38px -8px rgba(224,18,48,.7); background-position:100% 100%; }
+.btn-dark{ background:var(--ink); color:#fff; font-weight:800; transition:transform .3s ease, background .3s ease, box-shadow .3s ease; border:none; cursor:pointer; box-shadow:0 10px 24px -10px rgba(0,0,0,.5); }
+.btn-dark:hover{ transform:translateY(-3px); background:#000; box-shadow:0 18px 30px -10px rgba(0,0,0,.6); }
+.btn-outline{ background:#fff; border:1.5px solid var(--line); color:var(--ink); font-weight:800; transition:all .3s ease; cursor:pointer; }
+.btn-outline:hover{ border-color:var(--crimson); color:var(--crimson); transform:translateY(-3px); box-shadow:0 14px 26px -14px rgba(224,18,48,.4); }
+.glass-panel{ background:linear-gradient(135deg, rgba(255,255,255,.97), rgba(248,250,252,.99)); border:1px solid var(--line); box-shadow:0 24px 55px -22px rgba(15,23,42,.16); transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s ease, border-color .35s ease; position:relative; }
+.glass-panel:hover{ transform:translateY(-5px); border-color:rgba(224,18,48,.35); box-shadow:0 32px 60px -20px rgba(224,18,48,.22); }
+.crimson-pulse{ animation:corePulse 3.4s infinite ease-in-out; }
+@keyframes corePulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(224,18,48,0); } 50%{ box-shadow:0 0 46px -4px rgba(224,18,48,.3); } }
+.pulse-card{ background:#fff; border:1px solid var(--line); border-radius:20px; box-shadow:0 30px 60px -25px rgba(15,23,42,.18); position:relative; overflow:hidden; }
+.pulse-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--crimson-bright), var(--cyan), transparent); animation:scanSweep 3.4s linear infinite; }
+@keyframes scanSweep{ 0%{ left:-40%; } 100%{ left:100%; } }
+.ring-wrap{ position:relative; width:96px; height:96px; } .ring-spin{ animation:ringSpin 6s linear infinite; }
+@keyframes ringSpin{ to{ transform:rotate(360deg); } }
+.feed-line{ opacity:0; animation:feedIn .5s ease forwards; } @keyframes feedIn{ from{ opacity:0; transform:translateX(-6px);} to{ opacity:1; transform:translateX(0);} }
+.stat-card{ background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:0 18px 36px -18px rgba(15,23,42,.15); transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s ease; }
+.stat-card:hover{ transform:translateY(-6px) scale(1.02); box-shadow:0 28px 48px -14px rgba(224,18,48,.28); }
+.feature-card{ background:#fff; border:1px solid var(--line); border-radius:14px; transition:transform .35s cubic-bezier(.4,0,.2,1), border-color .35s ease, box-shadow .35s ease; }
+.feature-card:hover{ transform:translateY(-6px) scale(1.015); border-color:rgba(224,18,48,.35); box-shadow:0 28px 46px -18px rgba(224,18,48,.22); }
+.icon-chip{ width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, var(--crimson-bright), var(--crimson-deep)); color:#fff; box-shadow:0 10px 22px -6px rgba(224,18,48,.6); animation:chipFloat 3.2s ease-in-out infinite; }
+@keyframes chipFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
+.tech-panel{ background:linear-gradient(160deg,#0f172a 0%, #1c2537 100%); border:1px solid rgba(224,18,48,.35); border-radius:14px; box-shadow:0 25px 50px -20px rgba(15,23,42,.35); position:relative; overflow:hidden; }
+.tech-panel::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--crimson-bright), transparent); animation:scanSweep 3s linear infinite; }
+.console-line{ opacity:0; animation:lineIn .4s ease forwards; } @keyframes lineIn{ from{ opacity:0; transform:translateY(3px);} to{ opacity:1; transform:translateY(0);} }
+.reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s cubic-bezier(.2,.6,.2,1), transform .6s cubic-bezier(.2,.6,.2,1); }
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+/* ===== Boot screen ===== */
+#bootScreen{ position:fixed; inset:0; z-index:999; background:#05060a; color:#7dffb0; font-family:'JetBrains Mono',monospace; display:flex; align-items:center; justify-content:center; transition:opacity .6s ease; }
+#bootScreen .boot-box{ width:min(560px,90vw); }
+#bootScreen .line{ opacity:0; font-size:12.5px; line-height:1.9; }
+#bootScreen .cursor{ display:inline-block; width:7px; height:14px; background:#7dffb0; margin-left:2px; animation:blink 1s step-start infinite; vertical-align:middle; }
+@keyframes blink{ 50%{ opacity:0; } }
+#bootScreen.hide{ opacity:0; pointer-events:none; }
+
+/* ===== Full screen app layers ===== */
+.app-layer{ position:fixed; inset:0; z-index:200; overflow-y:auto; background:var(--platinum); display:none; }
+.app-layer.active{ display:block; }
+
+/* Gate */
+.gate-wrap{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:24px; }
+.gate-card{ width:min(440px,94vw); background:#fff; border:1px solid var(--line); border-radius:20px; box-shadow:0 30px 70px -25px rgba(15,23,42,.25); padding:34px 28px; position:relative; overflow:hidden; }
+.gate-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--crimson-bright), var(--cyan)); }
+.field{ width:100%; border:1px solid var(--line); border-radius:10px; padding:11px 13px; font-size:13px; font-family:'JetBrains Mono',monospace; outline:none; transition:border-color .2s ease, box-shadow .2s ease; background:#fbfcfd; }
+.field:focus{ border-color:var(--crimson); box-shadow:0 0 0 3px rgba(224,18,48,.1); }
+.gate-error{ display:none; color:var(--crimson-deep); font-size:11px; font-weight:700; background:rgba(224,18,48,.06); border:1px solid rgba(224,18,48,.18); padding:8px 10px; border-radius:8px; }
+
+/* Dashboard */
+.badge-ring{ width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px; box-shadow:0 12px 26px -8px rgba(0,0,0,.35); flex-shrink:0; animation:badgeBreathe 2.6s ease-in-out infinite; }
+@keyframes badgeBreathe{ 0%,100%{ transform:scale(1); filter:brightness(1); } 50%{ transform:scale(1.05); filter:brightness(1.08); } }
+.tier-bronze{ background:linear-gradient(135deg,var(--bronze-l),var(--bronze)); }
+.tier-silver{ background:linear-gradient(135deg,var(--silver-l),var(--silver)); }
+.tier-gold{ background:linear-gradient(135deg,var(--gold-l),var(--gold)); }
+.tier-platinum{ background:linear-gradient(135deg,var(--plat-l),var(--plat-t)); }
+.tier-obsidian{ background:linear-gradient(135deg,var(--obs-l),var(--obs)); }
+.chal-card{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px; transition:all .35s cubic-bezier(.4,0,.2,1); cursor:pointer; position:relative; }
+.chal-card:hover{ transform:translateY(-6px) scale(1.01); border-color:rgba(224,18,48,.4); box-shadow:0 30px 50px -20px rgba(224,18,48,.28); }
+.chal-card.done{ border-color:rgba(16,185,129,.4); background:linear-gradient(180deg,#fff,#f4fbf7); }
+.progress-track{ height:8px; border-radius:100px; background:var(--platinum-2); overflow:hidden; }
+.progress-fill{ height:100%; border-radius:100px; background:linear-gradient(90deg,var(--crimson-bright),var(--cyan)); transition:width .6s cubic-bezier(.4,0,.2,1); }
+
+/* Challenge modal */
+.modal-overlay{ position:fixed; inset:0; z-index:300; background:rgba(8,10,18,.7); backdrop-filter:blur(6px); display:none; align-items:flex-start; justify-content:center; padding:26px 14px; overflow-y:auto; }
+.modal-overlay.active{ display:flex; }
+.modal-card{ width:min(720px,100%); background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 40px 90px -30px rgba(0,0,0,.5); margin:auto; }
+.modal-head{ padding:18px 24px; display:flex; justify-content:space-between; align-items:center; color:#fff; }
+.scenario-box{ background:linear-gradient(160deg,#0f172a,#1c2537); color:#cbd5e1; font-family:'JetBrains Mono',monospace; font-size:11.5px; line-height:1.85; padding:16px; border-radius:12px; white-space:pre-wrap; border:1px solid rgba(224,18,48,.3); }
+.opt-btn{ display:block; width:100%; text-align:left; padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-size:12.5px; background:#fff; cursor:pointer; transition:all .2s ease; margin-bottom:8px; }
+.opt-btn:hover{ border-color:var(--crimson); }
+.opt-btn.selected{ border-color:var(--crimson); background:rgba(224,18,48,.05); font-weight:700; }
+.opt-btn.correct{ border-color:#10b981; background:rgba(16,185,129,.08); }
+.opt-btn.wrong{ border-color:var(--crimson); background:rgba(224,18,48,.08); }
+
+/* Badge award modal */
+.badge-shine{ width:120px; height:120px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:46px; color:#fff; margin:0 auto; position:relative; animation:badgePop .5s cubic-bezier(.2,.9,.3,1.3); box-shadow:0 20px 50px -15px rgba(0,0,0,.4); }
+@keyframes badgePop{ from{ transform:scale(.4); opacity:0; } to{ transform:scale(1); opacity:1; } }
+.badge-shine::after{ content:''; position:absolute; inset:-8px; border-radius:50%; border:2px dashed rgba(255,255,255,.5); animation:ringSpin 12s linear infinite; }
+
+.toast{ position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff; font-size:12px; font-weight:600; padding:10px 18px; border-radius:10px; opacity:0; transition:all .3s ease; z-index:400; pointer-events:none; }
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body class="antialiased selection:bg-red-600 selection:text-white">
+
+<canvas id="mesh"></canvas>
+
+<!-- ================= BOOT SCREEN ================= -->
+<div id="bootScreen">
+    <div class="boot-box f-mono">
+        <div class="line" id="bl1">&gt; initializing cryptonic_area // soc_simulation_lab</div>
+        <div class="line" id="bl2">&gt; mounting threat_feed... <span style="color:#7dffb0">OK</span></div>
+        <div class="line" id="bl3">&gt; loading 5 live modules... <span style="color:#7dffb0">OK</span></div>
+        <div class="line" id="bl4">&gt; verifying analyst console... <span style="color:#7dffb0">READY</span></div>
+        <div class="line" id="bl5">&gt; welcome, analyst.<span class="cursor"></span></div>
+    </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header fixed top-0 left-0 w-full z-50">
+    <div class="max-w-[1300px] mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
+        <a href="#top" class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-md bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white text-[12px]"><i class="fas fa-shield-halved"></i></div>
+            <div class="leading-tight">
+                <div class="f-display text-slate-900 font-bold text-[13px] tracking-tight">Cryptonic Area</div>
+                <div class="f-mono text-[8px] text-red-600 font-bold tracking-[0.18em] uppercase">SOC Simulation Lab</div>
+            </div>
+        </a>
+        <nav class="hidden lg:flex items-center gap-7">
+            <a href="#how" class="nav-link">How It Works</a>
+            <a href="#levels" class="nav-link">Modules</a>
+            <a href="#pricing" class="nav-link">Access</a>
+            <a href="#faq" class="nav-link">FAQ</a>
+        </nav>
+        <div class="flex items-center gap-2.5">
+            <button onclick="openGate()" class="hidden sm:inline-flex btn-dark text-[10.5px] px-4 py-2.5 rounded-lg items-center gap-1.5"><i class="fas fa-key text-[10px]"></i> Enter Console</button>
+            <button onclick="scrollToId('pricing')" class="btn-primary text-[10.5px] px-4 py-2.5 rounded-lg inline-flex items-center gap-1.5"><i class="fas fa-bolt text-[10px]"></i> Get Access — ₹99</button>
+        </div>
+    </div>
+</header>
+
+<div id="top"></div>
+
+<!-- ================= HERO ================= -->
+<section class="relative z-10 pt-28 pb-16 px-5 lg:px-8">
+    <div class="max-w-[1300px] mx-auto grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+            <div class="eyebrow mb-4"><span class="dot-pulse"></span> Live SOC Simulation Program</div>
+            <h1 class="f-display font-extrabold text-[1.95rem] sm:text-4xl lg:text-[2.7rem] leading-[1.12] tracking-tight text-slate-900 mb-5">
+                Forget the slides.<br>
+                Step into <span class="grad-underline bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-red-700 to-slate-900" id="typewriter"></span>
+            </h1>
+            <p class="text-slate-600 text-[13px] lg:text-[14px] leading-relaxed max-w-md mb-6">
+                Step into a simulated SOC console built by Cryptonic Area. Five live incidents — phishing, log analysis, endpoint alerts,
+                network intrusions, and full incident correlation — the exact kind of tickets a real analyst triages on shift.
+            </p>
+            <div class="flex flex-wrap gap-3 mb-6">
+                <button onclick="scrollToId('pricing')" class="btn-primary px-5 py-3 rounded-xl text-[11px] inline-flex items-center gap-2"><i class="fas fa-terminal"></i> Get Access — ₹99</button>
+                <button onclick="scrollToId('how')" class="btn-dark px-5 py-3 rounded-xl text-[11px] inline-flex items-center gap-2">How It Works <i class="fas fa-arrow-right text-[9px]"></i></button>
+            </div>
+            <div class="flex items-center gap-2 text-slate-500 text-[10.5px] f-mono"><i class="fas fa-circle-check text-emerald-500"></i> 5 real modules &nbsp;•&nbsp; 5 unique badges &nbsp;•&nbsp; One-time ₹99</div>
+        </div>
+
+        <div class="pulse-card crimson-pulse p-5">
+            <div class="flex items-center justify-between mb-4">
+                <div class="eyebrow"><span class="dot-pulse"></span> Live Console Status</div>
+                <span class="f-mono text-[9px] text-slate-400">SOC-LAB v1</span>
+            </div>
+            <div class="flex items-center gap-5">
+                <div class="ring-wrap shrink-0">
+                    <svg viewBox="0 0 100 100" class="w-full h-full ring-spin">
+                        <circle cx="50" cy="50" r="42" fill="none" stroke="#f1f5f9" stroke-width="8"/>
+                        <circle cx="50" cy="50" r="42" fill="none" stroke="#e0122f" stroke-width="8" stroke-linecap="round" stroke-dasharray="205 264"/>
+                    </svg>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <span class="f-display font-bold text-slate-900 text-[15px]">5/5</span>
+                        <span class="text-[7px] text-slate-400 f-mono uppercase">Modules</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="f-display font-bold text-slate-900 text-xl">₹99</div>
+                    <div class="text-[9.5px] text-slate-500 f-mono uppercase tracking-wide">One-time access, lifetime badges</div>
+                </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-slate-100 space-y-2">
+                <div class="feed-line flex items-center gap-2 text-[10.5px] text-slate-600" style="animation-delay:.2s"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Badge unlocked — Gold Threat Hunter</div>
+                <div class="feed-line flex items-center gap-2 text-[10.5px] text-slate-600" style="animation-delay:.6s"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Incident ticket opened — Module 04</div>
+                <div class="feed-line flex items-center gap-2 text-[10.5px] text-slate-600" style="animation-delay:1s"><span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span> Analyst console session started</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section id="how" class="relative z-10 py-14 px-5 lg:px-8">
+    <div class="max-w-[1100px] mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-9 reveal">
+            <div class="eyebrow mb-3"><i class="fas fa-diagram-project text-[9px]"></i> The process</div>
+            <h2 class="f-display text-xl lg:text-2xl font-extrabold tracking-tight text-slate-900 mb-2.5">Four steps to your first shift</h2>
+            <p class="text-slate-500 text-[12px] lg:text-[13px] leading-relaxed">A real onboarding sequence, not a checkout page.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+            <div class="feature-card p-4 reveal">
+                <div class="icon-chip mb-3 f-mono text-[11px] font-bold">01</div>
+                <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">Request access</h3>
+                <p class="text-[10.5px] text-slate-500 leading-relaxed">Message us on WhatsApp and confirm your ₹99 access.</p>
+            </div>
+            <div class="feature-card p-4 reveal">
+                <div class="icon-chip mb-3 f-mono text-[11px] font-bold">02</div>
+                <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">Receive your key</h3>
+                <p class="text-[10.5px] text-slate-500 leading-relaxed">We send a private access key to your device only.</p>
+            </div>
+            <div class="feature-card p-4 reveal">
+                <div class="icon-chip mb-3 f-mono text-[11px] font-bold">03</div>
+                <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">Enter the console</h3>
+                <p class="text-[10.5px] text-slate-500 leading-relaxed">Unlock the dashboard and start with Module 01.</p>
+            </div>
+            <div class="feature-card p-4 reveal">
+                <div class="icon-chip mb-3 f-mono text-[11px] font-bold">04</div>
+                <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">Clear all 5</h3>
+                <p class="text-[10.5px] text-slate-500 leading-relaxed">Earn a badge per module and a final analyst certificate.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= LEVELS PREVIEW ================= -->
+<section id="levels" class="relative z-10 py-14 px-5 lg:px-8">
+    <div class="max-w-[1100px] mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-9 reveal">
+            <div class="eyebrow mb-3"><i class="fas fa-layer-group text-[9px]"></i> Five live modules</div>
+            <h2 class="f-display text-xl lg:text-2xl font-extrabold tracking-tight text-slate-900 mb-2.5">Beginner console to expert war room</h2>
+            <p class="text-slate-500 text-[12px] lg:text-[13px] leading-relaxed">Each module is a real analyst scenario — evidence first, question second.</p>
+        </div>
+        <div id="levelPreviewGrid" class="grid sm:grid-cols-2 lg:grid-cols-5 gap-3.5"></div>
+    </div>
+</section>
+
+<!-- ================= PRICING / CTA ================= -->
+<section id="pricing" class="relative z-10 py-14 px-5 lg:px-8">
+    <div class="max-w-[820px] mx-auto glass-panel crimson-pulse rounded-2xl p-6 lg:p-10 text-center reveal">
+        <div class="eyebrow mb-4 mx-auto w-fit"><i class="fas fa-bolt-lightning text-[9px]"></i> One-time access</div>
+        <h2 class="f-display text-2xl lg:text-3xl font-extrabold text-slate-900 mb-2 grad-underline">₹99. That's the entire price tag.</h2>
+        <p class="text-slate-500 text-[12.5px] max-w-md mx-auto mb-6 leading-relaxed">
+            Don't look at the number — look at what walks away with you: five resolved incidents, five earned badges, and one certificate that says you actually did the work.
+        </p>
+        <div class="grid sm:grid-cols-3 gap-3 max-w-lg mx-auto mb-7 text-left">
+            <div class="stat-card p-3.5"><i class="fas fa-shield-halved text-red-600 text-[13px] mb-1.5"></i><div class="text-[10.5px] font-bold text-slate-800">5 real modules</div></div>
+            <div class="stat-card p-3.5"><i class="fas fa-award text-red-600 text-[13px] mb-1.5"></i><div class="text-[10.5px] font-bold text-slate-800">5 unique badges</div></div>
+            <div class="stat-card p-3.5"><i class="fas fa-certificate text-red-600 text-[13px] mb-1.5"></i><div class="text-[10.5px] font-bold text-slate-800">Final certificate</div></div>
+        </div>
+        <div class="flex flex-wrap gap-3 justify-center">
+            <button onclick="messageOnWhatsApp()" class="btn-primary px-6 py-3.5 rounded-xl text-[11.5px] inline-flex items-center gap-2"><i class="fab fa-whatsapp"></i> Request Access on WhatsApp</button>
+            <button onclick="openGate()" class="btn-outline px-6 py-3.5 rounded-xl text-[11.5px] inline-flex items-center gap-2"><i class="fas fa-key"></i> I already have a key</button>
+        </div>
+        <p class="text-[9.5px] text-slate-400 f-mono mt-5 uppercase tracking-wide"><i class="fas fa-lock mr-1"></i> Your key is personal to you — please don't forward it.</p>
+    </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" class="relative z-10 py-14 px-5 lg:px-8">
+    <div class="max-w-[760px] mx-auto">
+        <div class="text-center mb-8 reveal">
+            <div class="eyebrow mb-3"><i class="fas fa-circle-question text-[9px]"></i> Before you start</div>
+            <h2 class="f-display text-xl lg:text-2xl font-extrabold tracking-tight text-slate-900">Quick answers</h2>
+        </div>
+        <div class="space-y-3">
+            <div class="feature-card p-4 reveal"><h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">Do I need prior experience?</h3><p class="text-[11px] text-slate-500 leading-relaxed">No. Module 01 is built for a first-time analyst. Each module gets progressively harder.</p></div>
+            <div class="feature-card p-4 reveal"><h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">Can I share my badges?</h3><p class="text-[11px] text-slate-500 leading-relaxed">Yes — every badge comes with ready-to-post text for your LinkedIn or resume.</p></div>
+            <div class="feature-card p-4 reveal"><h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">How do I get my access key?</h3><p class="text-[11px] text-slate-500 leading-relaxed">Message us on WhatsApp, confirm your ₹99 access, and we'll send a private key straight to you.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="relative z-10 pt-12 pb-6 px-5 lg:px-8 bg-gradient-to-b from-slate-50 to-slate-100 border-t border-slate-200/80">
+    <div class="max-w-[1000px] mx-auto grid md:grid-cols-3 gap-8 mb-9">
+        <div>
+            <div class="flex items-center gap-2 mb-3">
+                <div class="w-6 h-6 rounded-md bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white text-[10px]"><i class="fas fa-shield-halved"></i></div>
+                <span class="f-display font-bold text-slate-900 text-[13px]">Cryptonic Area</span>
+            </div>
+            <p class="text-slate-500 text-[11px] leading-relaxed max-w-xs">A global cybersecurity community — the SOC Simulation Lab is our hands-on program for practical, real-world analyst training.</p>
+        </div>
+        <div>
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.2em] text-red-600 uppercase mb-3">Contact</h4>
+            <div class="space-y-2 text-[11px] f-mono text-slate-600">
+                <div class="flex items-center gap-2"><i class="fas fa-phone text-red-500 text-[10px]"></i><a href="tel:+919509622197" class="hover:text-slate-950 transition-colors">+91 9509622197</a></div>
+                <div class="flex items-center gap-2"><i class="fab fa-whatsapp text-emerald-600 text-[10px]"></i><a href="https://wa.me/918503979765" target="_blank" class="hover:text-slate-950 transition-colors">WhatsApp Chat</a></div>
+                <div class="flex items-center gap-2"><i class="fas fa-envelope text-slate-400 text-[10px]"></i><a href="mailto:info@cryptonicarea.site" class="hover:text-slate-950 transition-colors">info@cryptonicarea.site</a></div>
+            </div>
+        </div>
+        <div>
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.2em] text-slate-900 uppercase mb-3">Connect</h4>
+            <div class="grid grid-cols-4 gap-2 max-w-[180px]">
+                <a href="https://linkedin.com/company/cryptonicarea" target="_blank" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm"><i class="fab fa-linkedin-in text-[11px]"></i></a>
+                <a href="https://instagram.com/cryptonicarea" target="_blank" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm"><i class="fab fa-instagram text-[11px]"></i></a>
+                <a href="https://chat.whatsapp.com/LCZscqpn1hm6nhBBOSfymq" target="_blank" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm"><i class="fab fa-whatsapp text-[11px]"></i></a>
+                <a href="https://x.com/cryptonicarea" target="_blank" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm"><i class="fab fa-x-twitter text-[11px]"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-[1000px] mx-auto border-t border-slate-200 pt-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-[9px] f-mono text-slate-500 uppercase tracking-wider">
+        <span>&copy; 2026 Cryptonic Area. All rights reserved.</span>
+        <span class="text-red-600 font-bold">Console Secure // Session Encrypted</span>
+    </div>
+</footer>
+
+<!-- ================= GATE LAYER ================= -->
+<div id="gateLayer" class="app-layer">
+    <canvas id="mesh2" style="position:fixed;inset:0;width:100%;height:100%;opacity:.35;z-index:0;"></canvas>
+    <div class="gate-wrap relative z-10">
+        <div class="gate-card">
+            <button onclick="closeLayer('gateLayer')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-sm"><i class="fas fa-xmark"></i></button>
+            <div class="eyebrow mb-4"><span class="dot-pulse"></span> Secure Access Terminal</div>
+            <h2 class="f-display font-bold text-slate-900 text-lg mb-1">Enter the console</h2>
+            <p class="text-slate-500 text-[11.5px] mb-6 leading-relaxed">Your access key was sent to you privately after payment confirmation. It's tied to you — please don't pass it along.</p>
+
+            <div id="keyStep">
+                <label class="text-[10px] f-mono font-bold text-slate-500 uppercase tracking-wide mb-1.5 block">Access Key</label>
+                <input id="keyInput" type="text" class="field mb-3" placeholder="CA-SOC-XXXXX" autocomplete="off">
+                <div id="keyError" class="gate-error mb-3">Access denied. That key isn't recognized — check for extra spaces or message us on WhatsApp for help.</div>
+                <button onclick="checkKey()" class="btn-primary w-full py-3 rounded-xl text-[11.5px] mb-3">Verify Key <i class="fas fa-arrow-right ml-1 text-[9px]"></i></button>
+                <button onclick="messageOnWhatsApp()" class="btn-outline w-full py-3 rounded-xl text-[11.5px]"><i class="fab fa-whatsapp mr-1.5"></i> Don't have a key yet?</button>
+            </div>
+
+            <div id="nameStep" class="hidden">
+                <div class="text-[11px] font-bold text-emerald-600 mb-3"><i class="fas fa-circle-check mr-1"></i> Key verified</div>
+                <label class="text-[10px] f-mono font-bold text-slate-500 uppercase tracking-wide mb-1.5 block">Analyst Name</label>
+                <input id="nameInput" type="text" class="field mb-4" placeholder="How should we address you on the console?" autocomplete="off">
+                <button onclick="enterConsole()" class="btn-primary w-full py-3 rounded-xl text-[11.5px]">Launch Console <i class="fas fa-terminal ml-1 text-[9px]"></i></button>
+            </div>
+
+            <p class="text-[9px] text-slate-400 f-mono mt-5 uppercase tracking-wide text-center"><i class="fas fa-shield-halved mr-1"></i> Stored only on this device — never shared</p>
+        </div>
+    </div>
+</div>
+
+<!-- ================= DASHBOARD LAYER ================= -->
+<div id="dashboardLayer" class="app-layer">
+    <header class="site-header sticky top-0 z-40">
+        <div class="max-w-[1100px] mx-auto px-5 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-md bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white text-[12px]"><i class="fas fa-terminal"></i></div>
+                <div class="leading-tight">
+                    <div class="f-display text-slate-900 font-bold text-[12.5px]">Welcome, <span id="analystName">Analyst</span></div>
+                    <div class="f-mono text-[8px] text-red-600 font-bold tracking-[0.14em] uppercase">SOC Console — Live Session</div>
+                </div>
+            </div>
+            <button onclick="closeLayer('dashboardLayer')" class="btn-outline text-[10px] px-3.5 py-2 rounded-lg"><i class="fas fa-right-from-bracket mr-1"></i> Exit</button>
+        </div>
+    </header>
+    <div class="max-w-[1100px] mx-auto px-5 py-10 relative z-10">
+        <div class="glass-panel rounded-2xl p-5 lg:p-6 mb-8">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+                <div>
+                    <div class="f-mono text-[9px] font-bold text-red-600 uppercase tracking-wide mb-1">Shift progress</div>
+                    <div class="f-display font-bold text-slate-900 text-lg" id="progressLabel">0 / 5 modules cleared</div>
+                </div>
+                <div class="f-display font-bold text-slate-900 text-lg">Score: <span id="scoreLabel">0</span>/500</div>
+            </div>
+            <div class="progress-track"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
+        </div>
+
+        <div id="challengeGrid" class="grid sm:grid-cols-2 gap-4"></div>
+
+        <div id="finalCert" class="hidden mt-8 glass-panel crimson-pulse rounded-2xl p-8 text-center">
+            <i class="fas fa-trophy text-4xl text-amber-500 mb-3"></i>
+            <h3 class="f-display font-bold text-xl text-slate-900 mb-1">Console cleared, <span id="certName"></span>.</h3>
+            <p class="text-slate-500 text-[12px] mb-5">All 5 incidents triaged. Final score: <span id="certScore" class="font-bold text-slate-800"></span>/500.</p>
+            <button onclick="shareFinal()" class="btn-primary px-5 py-3 rounded-xl text-[11px]"><i class="fas fa-share-nodes mr-1"></i> Copy Share Text</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================= CHALLENGE MODAL ================= -->
+<div id="challengeModal" class="modal-overlay">
+    <div class="modal-card">
+        <div id="modalHead" class="modal-head">
+            <div>
+                <div class="f-mono text-[9px] font-bold uppercase tracking-wide opacity-80" id="modalTier"></div>
+                <div class="f-display font-bold text-[15px]" id="modalTitle"></div>
+            </div>
+            <button onclick="closeChallenge()" class="text-white/80 hover:text-white text-lg"><i class="fas fa-xmark"></i></button>
+        </div>
+        <div class="p-5 lg:p-6">
+            <p class="text-[12px] text-slate-600 leading-relaxed mb-3" id="modalBriefing"></p>
+            <div class="scenario-box mb-5" id="modalScenario"></div>
+            <div id="questionsWrap" class="space-y-6"></div>
+            <div id="modalFeedback" class="hidden mt-4 p-3 rounded-lg text-[11.5px] font-semibold"></div>
+            <button onclick="submitChallenge()" id="submitBtn" class="btn-primary w-full py-3 rounded-xl text-[12px] mt-5">Submit Findings <i class="fas fa-paper-plane ml-1 text-[10px]"></i></button>
+        </div>
+    </div>
+</div>
+
+<!-- ================= BADGE MODAL ================= -->
+<div id="badgeModal" class="modal-overlay">
+    <div class="modal-card" style="max-width:420px;">
+        <div class="p-8 text-center">
+            <div class="f-mono text-[9px] font-bold text-red-600 uppercase tracking-wide mb-4">Module cleared</div>
+            <div id="badgeIcon" class="badge-shine mb-5"><i class="fas fa-award"></i></div>
+            <h3 class="f-display font-bold text-lg text-slate-900 mb-1" id="badgeName"></h3>
+            <p class="text-slate-500 text-[11.5px] mb-6" id="badgeDesc"></p>
+            <div class="flex gap-3">
+                <button onclick="copyBadgeShare()" class="btn-outline flex-1 py-3 rounded-xl text-[11px]"><i class="fas fa-copy mr-1"></i> Copy Share Text</button>
+                <button onclick="closeBadgeModal()" class="btn-primary flex-1 py-3 rounded-xl text-[11px]">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* ============ CONFIG ============ */
+// NOTE for the Cryptonic Area team: this key list is stored client-side for this static demo.
+// For production, replace checkKey() with a real server-side / Google Sheet / Firebase lookup
+// so keys can't be read from page source. Anyone can currently view this list via "view source".
+const VALID_KEYS = ["CA-SOC-2026", "CA-SOC-VIP01", "CA-SOC-DEMO"];
+const WHATSAPP_NUMBER = "918503979765";
+
+/* ============ CHALLENGE DATA ============ */
+const CHALLENGES = [
+  {
+    id:1, tier:"Bronze", tierClass:"tier-bronze", head:"linear-gradient(135deg,var(--bronze-l),var(--bronze))",
+    title:"Phishing Triage", difficulty:"Beginner", points:100,
+    badgeName:"Bronze Sentinel", badgeIcon:"fa-envelope-open-text",
+    briefing:"A user forwarded this email to the SOC inbox, worried their account is about to be suspended. Review the headers and decide what's really going on.",
+    scenario:`From: "Account Security" <no-reply@secure-paypa1-verification.com>
+Reply-To: support@paypal-billing-alert.com
+To: employee@company.com
+Subject: Urgent: Your account will be suspended in 24 hours
+
+Body: "We detected unusual activity. Click here to verify your identity:
+hxxp://paypa1-verify-account[.]com/login"`,
+    questions:[
+      { type:"mc", prompt:"Which detail is the strongest indicator this is a phishing attempt?",
+        options:["The subject line uses urgent language","The sender domain is a look-alike of paypal.com, not the real thing","The email was sent to a work address","The email includes a clickable link"],
+        answer:1 },
+      { type:"mc", prompt:"What's the correct next action for the SOC analyst?",
+        options:["Reply to the sender asking for more info","Block the sender domain, alert the user, and submit the URL for blocklisting","Ignore it since only one user reported it","Forward the email to all employees as a warning"],
+        answer:1 }
+    ]
+  },
+  {
+    id:2, tier:"Silver", tierClass:"tier-silver", head:"linear-gradient(135deg,var(--silver-l),var(--silver))",
+    title:"Web Server Log Analysis", difficulty:"Beginner–Intermediate", points:100,
+    badgeName:"Silver Investigator", badgeIcon:"fa-magnifying-glass",
+    briefing:"Your WAF fired multiple alerts overnight on the login endpoint. Here's the raw Apache access log for the window in question.",
+    scenario:`203.0.113.45 - - [04/Jul/2026:02:14:11] "GET /login.php?user=admin' OR '1'='1 HTTP/1.1" 200 512
+203.0.113.45 - - [04/Jul/2026:02:14:13] "GET /login.php?user=admin'-- HTTP/1.1" 200 498
+198.51.100.9  - - [04/Jul/2026:02:15:02] "GET /product.php?id=12 HTTP/1.1" 200 1230
+203.0.113.45 - - [04/Jul/2026:02:14:20] "GET /login.php?user=' UNION SELECT null,null-- HTTP/1.1" 200 501`,
+    questions:[
+      { type:"text", prompt:"Which IP address is responsible for the malicious requests?", accepted:["203.0.113.45"] },
+      { type:"mc", prompt:"What type of attack is being attempted?",
+        options:["Cross-Site Scripting (XSS)","SQL Injection","Directory Traversal","DDoS"], answer:1 }
+    ]
+  },
+  {
+    id:3, tier:"Gold", tierClass:"tier-gold", head:"linear-gradient(135deg,var(--gold-l),var(--gold))",
+    title:"Endpoint Alert Investigation", difficulty:"Intermediate", points:100,
+    badgeName:"Gold Threat Hunter", badgeIcon:"fa-crosshairs",
+    briefing:"EDR flagged unusual process activity on a finance department workstation. Here's the relevant event.",
+    scenario:`Event ID: 4688 — A new process has been created
+Host: FIN-WS07
+Parent Process: WINWORD.EXE
+New Process: powershell.exe
+Command Line: powershell.exe -nop -w hidden -enc SQBFAFgAKABOAGUAdwAtAE8AYgBqAGUAYwB0ACAATgBlAHQALgBXAGUAYgBDAGwAaQBlAG4AdAApAC4A...`,
+    questions:[
+      { type:"mc", prompt:"What made this process creation suspicious?",
+        options:["PowerShell was launched","Microsoft Word spawned a hidden, base64-encoded PowerShell process — a classic macro-malware pattern","The process ran on a finance workstation","The event ID was 4688"],
+        answer:1 },
+      { type:"mc", prompt:"Which MITRE ATT&CK technique best matches this behavior?",
+        options:["T1059.001 – PowerShell","T1110 – Brute Force","T1071 – Application Layer Protocol","T1486 – Data Encrypted for Impact"], answer:0 }
+    ]
+  },
+  {
+    id:4, tier:"Platinum", tierClass:"tier-platinum", head:"linear-gradient(135deg,var(--plat-l),var(--plat-t))",
+    title:"Network Intrusion Detection", difficulty:"Advanced", points:100,
+    badgeName:"Platinum Incident Responder", badgeIcon:"fa-network-wired",
+    briefing:"The IDS raised a high-severity alert for outbound traffic from an internal server. Assess the alert.",
+    scenario:`[ALERT] ET TROJAN Possible Reverse Shell Connection
+Src: 10.0.4.22:51322  ->  Dst: 185.220.101.7:4444
+Protocol: TCP
+Payload contains: "/bin/sh -i"`,
+    questions:[
+      { type:"mc", prompt:"Is this alert a true positive or false positive?",
+        options:["False positive — port 4444 is commonly used for legitimate services","True positive — the payload and destination port strongly indicate a reverse shell","Cannot be determined from this data","False positive — internal traffic is always trusted"], answer:1 },
+      { type:"text", prompt:"What destination port is associated with this suspected reverse shell?", accepted:["4444"] }
+    ]
+  },
+  {
+    id:5, tier:"Obsidian", tierClass:"tier-obsidian", head:"linear-gradient(135deg,var(--obs-l),var(--obs))",
+    title:"Full Incident Correlation", difficulty:"Expert", points:100,
+    badgeName:"Obsidian SOC Commander", badgeIcon:"fa-satellite-dish",
+    briefing:"Final module. Correlate everything you've seen across the shift into one incident timeline, and decide on containment.",
+    scenario:`09:02 — Phishing email delivered to finance@company.com (same domain pattern as Module 01)
+09:14 — WINWORD.EXE spawns hidden PowerShell on host FIN-WS07 (Module 03 pattern)
+09:41 — FIN-WS07 initiates outbound connection to 185.220.101.7:4444 (Module 04 pattern)
+10:03 — Lateral RDP attempt from FIN-WS07 toward domain controller DC01`,
+    questions:[
+      { type:"mc", prompt:"Based on the full timeline, what's the correct containment priority?",
+        options:["Isolate FIN-WS07 from the network immediately and block the C2 IP","Wait for more evidence before acting","Only notify the finance department","Patch the domain controller first"], answer:0 },
+      { type:"mc", prompt:"Which overall attack pattern does this incident represent?",
+        options:["Insider threat","A phishing-initiated compromise with C2 and lateral movement — a full kill chain","A DDoS attack","A supply-chain attack"], answer:1 }
+    ]
+  }
+];
+
+/* ============ STATE ============ */
+function getState(){
+  return JSON.parse(localStorage.getItem('ca_soc_state') || '{"authed":false,"name":"","completed":{},"score":0}');
+}
+function setState(s){ localStorage.setItem('ca_soc_state', JSON.stringify(s)); }
+
+/* ============ UTIL ============ */
+function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+function showToast(msg){
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+function messageOnWhatsApp(){
+  const msg = "Hi! I want to join the Cryptonic Area SOC Simulation Lab (₹99). Please guide me on the next steps to get my access key.";
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+/* ============ GATE ============ */
+function openGate(){
+  document.querySelectorAll('.app-layer').forEach(l=>l.classList.remove('active'));
+  document.getElementById('gateLayer').classList.add('active');
+  const s = getState();
+  if(s.authed){ enterConsoleDirect(); }
+}
+function closeLayer(id){ document.getElementById(id).classList.remove('active'); }
+
+function checkKey(){
+  const val = document.getElementById('keyInput').value.trim().toUpperCase();
+  const err = document.getElementById('keyError');
+  if(VALID_KEYS.includes(val)){
+    err.style.display='none';
+    document.getElementById('keyStep').classList.add('hidden');
+    document.getElementById('nameStep').classList.remove('hidden');
+  } else {
+    err.style.display='block';
+  }
+}
+function enterConsole(){
+  const name = document.getElementById('nameInput').value.trim();
+  if(!name){ document.getElementById('nameInput').focus(); return; }
+  const s = getState(); s.authed = true; s.name = name; setState(s);
+  enterConsoleDirect();
+}
+function enterConsoleDirect(){
+  const s = getState();
+  document.querySelectorAll('.app-layer').forEach(l=>l.classList.remove('active'));
+  document.getElementById('dashboardLayer').classList.add('active');
+  document.getElementById('analystName').textContent = s.name || 'Analyst';
+  renderDashboard();
+}
+
+/* ============ RENDER: LEVEL PREVIEW (landing) ============ */
+function renderLevelPreview(){
+  const grid = document.getElementById('levelPreviewGrid');
+  grid.innerHTML = CHALLENGES.map(c => `
+    <div class="feature-card p-4 reveal">
+      <div class="badge-ring ${c.tierClass} mb-3"><i class="fas ${c.badgeIcon}"></i></div>
+      <div class="f-mono text-[8.5px] font-bold text-slate-400 uppercase tracking-wide mb-1">Module 0${c.id} • ${c.difficulty}</div>
+      <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">${c.title}</h3>
+      <p class="text-[10px] text-slate-500 leading-relaxed">Earn: ${c.badgeName}</p>
+    </div>`).join('');
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}
+
+/* ============ RENDER: DASHBOARD ============ */
+function renderDashboard(){
+  const s = getState();
+  const grid = document.getElementById('challengeGrid');
+  grid.innerHTML = CHALLENGES.map(c => {
+    const done = !!s.completed[c.id];
+    return `
+    <div class="chal-card ${done?'done':''}" onclick="openChallenge(${c.id})">
+      <div class="flex items-start gap-3.5">
+        <div class="badge-ring ${c.tierClass}"><i class="fas ${c.badgeIcon}"></i></div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <span class="f-mono text-[8.5px] font-bold text-slate-400 uppercase tracking-wide">Module 0${c.id} • ${c.tier}</span>
+            ${done ? '<span class="text-[9px] font-bold text-emerald-600"><i class="fas fa-circle-check mr-1"></i>Cleared</span>' : '<span class="text-[9px] font-bold text-red-600">Open ticket</span>'}
+          </div>
+          <h3 class="f-display font-bold text-slate-900 text-[13.5px] mt-1">${c.title}</h3>
+          <p class="text-[10.5px] text-slate-500 mt-0.5">${c.difficulty} • ${c.points} pts • Badge: ${c.badgeName}</p>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const doneCount = Object.keys(s.completed).length;
+  document.getElementById('progressLabel').textContent = `${doneCount} / 5 modules cleared`;
+  document.getElementById('scoreLabel').textContent = s.score;
+  document.getElementById('progressFill').style.width = (doneCount/5*100)+'%';
+
+  const finalCert = document.getElementById('finalCert');
+  if(doneCount === 5){
+    finalCert.classList.remove('hidden');
+    document.getElementById('certName').textContent = s.name || 'Analyst';
+    document.getElementById('certScore').textContent = s.score;
+  } else {
+    finalCert.classList.add('hidden');
+  }
+}
+
+/* ============ CHALLENGE MODAL ============ */
+let currentChallenge = null;
+let selectedAnswers = {};
+
+function openChallenge(id){
+  currentChallenge = CHALLENGES.find(c=>c.id===id);
+  selectedAnswers = {};
+  document.getElementById('modalHead').style.background = currentChallenge.head;
+  document.getElementById('modalTier').textContent = `Module 0${currentChallenge.id} • ${currentChallenge.tier} • ${currentChallenge.difficulty}`;
+  document.getElementById('modalTitle').textContent = currentChallenge.title;
+  document.getElementById('modalBriefing').textContent = currentChallenge.briefing;
+  document.getElementById('modalScenario').textContent = currentChallenge.scenario;
+  document.getElementById('modalFeedback').classList.add('hidden');
+  document.getElementById('submitBtn').style.display = 'block';
+
+  const wrap = document.getElementById('questionsWrap');
+  wrap.innerHTML = currentChallenge.questions.map((q, qi) => {
+    if(q.type === 'mc'){
+      return `<div>
+        <p class="text-[12px] font-semibold text-slate-800 mb-2.5">${qi+1}. ${q.prompt}</p>
+        <div>${q.options.map((opt,oi)=>`<button class="opt-btn" data-q="${qi}" data-o="${oi}" onclick="selectOption(${qi},${oi})">${opt}</button>`).join('')}</div>
+      </div>`;
+    } else {
+      return `<div>
+        <p class="text-[12px] font-semibold text-slate-800 mb-2.5">${qi+1}. ${q.prompt}</p>
+        <input type="text" class="field" data-q="${qi}" placeholder="Type your answer" oninput="selectedAnswers[${qi}]=this.value">
+      </div>`;
+    }
+  }).join('');
+
+  document.getElementById('challengeModal').classList.add('active');
+}
+function closeChallenge(){ document.getElementById('challengeModal').classList.remove('active'); }
+
+function selectOption(qi, oi){
+  selectedAnswers[qi] = oi;
+  document.querySelectorAll(`.opt-btn[data-q="${qi}"]`).forEach(b=>b.classList.remove('selected'));
+  document.querySelector(`.opt-btn[data-q="${qi}"][data-o="${oi}"]`).classList.add('selected');
+}
+
+function submitChallenge(){
+  const qs = currentChallenge.questions;
+  let allCorrect = true;
+  qs.forEach((q, qi) => {
+    if(q.type === 'mc'){
+      const chosen = selectedAnswers[qi];
+      const correct = chosen === q.answer;
+      if(!correct) allCorrect = false;
+      document.querySelectorAll(`.opt-btn[data-q="${qi}"]`).forEach((b,oi)=>{
+        b.classList.remove('selected');
+        if(oi === q.answer) b.classList.add('correct');
+        else if(oi === chosen) b.classList.add('wrong');
+      });
+    } else {
+      const val = (selectedAnswers[qi] || '').trim().toLowerCase();
+      const ok = q.accepted.some(a => a.toLowerCase() === val);
+      if(!ok) allCorrect = false;
+    }
+  });
+
+  const fb = document.getElementById('modalFeedback');
+  fb.classList.remove('hidden');
+  if(allCorrect){
+    fb.style.background = 'rgba(16,185,129,.08)'; fb.style.color = '#065f46';
+    fb.textContent = 'Ticket resolved correctly. Nice triage — badge incoming.';
+    document.getElementById('submitBtn').style.display = 'none';
+    setTimeout(()=>{ closeChallenge(); awardBadge(currentChallenge); }, 900);
+  } else {
+    fb.style.background = 'rgba(224,18,48,.08)'; fb.style.color = 'var(--crimson-deep)';
+    fb.textContent = 'Not quite — re-check the evidence above and try again.';
+  }
+}
+
+/* ============ BADGE AWARD ============ */
+let lastBadgeText = "";
+function awardBadge(c){
+  const s = getState();
+  if(!s.completed[c.id]){
+    s.completed[c.id] = true;
+    s.score += c.points;
+    setState(s);
+  }
+  document.getElementById('badgeIcon').style.background = c.head;
+  document.getElementById('badgeIcon').querySelector('i').className = `fas ${c.badgeIcon}`;
+  document.getElementById('badgeName').textContent = c.badgeName;
+  document.getElementById('badgeDesc').textContent = `Awarded for clearing "${c.title}" — Module 0${c.id} of the Cryptonic Area SOC Simulation Lab.`;
+  lastBadgeText = `🛡️ I just cleared "${c.title}" in the Cryptonic Area SOC Simulation Lab and earned the ${c.badgeName} badge! Working through real-world-style SOC analyst scenarios — phishing triage, log analysis, endpoint alerts, network intrusions, and incident correlation. #CyberSecurity #SOC #CryptonicArea`;
+  document.getElementById('badgeModal').classList.add('active');
+}
+function closeBadgeModal(){
+  document.getElementById('badgeModal').classList.remove('active');
+  renderDashboard();
+}
+function copyBadgeShare(){
+  navigator.clipboard.writeText(lastBadgeText).then(()=>showToast('Share text copied — paste it on LinkedIn!'));
+}
+function shareFinal(){
+  const s = getState();
+  const text = `🏆 I completed the Cryptonic Area SOC Simulation Lab — all 5 live modules cleared with a score of ${s.score}/500. Earned every tier from Bronze Sentinel to Obsidian SOC Commander by working through real analyst-style incidents: phishing, log analysis, endpoint alerts, network intrusions, and full incident correlation. #CyberSecurity #SOC #CryptonicArea`;
+  navigator.clipboard.writeText(text).then(()=>showToast('Certificate share text copied!'));
+}
+
+/* ============ BOOT SEQUENCE ============ */
+function runBoot(){
+  const lines = ['bl1','bl2','bl3','bl4','bl5'];
+  lines.forEach((id,i)=>{
+    setTimeout(()=>{ document.getElementById(id).style.opacity = 1; }, 350*i);
+  });
+  setTimeout(()=>{ document.getElementById('bootScreen').classList.add('hide'); }, 350*lines.length + 500);
+}
+
+/* ============ TYPEWRITER ============ */
+const phrases = ["a live SOC console.", "real alerts, real triage.", "5 incidents. 1 shift."];
+let pIndex = 0;
+const twEl = document.getElementById('typewriter');
+function typeForward(){
+  let letters = phrases[pIndex].split('');
+  (function step(){ if(letters.length){ twEl.textContent += letters.shift(); setTimeout(step,55);} else { setTimeout(typeErase,2000);} })();
+}
+function typeErase(){
+  let letters = phrases[pIndex].split('');
+  (function step(){ if(letters.length){ letters.pop(); twEl.textContent = letters.join(''); setTimeout(step,32);} else { pIndex=(pIndex+1)%phrases.length; setTimeout(typeForward,250);} })();
+}
+
+/* ============ REVEAL ON SCROLL ============ */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold:.15});
+
+/* ============ MESH BACKGROUND ============ */
+function initMesh(canvasId){
+  const canvas = document.getElementById(canvasId);
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let nodes = [];
+  const isMobile = window.innerWidth < 768;
+  const nodeCount = isMobile ? 20 : 36;
+  const linkDist = 115;
+  function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize); resize();
+  class Node{
+    constructor(){ this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.vx=(Math.random()-.5)*.4; this.vy=(Math.random()-.5)*.4; this.r=Math.random()*1.5+.6; }
+    update(){ this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>canvas.width) this.vx*=-1; if(this.y<0||this.y>canvas.height) this.vy*=-1; }
+    draw(){ ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle='rgba(224,18,48,0.3)'; ctx.fill(); }
+  }
+  for(let i=0;i<nodeCount;i++) nodes.push(new Node());
+  function drawLinks(){
+    for(let i=0;i<nodes.length;i++) for(let j=i+1;j<nodes.length;j++){
+      const d = Math.hypot(nodes[i].x-nodes[j].x, nodes[i].y-nodes[j].y);
+      if(d<linkDist){ ctx.beginPath(); ctx.moveTo(nodes[i].x,nodes[i].y); ctx.lineTo(nodes[j].x,nodes[j].y); ctx.strokeStyle=`rgba(224,18,48,${0.09*(1-d/linkDist)})`; ctx.lineWidth=.6; ctx.stroke(); }
+    }
+  }
+  function loop(){ ctx.clearRect(0,0,canvas.width,canvas.height); nodes.forEach(n=>{n.update(); n.draw();}); drawLinks(); requestAnimationFrame(loop); }
+  loop();
+}
+
+/* ============ INIT ============ */
+document.addEventListener('DOMContentLoaded', () => {
+  runBoot();
+  typeForward();
+  renderLevelPreview();
+  initMesh('mesh');
+  initMesh('mesh2');
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // resume session if already authenticated
+  const s = getState();
+  if(s.authed){ /* stay on landing, header "Enter Console" will resume */ }
+});
+</script>
+</body>
+</html>
