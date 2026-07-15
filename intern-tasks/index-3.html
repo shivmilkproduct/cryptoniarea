@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Project Portal | Cryptonic Area</title>
+    <meta name="description" content="Cryptonic Area Cyber Security Internship — Project Portal. Complete any 3 of 5 hands-on projects in Email Threat Investigation, OSINT, Vulnerability Assessment, Incident Response and Recon Automation.">
+    <meta name="theme-color" content="#e0122f">
+    <link rel="icon" type="image/jpeg" href="assets/cryptonicarea.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+    :root{
+        --platinum:#f7f8fa;
+        --platinum-2:#eef0f3;
+        --line: rgba(15,23,42,.08);
+        --ink:#0f1420;
+        --steel:#64748b;
+        --crimson:#e0122f;
+        --crimson-bright:#ff3552;
+        --crimson-deep:#8a0f22;
+        --cyan:#0891b2;
+    }
+    *{ scroll-behavior:smooth; }
+    body{
+        font-family:'Inter', sans-serif;
+        color:var(--ink);
+        background:
+            radial-gradient(circle at 12% 8%, rgba(224,18,48,.05), transparent 40%),
+            radial-gradient(circle at 88% 92%, rgba(8,145,178,.04), transparent 40%),
+            var(--platinum);
+        overflow-x:hidden;
+        position:relative;
+    }
+    body::before{
+        content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+        background-image:radial-gradient(rgba(224,18,48,.06) 1px, transparent 1px);
+        background-size:20px 20px;
+    }
+    .f-display{ font-family:'Space Grotesk', sans-serif; }
+    .f-mono{ font-family:'JetBrains Mono', monospace; }
+
+    ::-webkit-scrollbar{ width:5px; }
+    ::-webkit-scrollbar-track{ background:var(--platinum); }
+    ::-webkit-scrollbar-thumb{ background:var(--crimson); border-radius:6px; }
+
+    #mesh{ position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:.35; }
+
+    /* header */
+    .site-header{ backdrop-filter:blur(16px); background:rgba(255,255,255,.85); border-bottom:1px solid var(--line); }
+    .nav-link{ position:relative; color:var(--steel); font-size:.72rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; transition:color .25s ease; cursor:pointer; }
+    .nav-link::after{ content:''; position:absolute; left:0; right:0; bottom:-5px; height:2px; background:var(--crimson); transform:scaleX(0); transform-origin:left; transition:transform .3s cubic-bezier(.4,0,.2,1); }
+    .nav-link:hover{ color:var(--ink); }
+    .nav-link:hover::after{ transform:scaleX(1); }
+
+    .eyebrow{ display:inline-flex; align-items:center; gap:.4rem; font-family:'JetBrains Mono', monospace; font-size:.6rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:.3rem .7rem; border-radius:100px; background:rgba(224,18,48,.06); border:1px solid rgba(224,18,48,.18); color:var(--crimson); }
+    .dot-pulse{ width:5px; height:5px; border-radius:50%; background:var(--crimson-bright); animation:pulseDot 1.8s ease-in-out infinite; }
+    @keyframes pulseDot{ 0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(255,53,82,.5);} 50%{ opacity:.5; box-shadow:0 0 0 5px rgba(255,53,82,0);} }
+
+    .btn-primary{ background:linear-gradient(135deg, var(--crimson-bright), var(--crimson-deep)); color:#fff; font-weight:700; box-shadow:0 10px 24px -8px rgba(224,18,48,.5); transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s ease; }
+    .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 28px -6px rgba(224,18,48,.6); }
+    .btn-dark{ background:var(--ink); color:#fff; font-weight:700; transition:transform .3s ease, background .3s ease; }
+    .btn-dark:hover{ transform:translateY(-2px); background:#000; }
+    .btn-outline{ background:#fff; border:1px solid var(--line); color:var(--ink); font-weight:700; transition:all .3s ease; }
+    .btn-outline:hover{ border-color:var(--crimson); color:var(--crimson); transform:translateY(-2px); }
+
+    .glass-panel{ background:linear-gradient(135deg, rgba(255,255,255,.96), rgba(248,250,252,.98)); border:1px solid var(--line); box-shadow:0 20px 45px -20px rgba(15,23,42,.12); }
+
+    .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s cubic-bezier(.2,.6,.2,1), transform .6s cubic-bezier(.2,.6,.2,1); }
+    .reveal.in{ opacity:1; transform:translateY(0); }
+
+    .icon-float{ animation:iconFloat 3s ease-in-out infinite; }
+    @keyframes iconFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
+
+    /* project cards */
+    .proj-card{ background:#fff; border:1px solid var(--line); border-radius:14px; transition:transform .3s cubic-bezier(.4,0,.2,1), border-color .3s ease, box-shadow .3s ease; position:relative; overflow:hidden; }
+    .proj-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--crimson-bright), var(--cyan), transparent); animation:scanSweep 3.6s linear infinite; }
+    @keyframes scanSweep{ 0%{ left:-40%; } 100%{ left:100%; } }
+    .proj-card:hover{ transform:translateY(-4px); border-color:rgba(224,18,48,.3); box-shadow:0 22px 40px -18px rgba(15,23,42,.18); }
+    .proj-icon{ width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; color:#fff; box-shadow:0 8px 16px -6px rgba(0,0,0,.35); flex-shrink:0; }
+
+    .badge-num{ font-family:'JetBrains Mono', monospace; font-size:.58rem; font-weight:700; letter-spacing:.12em; color:var(--crimson); }
+
+    /* modal overlay */
+    #modalOverlay{ position:fixed; inset:0; z-index:100; display:none; }
+    #modalOverlay.open{ display:block; }
+    .modal-backdrop{ position:absolute; inset:0; background:rgba(10,12,20,.65); backdrop-filter:blur(6px); opacity:0; transition:opacity .3s ease; }
+    #modalOverlay.open .modal-backdrop{ opacity:1; }
+    .modal-sheet{ position:absolute; inset:0; overflow-y:auto; }
+    .modal-inner{ max-width:820px; margin:0 auto; padding:70px 18px 60px; transform:translateY(24px); opacity:0; transition:transform .35s cubic-bezier(.2,.6,.2,1), opacity .35s ease; }
+    #modalOverlay.open .modal-inner{ transform:translateY(0); opacity:1; }
+    .modal-card{ background:#fff; border-radius:20px; border:1px solid var(--line); box-shadow:0 40px 80px -20px rgba(0,0,0,.35); overflow:hidden; }
+    .modal-close{ position:fixed; top:16px; right:16px; z-index:110; width:36px; height:36px; border-radius:10px; background:#fff; border:1px solid var(--line); color:var(--ink); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 22px -8px rgba(0,0,0,.3); transition:all .25s ease; }
+    .modal-close:hover{ background:var(--crimson); color:#fff; border-color:var(--crimson); transform:rotate(90deg); }
+
+    .step-chip{ width:22px; height:22px; border-radius:7px; background:linear-gradient(135deg, var(--crimson-bright), var(--crimson-deep)); color:#fff; font-family:'JetBrains Mono',monospace; font-size:.62rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+
+    .wa-box{ background:linear-gradient(135deg, rgba(16,185,129,.06), rgba(16,185,129,.02)); border:1px solid rgba(16,185,129,.25); border-radius:14px; }
+
+    .note-box{ background:rgba(224,18,48,.04); border:1px solid rgba(224,18,48,.16); border-radius:12px; }
+    .info-box{ background:rgba(8,145,178,.05); border:1px solid rgba(8,145,178,.18); border-radius:12px; }
+
+    .resource-btn{ background:var(--ink); color:#fff; font-weight:700; transition:all .25s ease; }
+    .resource-btn:hover{ background:var(--crimson-deep); transform:translateY(-2px); }
+
+    .cursor-blink{ display:inline-block; width:2px; height:1em; background:var(--crimson-bright); margin-left:2px; vertical-align:-2px; animation:blink 1s step-start infinite; }
+    @keyframes blink{ 50%{ opacity:0; } }
+</style>
+</head>
+<body class="antialiased selection:bg-red-600 selection:text-white">
+
+<canvas id="mesh"></canvas>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header fixed top-0 left-0 w-full z-50">
+    <div class="max-w-[1300px] mx-auto px-5 lg:px-8 h-14 flex items-center justify-between">
+        <a href="#top" class="flex items-center gap-2">
+            <img src="assets/cryptonicarea.jpg" alt="Cryptonic Area" width="28" height="28" decoding="async" class="h-7 w-7 rounded-md object-cover" onerror="this.style.display='none'; document.getElementById('brand-fallback').classList.remove('hidden');">
+            <div id="brand-fallback" class="hidden w-7 h-7 rounded-md bg-gradient-to-br from-red-600 to-red-800 items-center justify-center text-white text-[11px] flex"><i class="fas fa-shield-halved"></i></div>
+            <div class="leading-none">
+                <span class="f-display text-slate-900 font-bold text-[13px] tracking-tight block">Cryptonic Area</span>
+                <span class="f-mono text-[8px] text-red-600 font-bold tracking-[0.15em] uppercase">Empowering Digital Defenders</span>
+            </div>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-7">
+            <a href="#top" class="nav-link">Home</a>
+            <a href="#guidelines" class="nav-link">Guidelines</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#mentor" class="nav-link">Contact Mentor</a>
+        </nav>
+
+        <div class="flex items-center gap-2.5">
+            <a href="#projects" class="hidden sm:inline-flex btn-primary text-[10.5px] px-4 py-2 rounded-lg items-center gap-1.5">
+                <i class="fas fa-diagram-project text-[10px]"></i> View Projects
+            </a>
+            <button id="menuToggle" aria-label="Open menu" class="lg:hidden w-8 h-8 rounded-lg border border-slate-200 text-slate-700 flex items-center justify-center">
+                <i class="fas fa-bars text-xs"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3">
+        <a href="#top" class="block nav-link !text-[11px]">Home</a>
+        <a href="#guidelines" class="block nav-link !text-[11px]">Guidelines</a>
+        <a href="#projects" class="block nav-link !text-[11px]">Projects</a>
+        <a href="#mentor" class="block nav-link !text-[11px]">Contact Mentor</a>
+    </div>
+</header>
+
+<div id="top"></div>
+
+<!-- ================= HERO ================= -->
+<section class="relative z-10 pt-28 pb-14 px-5 lg:px-8">
+    <div class="max-w-[900px] mx-auto text-center">
+
+        <div class="eyebrow mb-4 mx-auto"><span class="dot-pulse"></span> Cyber Security Internship · Project Portal</div>
+
+        <h1 class="f-display font-bold text-[1.7rem] sm:text-4xl lg:text-[2.5rem] leading-[1.15] tracking-tight text-slate-900 mb-4">
+            You're not here to <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-red-700 to-slate-900" id="typewriter"></span><span class="cursor-blink"></span>
+        </h1>
+
+        <p class="text-slate-600 text-[12.5px] lg:text-[13.5px] leading-relaxed max-w-[560px] mx-auto mb-3">
+            This internship isn't a checklist. There are <strong class="text-slate-900">5 real-world projects</strong> below —
+            complete any <strong class="text-slate-900">3 of them</strong> properly, with real research and a real report, to
+            become eligible for your Internship Completion Certificate.
+        </p>
+        <p class="text-slate-500 text-[11.5px] lg:text-[12px] leading-relaxed max-w-[560px] mx-auto mb-8">
+            We are not running a live class where every click is shown to you. You're given the projects and a complete
+            explanation of what to do — the depth, the research, the figuring-things-out is on you. That's the part that
+            actually makes you employable. If you're ever reviewed, the question won't be "did you submit" —
+            it will be <span class="text-slate-900 font-semibold">"what did you learn?"</span> Make sure you can answer it.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+            <a href="#projects" class="btn-primary px-5 py-3 rounded-xl text-[11px] inline-flex items-center gap-2">
+                <i class="fas fa-crosshairs text-[10px]"></i> View Projects <i class="fas fa-arrow-down text-[9px]"></i>
+            </a>
+            <a href="#guidelines" class="btn-outline px-5 py-3 rounded-xl text-[11px] inline-flex items-center gap-2">
+                <i class="fas fa-book-open text-[10px]"></i> Read Guidelines First
+            </a>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-2 text-slate-500 text-[10px] f-mono">
+            <span class="inline-flex items-center gap-1.5"><i class="fas fa-circle-check text-emerald-500"></i> 5 Total Projects</span>
+            <span class="text-slate-300">•</span>
+            <span class="inline-flex items-center gap-1.5"><i class="fas fa-circle-check text-emerald-500"></i> Any 3 Required</span>
+            <span class="text-slate-300">•</span>
+            <span class="inline-flex items-center gap-1.5"><i class="fas fa-circle-check text-emerald-500"></i> AI-Assisted, Not AI-Copied</span>
+            <span class="text-slate-300">•</span>
+            <span class="inline-flex items-center gap-1.5"><i class="fas fa-circle-check text-emerald-500"></i> Learning &gt; Speed</span>
+        </div>
+    </div>
+</section>
+
+<!-- ================= GUIDELINES / PHILOSOPHY ================= -->
+<section id="guidelines" class="relative z-10 py-14 px-5 lg:px-8">
+    <div class="max-w-[1050px] mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-9 reveal">
+            <div class="eyebrow mb-3 mx-auto"><i class="fas fa-compass text-[9px]"></i> Before You Start</div>
+            <h2 class="f-display text-xl lg:text-2xl font-bold tracking-tight text-slate-900 mb-2.5">How this internship actually works</h2>
+            <p class="text-slate-500 text-[12px] lg:text-[12.5px] leading-relaxed">
+                Four things to understand before you open a single project.
+            </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-3 mb-6">
+            <div class="proj-card reveal p-4">
+                <div class="flex items-start gap-3">
+                    <div class="proj-icon" style="background:linear-gradient(135deg,var(--crimson-bright),var(--crimson-deep))"><i class="fas fa-graduation-cap text-[12px]"></i></div>
+                    <div>
+                        <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">We're not spoon-feeding you</h3>
+                        <p class="text-slate-500 text-[11px] leading-relaxed">No live, step-by-step "watch me do it" sessions. Every project comes with a full explanation of what to do and what to submit — the execution, the research, and the figuring-it-out is yours. That's exactly what real cyber security work looks like.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="proj-card reveal p-4">
+                <div class="flex items-start gap-3">
+                    <div class="proj-icon" style="background:linear-gradient(135deg,#0891b2,#0e7490)"><i class="fas fa-robot text-[12px]"></i></div>
+                    <div>
+                        <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">AI is allowed — copy-paste isn't</h3>
+                        <p class="text-slate-500 text-[11px] leading-relaxed">Use AI to understand a concept, learn a tool, or unblock yourself — that's smart use of what's available. But the analysis, the decisions, and the report have to be genuinely yours. You'll need to explain your own work later.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="proj-card reveal p-4">
+                <div class="flex items-start gap-3">
+                    <div class="proj-icon" style="background:linear-gradient(135deg,#f59e0b,#b45309)"><i class="fas fa-comments text-[12px]"></i></div>
+                    <div>
+                        <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">"What did you learn?" — be ready</h3>
+                        <p class="text-slate-500 text-[11px] leading-relaxed">If your batch is called for a review, the question won't be about completion — it'll be about understanding. Focus on actually learning the concept behind each project, not just finishing it and moving on.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="proj-card reveal p-4">
+                <div class="flex items-start gap-3">
+                    <div class="proj-icon" style="background:linear-gradient(135deg,#10b981,#047857)"><i class="fas fa-award text-[12px]"></i></div>
+                    <div>
+                        <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">Top performers get recognized</h3>
+                        <p class="text-slate-500 text-[11px] leading-relaxed">Interns who go beyond the minimum — deep research, industry-level reporting, clean execution — get featured and recognized on our official platform. The certificate is guaranteed at 3/5; recognition is earned.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-box p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 reveal">
+            <div class="proj-icon shrink-0" style="background:linear-gradient(135deg,var(--crimson-bright),var(--crimson-deep))"><i class="fas fa-triangle-exclamation text-[12px]"></i></div>
+            <p class="text-slate-700 text-[11px] leading-relaxed">
+                Certificates aren't the point — they'll come once you complete any <strong>3 of 5</strong> projects with proper documentation.
+                The actual point is the <strong>skill</strong>. Take your time, research properly, and use every project as a chance to
+                genuinely get better at cyber security — not just to submit something and move on.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ================= COMPLETION CRITERIA STRIP ================= -->
+<section class="relative z-10 px-5 lg:px-8 mb-2">
+    <div class="max-w-[950px] mx-auto grid grid-cols-3 gap-2.5">
+        <div class="proj-card p-3 text-center">
+            <div class="f-display text-lg font-bold text-slate-900">05</div>
+            <div class="text-[7.5px] f-mono text-slate-500 uppercase tracking-wider mt-0.5">Total Projects</div>
+        </div>
+        <div class="proj-card p-3 text-center" style="border-color:rgba(224,18,48,.35)">
+            <div class="f-display text-lg font-bold text-red-600">03</div>
+            <div class="text-[7.5px] f-mono text-slate-500 uppercase tracking-wider mt-0.5">Required to Complete</div>
+        </div>
+        <div class="proj-card p-3 text-center">
+            <div class="f-display text-lg font-bold text-slate-900">1:1</div>
+            <div class="text-[7.5px] f-mono text-slate-500 uppercase tracking-wider mt-0.5">Mentor Guidance</div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects" class="relative z-10 pt-16 pb-16 px-5 lg:px-8">
+    <div class="max-w-[1050px] mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-9 reveal">
+            <div class="eyebrow mb-3 mx-auto"><i class="fas fa-layer-group text-[9px]"></i> Cryptonic Area · Project Set</div>
+            <h2 class="f-display text-xl lg:text-2xl font-bold tracking-tight text-slate-900 mb-2.5">Choose any 3 of these 5 projects</h2>
+            <p class="text-slate-500 text-[12px] lg:text-[12.5px] leading-relaxed">
+                Tap a project to see the full brief, resources, and how to submit it.
+            </p>
+        </div>
+
+        <div id="projectGrid" class="grid sm:grid-cols-2 gap-3"></div>
+    </div>
+</section>
+
+<!-- ================= MENTOR STRIP (visible section, also inside each modal) ================= -->
+<section id="mentor" class="relative z-10 px-5 lg:px-8 pb-16">
+    <div class="max-w-[1050px] mx-auto wa-box p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div class="w-11 h-11 rounded-xl overflow-hidden shrink-0 ring-2 ring-emerald-500/40">
+            <img src="assets/karndeep.jpg" alt="Karndeep Baror" width="44" height="44" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.parentElement.outerHTML='<div class=\'w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center text-white text-[16px] shrink-0\'><i class=\'fab fa-whatsapp\'></i></div>';">
+        </div>
+        <div class="flex-1">
+            <div class="flex items-center gap-1.5">
+                <div class="f-display font-bold text-[12.5px] text-slate-900">Karndeep Baror</div>
+                <a href="https://linkedin.com/in/karndeepbaror" target="_blank" rel="noopener noreferrer" aria-label="Karndeep Baror on LinkedIn" class="text-[#0A66C2] hover:opacity-70 transition-opacity leading-none">
+                    <i class="fab fa-linkedin text-[12px]"></i>
+                </a>
+            </div>
+            <div class="text-[10.5px] text-slate-500 f-mono">Red Team Operator | APT &amp; Threat Intelligence</div>
+            <p class="text-[10.5px] text-slate-600 mt-1.5 max-w-md leading-relaxed">Genuinely stuck and need direction? <span class="font-semibold text-slate-900">Message the mentor.</span> But try first — you learn far more from working through it yourself than from being told the answer.</p>
+        </div>
+        <a href="https://wa.me/918503979765" target="_blank" rel="noopener noreferrer" class="btn-primary px-4 py-2.5 rounded-lg text-[10.5px] inline-flex items-center gap-2 shrink-0">
+            <i class="fab fa-whatsapp"></i> Message Mentor
+        </a>
+    </div>
+</section>
+
+<!-- ================= CLOSING MOTIVATION STRIP ================= -->
+<section class="relative z-10 px-5 lg:px-8 pb-16">
+    <div class="max-w-[1050px] mx-auto glass-panel rounded-2xl p-7 sm:p-9 text-center relative overflow-hidden reveal">
+        <div class="absolute inset-0 opacity-[0.05] pointer-events-none" style="background-image:radial-gradient(rgba(224,18,48,.9) 1px, transparent 1px); background-size:16px 16px;"></div>
+        <div class="relative">
+            <div class="eyebrow mb-4 mx-auto"><i class="fas fa-shield-halved text-[9px]"></i> Cryptonic Area · Internship Standard</div>
+            <h3 class="f-display text-lg sm:text-xl font-bold tracking-tight text-slate-900 mb-3">Skills stay with you. Certificates just prove it.</h3>
+            <p class="text-slate-500 text-[12px] leading-relaxed max-w-2xl mx-auto mb-5">
+                Every intern gets the same 5 projects and the same certificate at 3/5 — but not every intern walks away with the
+                same skill. The ones who go deep, research properly, write industry-grade reports, and can genuinely explain their
+                own work are the ones who get remembered — by us, and by every future employer who asks
+                <span class="text-slate-900 font-semibold">"what did you actually build?"</span> Make this internship count for
+                more than a line on your resume.
+            </p>
+            <p class="text-slate-500 text-[12px] leading-relaxed max-w-2xl mx-auto mb-5">
+                Yes — these projects can feel <span class="text-slate-900 font-semibold">advanced, even hard.</span> That's not
+                by accident — they're designed to industry level on purpose, so that finishing them actually
+                <span class="text-slate-900 font-semibold">boosts your resume</span>, not just fills it. Hard is the point.
+                Push through it, and your skills level up right along with it.
+            </p>
+            <div class="flex flex-wrap justify-center gap-2 text-[10px] f-mono text-slate-500">
+                <span class="inline-flex items-center gap-1.5 bg-white border border-slate-200 rounded-full px-3 py-1.5"><i class="fas fa-bolt text-amber-500"></i> Build real skill</span>
+                <span class="inline-flex items-center gap-1.5 bg-white border border-slate-200 rounded-full px-3 py-1.5"><i class="fas fa-magnifying-glass text-cyan-600"></i> Research deeply</span>
+                <span class="inline-flex items-center gap-1.5 bg-white border border-slate-200 rounded-full px-3 py-1.5"><i class="fas fa-file-shield text-red-600"></i> Report like a pro</span>
+                <span class="inline-flex items-center gap-1.5 bg-white border border-slate-200 rounded-full px-3 py-1.5"><i class="fas fa-star text-emerald-600"></i> Get recognized</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= FOOTER (matches main site) ================= -->
+<footer id="footer" class="relative z-10 pt-12 pb-6 px-5 lg:px-8 bg-gradient-to-b from-slate-50 to-slate-100 border-t border-slate-200/80">
+    <div class="max-w-[1250px] mx-auto grid md:grid-cols-12 gap-8 mb-9">
+
+        <div class="md:col-span-4">
+            <div class="flex items-center gap-2 mb-3">
+                <img src="assets/cryptonicarea.jpg" alt="Cryptonic Area" width="28" height="28" loading="lazy" decoding="async" class="h-7 w-7 rounded-md object-cover" onerror="this.style.display='none'; document.getElementById('footer-brand-fallback').classList.remove('hidden');">
+                <div id="footer-brand-fallback" class="hidden w-7 h-7 rounded-md bg-gradient-to-br from-red-600 to-red-800 items-center justify-center text-white text-[11px] flex"><i class="fas fa-shield-halved"></i></div>
+                <span class="f-display font-bold text-slate-900 text-[13px]">Cryptonic Area</span>
+            </div>
+            <p class="text-slate-500 text-[11px] leading-relaxed max-w-xs mb-4">
+                A global technology community dedicated to cyber security capability building, tactical training, and hands-on systems learning.
+            </p>
+            <div class="space-y-2 text-[11px] f-mono text-slate-600">
+                <div class="flex items-center gap-2"><i class="fas fa-phone text-red-500 text-[10px]"></i><a href="tel:+919509622197" class="hover:text-slate-950 transition-colors">+91 9509622197</a></div>
+                <div class="flex items-center gap-2"><i class="fab fa-whatsapp text-emerald-600 text-[10px]"></i><a href="https://wa.me/918503979765" target="_blank" rel="noopener noreferrer" class="hover:text-slate-950 transition-colors">WhatsApp Chat</a></div>
+                <div class="flex items-center gap-2"><i class="fas fa-envelope text-slate-400 text-[10px]"></i><a href="mailto:info@cryptonicarea.site" class="hover:text-slate-950 transition-colors">info@cryptonicarea.site</a></div>
+            </div>
+        </div>
+
+        <div class="md:col-span-3">
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.2em] text-red-600 uppercase mb-3">Programs</h4>
+            <ul class="space-y-2 text-[11px] text-slate-600">
+                <li><a href="https://cryptonicarea.site/" target="_blank" rel="noopener noreferrer" class="hover:text-red-600 transition-colors">Main Website</a></li>
+                <li><a href="#guidelines" class="hover:text-red-600 transition-colors">Internship Guidelines</a></li>
+                <li><a href="#projects" class="hover:text-red-600 transition-colors">Project List</a></li>
+            </ul>
+        </div>
+
+        <div class="md:col-span-2">
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.2em] text-slate-400 uppercase mb-3">Company</h4>
+            <ul class="space-y-2 text-[11px] text-slate-600">
+                <li><a href="https://cryptonicarea.site/about/" target="_blank" rel="noopener noreferrer" class="hover:text-red-600 transition-colors">About</a></li>
+                <li><a href="https://cryptonicarea.site/team/" target="_blank" rel="noopener noreferrer" class="hover:text-red-600 transition-colors">Core Team</a></li>
+                <li><a href="#mentor" class="hover:text-red-600 transition-colors">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="md:col-span-3">
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.2em] text-slate-900 uppercase mb-3">Connect</h4>
+            <div class="grid grid-cols-3 gap-2">
+                <a href="https://linkedin.com/company/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on LinkedIn" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-linkedin-in text-[11px]"></i>
+                </a>
+                <a href="https://instagram.com/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on Instagram" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-instagram text-[11px]"></i>
+                </a>
+                <a href="https://youtube.com/@CryptonicArea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on YouTube" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-youtube text-[11px]"></i>
+                </a>
+                <a href="https://t.me/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on Telegram" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-telegram-plane text-[11px]"></i>
+                </a>
+                <a href="https://chat.whatsapp.com/LCZscqpn1hm6nhBBOSfymq" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area WhatsApp community" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-whatsapp text-[11px]"></i>
+                </a>
+                <a href="https://x.com/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on X (Twitter)" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-x-twitter text-[11px]"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-[1250px] mx-auto border-t border-slate-200 pt-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-[9px] f-mono text-slate-500 uppercase tracking-wider">
+        <span>&copy; 2026 Cryptonic Area. All rights reserved.</span>
+        <span class="text-red-600 font-bold">Internship Portal // System Secure</span>
+    </div>
+</footer>
+
+<!-- ================= MODAL OVERLAY ================= -->
+<div id="modalOverlay">
+    <div class="modal-backdrop" onclick="closeProject()"></div>
+    <button class="modal-close" onclick="closeProject()" aria-label="Close"><i class="fas fa-xmark text-[13px]"></i></button>
+    <div class="modal-sheet">
+        <div class="modal-inner">
+            <div class="modal-card" id="modalContent"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    /* typewriter */
+    const phrases = ["finish fast.", "copy an answer.", "here to learn."];
+    let pIndex = 0;
+    const twEl = document.getElementById('typewriter');
+    function typeForward() {
+        let letters = phrases[pIndex].split('');
+        (function step() {
+            if (letters.length) { twEl.textContent += letters.shift(); setTimeout(step, 65); }
+            else { setTimeout(typeErase, 2200); }
+        })();
+    }
+    function typeErase() {
+        let letters = twEl.textContent.split('');
+        (function step() {
+            if (letters.length) { letters.pop(); twEl.textContent = letters.join(''); setTimeout(step, 35); }
+            else { pIndex = (pIndex + 1) % phrases.length; setTimeout(typeForward, 250); }
+        })();
+    }
+    typeForward();
+
+    /* reveal on scroll */
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in'); });
+    }, { threshold: .15 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* background mesh (same as main site) */
+    const canvas = document.getElementById('mesh');
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+    const isMobile = window.innerWidth < 768;
+    const nodeCount = isMobile ? 22 : 36;
+    const linkDist = 115;
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+    class Node {
+        constructor() {
+            this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4;
+            this.r = Math.random() * 1.5 + 0.6;
+        }
+        update() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        }
+        draw() {
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(224, 18, 48, 0.3)'; ctx.fill();
+        }
+    }
+    for (let i = 0; i < nodeCount; i++) nodes.push(new Node());
+    function drawLinks() {
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+                if (d < linkDist) {
+                    ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.strokeStyle = `rgba(224, 18, 48, ${0.09 * (1 - d / linkDist)})`; ctx.lineWidth = 0.6; ctx.stroke();
+                }
+            }
+        }
+    }
+    function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        nodes.forEach(n => { n.update(); n.draw(); });
+        drawLinks();
+        requestAnimationFrame(loop);
+    }
+    loop();
+
+    /* ================= PROJECT DATA ================= */
+    const projects = [
+        {
+            id: 1,
+            title: "Email Threat Investigation & Analysis",
+            tagline: "Every inbox tells a story — learn to read the threat inside it.",
+            icon: "fa-envelope-open-text",
+            color: "linear-gradient(135deg,#e0122f,#8a0f22)",
+            domain: "Email Security",
+            resource: { label: "Download Sample Emails (PDF)", href: "assets/emails.pdf", icon: "fa-file-pdf" },
+            objective: "Learn how a real SOC / Email Security Analyst investigates suspicious emails, extracts Indicators of Compromise, and communicates risk with evidence — not guesswork.",
+            overview: "You will receive a PDF containing 10–12 sample emails — a mix of legitimate and phishing messages. Your task is to analyze every single email in depth, decide how dangerous each one is, and back every decision with clear evidence, exactly like an analyst triaging a real SOC queue.",
+            requirements: [
+                {
+                    title: "Email-By-Email Investigation",
+                    icon: "fa-magnifying-glass",
+                    points: [
+                        "Sender address vs. display name mismatch",
+                        "Reply-To / Return-Path anomalies",
+                        "Domain spoofing or lookalike domains (typosquatting)",
+                        "Embedded links — destination vs. displayed text (never click, only hover/inspect)",
+                        "Attachments — file type, naming pattern, macro risk",
+                        "Urgency, fear, authority, or reward-based social engineering language",
+                        "Header inconsistencies (SPF / DKIM / DMARC where visible)"
+                    ]
+                },
+                {
+                    title: "IOC Extraction",
+                    icon: "fa-crosshairs",
+                    points: [
+                        "List every Indicator of Compromise found — suspicious sender domains, URLs, IPs (if present), file names/hashes",
+                        "For every IOC, clearly note where it was found and why it's suspicious"
+                    ]
+                },
+                {
+                    title: "Risk Classification",
+                    icon: "fa-gauge-high",
+                    points: [
+                        "Classify each email — Low / Medium / High / Critical",
+                        "Justify every classification with the actual evidence found in that email — not a guess"
+                    ]
+                },
+                {
+                    title: "Cross-Verification",
+                    icon: "fa-check-double",
+                    points: [
+                        "Verify suspicious domains/links/IOCs using OSINT tools such as VirusTotal, urlscan.io, MXToolbox, or Google Safe Browsing",
+                        "Note the source and result of every verification check you performed"
+                    ]
+                }
+            ],
+            submission: [
+                "Professional Email Threat Investigation Report (PDF)",
+                "Per-email findings table (Email No. → Verdict → Key Indicators → Risk Level)",
+                "Consolidated IOC list",
+                "Tools used for verification",
+                "Recommendations — what an organization should do to prevent and respond to this"
+            ],
+            evaluation: [
+                "Depth of investigation",
+                "Correctness of risk classification",
+                "Quality of IOC documentation",
+                "Professional report writing"
+            ],
+            importantNote: "This is not a read-and-guess task. Treat every email like it actually landed in a real company's inbox and your investigation decides whether it gets escalated to the security team."
+        },
+        {
+            id: 2,
+            title: "OSINT Investigation & Intelligence Gathering",
+            tagline: "Public data, private conclusions — the art of Open Source Intelligence.",
+            icon: "fa-magnifying-glass-location",
+            color: "linear-gradient(135deg,#0891b2,#0e7490)",
+            domain: "OSINT",
+            resource: { label: "Target: example.com (placeholder — will be updated)", href: "#", icon: "fa-link", disabled: true },
+            objective: "Learn how to perform Open Source Intelligence (OSINT) on a target website using publicly available resources and prepare a professional intelligence report.",
+            overview: "You will be provided with one Website URL. Your task is to investigate the target using publicly available OSINT resources and gather as much relevant information as possible. You may use trusted OSINT tools, search engines, AI assistants, and publicly available websites.",
+            requirements: [
+                {
+                    title: "Website Investigation",
+                    icon: "fa-globe",
+                    points: [
+                        "Domain Information",
+                        "WHOIS Details",
+                        "IP Address",
+                        "DNS Records",
+                        "Hosting Provider",
+                        "SSL Certificate Information",
+                        "Security Headers",
+                        "Technologies Used",
+                        "Subdomains (if publicly available)",
+                        "robots.txt",
+                        "sitemap.xml",
+                        "Any other publicly available information"
+                    ]
+                },
+                {
+                    title: "Source Documentation",
+                    icon: "fa-book",
+                    points: [
+                        "What information was found",
+                        "Which website/tool was used",
+                        "Source URL"
+                    ]
+                },
+                {
+                    title: "Intelligence Analysis",
+                    icon: "fa-brain",
+                    points: [
+                        "Identify potential security observations",
+                        "Explain why each finding is important",
+                        "Highlight any exposed information or possible security concerns"
+                    ]
+                },
+                {
+                    title: "Professional Intelligence Report",
+                    icon: "fa-file-shield",
+                    points: [
+                        "Executive Summary",
+                        "Target Overview",
+                        "Information Gathered",
+                        "Sources & References",
+                        "Security Observations",
+                        "Recommendations"
+                    ]
+                }
+            ],
+            submission: [
+                "Professional Intelligence Report (PDF)",
+                "Supporting Screenshots (if required)",
+                "List of Tools/Websites Used",
+                "References (URLs of all sources)"
+            ],
+            importantNote: "For every major finding, always mention what was found, which tool/website was used, and the exact source URL — an intelligence report without sources is just an opinion."
+        },
+        {
+            id: 3,
+            title: "Vulnerability Assessment & Professional Reporting",
+            tagline: "Find it. Prove it safely. Explain it like a professional.",
+            icon: "fa-bug",
+            color: "linear-gradient(135deg,#f59e0b,#b45309)",
+            domain: "Web App Security",
+            resource: { label: "PortSwigger · DVWA · OWASP Juice Shop", href: "https://portswigger.net/web-security", icon: "fa-flask" },
+            objective: "Learn the fundamentals of Web Application Penetration Testing by identifying a real vulnerability in a safe and intentionally vulnerable environment, understanding its impact, and preparing a professional vulnerability assessment report.",
+            overview: "You must use an intentionally vulnerable platform such as PortSwigger Web Security Academy, DVWA, or OWASP Juice Shop. Select one vulnerability and perform a complete assessment in the provided lab environment. The goal is to understand the vulnerability, not to attack real websites.",
+            requirements: [
+                {
+                    title: "Select a Vulnerability",
+                    icon: "fa-list-check",
+                    points: [
+                        "Choose only one vulnerability from the vulnerable lab. Examples:",
+                        "SQL Injection", "Cross-Site Scripting (XSS)", "IDOR", "Authentication Bypass",
+                        "File Upload Vulnerability", "CSRF", "Directory Traversal"
+                    ]
+                },
+                {
+                    title: "Perform The Assessment",
+                    icon: "fa-vial-circle-check",
+                    points: [
+                        "Successfully identify and demonstrate the selected vulnerability within the lab environment",
+                        "Document every step clearly with screenshots"
+                    ]
+                },
+                {
+                    title: "Vulnerability Analysis",
+                    icon: "fa-diagram-project",
+                    points: [
+                        "What is the vulnerability?",
+                        "Why does it occur?",
+                        "What is its impact?",
+                        "Which systems or users could be affected?"
+                    ]
+                },
+                {
+                    title: "Proof of Concept (PoC)",
+                    icon: "fa-flask-vial",
+                    points: [
+                        "Steps to reproduce",
+                        "Screenshots",
+                        "Expected Result",
+                        "Actual Result"
+                    ]
+                },
+                {
+                    title: "Remediation",
+                    icon: "fa-shield-heart",
+                    points: [
+                        "Provide professional mitigation recommendations explaining how the vulnerability can be prevented or fixed"
+                    ]
+                }
+            ],
+            submission: [
+                "Professional Vulnerability Assessment Report (PDF)",
+                "Supporting Screenshots",
+                "GitHub Repository (if any scripts or code are used)",
+                "README Documentation"
+            ],
+            evaluation: [
+                "Accuracy of Vulnerability Analysis",
+                "Proof of Concept Quality",
+                "Technical Understanding",
+                "Remediation Recommendations",
+                "Professional Report Writing"
+            ],
+            reportNote: "Write the report exactly as if this vulnerability were found in a real company's live product and you're submitting it to their security team — formal tone, precise technical language, zero fluff, fully professional format from cover to conclusion.",
+            importantNote: "Perform all testing only on intentionally vulnerable labs (such as PortSwigger, DVWA, or OWASP Juice Shop). Do not test unauthorized systems or live websites. This project is strictly for educational and ethical learning purposes."
+        },
+        {
+            id: 4,
+            title: "Security Monitoring & Incident Response",
+            tagline: "Somewhere in the noise, an attacker left a trace. Find it.",
+            icon: "fa-satellite-dish",
+            color: "linear-gradient(135deg,#10b981,#047857)",
+            domain: "Blue Team",
+            resource: { label: "Download Security Logs", href: "assets/security-logs.zip", icon: "fa-file-zipper" },
+            objective: "Learn how Security Operations Centers (SOC) detect, analyze, and respond to security incidents by monitoring system logs and applying incident response methodologies.",
+            overview: "You will be provided with sample security logs containing normal and suspicious activities. Your task is to analyze the logs, identify potential security incidents, create detection logic, classify incidents based on severity, and prepare a professional Incident Response Report.",
+            requirements: [
+                {
+                    title: "Log Analysis",
+                    icon: "fa-file-lines",
+                    points: [
+                        "Failed Login Attempts",
+                        "Successful Logins",
+                        "Suspicious IP Addresses",
+                        "Unusual User Activities",
+                        "Any abnormal behavior",
+                        "Clearly distinguish between normal and suspicious events"
+                    ]
+                },
+                {
+                    title: "Detection Logic",
+                    icon: "fa-bell",
+                    points: [
+                        "Create simple detection rules based on your findings. Examples:",
+                        "Multiple failed logins", "Login from unusual location", "Admin login at unusual hours", "Repeated access attempts",
+                        "Explain why each rule should generate an alert"
+                    ]
+                },
+                {
+                    title: "Incident Classification & Response",
+                    icon: "fa-triangle-exclamation",
+                    points: [
+                        "For every suspicious activity, assign Severity (Low / Medium / High)",
+                        "Explain the possible impact",
+                        "Recommend appropriate response actions — examples: Block IP Address, Reset Password, Escalate to Security Team, Isolate the affected system"
+                    ]
+                },
+                {
+                    title: "Incident Workflow",
+                    icon: "fa-arrows-spin",
+                    points: [
+                        "Explain the incident handling process: Detection → Alert → Investigation → Response → Recovery → Closure"
+                    ]
+                }
+            ],
+            submission: [
+                "Professional Incident Response Report (PDF)",
+                "Detection Logic Documentation",
+                "Incident Classification Table",
+                "Security Recommendations"
+            ],
+            evaluation: [
+                "Accuracy of Log Analysis",
+                "Detection Logic",
+                "Incident Classification",
+                "Response Strategy",
+                "Professional Documentation"
+            ],
+            importantNote: "Perform your analysis only on the provided sample logs. Focus on analytical thinking, incident handling, and professional documentation rather than theory."
+        },
+        {
+            id: 5,
+            title: "Web Recon Automation Framework",
+            tagline: "Stop clicking twenty tools — build the one that does it for you.",
+            icon: "fa-robot",
+            color: "linear-gradient(135deg,#7c3aed,#5b21b6)",
+            domain: "Automation / Dev",
+            resource: null,
+            objective: "Learn to build real reconnaissance automation — the kind penetration testers and red teamers run before every engagement — by engineering the tool yourself instead of just running someone else's.",
+            overview: "Build a Web Recon Automation Framework that accepts a target domain or website URL as input and automatically collects publicly available reconnaissance data, then compiles it into a clean, professional report. This project is about engineering discipline, not just running commands — you are building the tool other people would eventually use before you.",
+            requirements: [
+                {
+                    title: "Core Data Collection Modules",
+                    icon: "fa-layer-group",
+                    points: [
+                        "WHOIS Information (registrar, creation/expiry date, name servers)",
+                        "DNS Records (A, AAAA, MX, NS, TXT, CNAME)",
+                        "IP Address & basic geolocation (if available)",
+                        "HTTP Response Headers",
+                        "SSL/TLS Certificate Details (issuer, validity, expiry)",
+                        "robots.txt content",
+                        "sitemap.xml content (if available)",
+                        "Basic Security Observations — missing security headers like CSP, HSTS, X-Frame-Options, server banner exposure, etc."
+                    ]
+                },
+                {
+                    title: "Framework Design",
+                    icon: "fa-code-branch",
+                    points: [
+                        "Structure your code into clean, reusable modules/functions — one responsibility per module, never one giant script",
+                        "Handle failures gracefully (dead domain, timeout, blocked request) — the tool should log and continue, never crash",
+                        "Accept the target as a simple input (command-line argument or prompt)"
+                    ]
+                },
+                {
+                    title: "Report Generation",
+                    icon: "fa-file-export",
+                    points: [
+                        "Automatically generate a structured Reconnaissance Report from the collected data — console output alone is not enough; generate an actual file (HTML, PDF, or formatted Markdown)",
+                        "The report should read like something you'd hand to a client before a penetration test begins"
+                    ]
+                },
+                {
+                    title: "Documentation",
+                    icon: "fa-book-open",
+                    points: [
+                        "Write a README explaining: how to run the tool, what each module does, what libraries/APIs it depends on, and any limitations",
+                        "Include a short architecture note on why you structured the code the way you did"
+                    ]
+                }
+            ],
+            submission: [
+                "Complete Source Code (GitHub repo or ZIP)",
+                "Sample Generated Report (from at least one domain you're authorized to test — e.g. your own site or a public test domain)",
+                "README Documentation",
+                "Short write-up: what was hardest to build, and what you learned about recon while building it"
+            ],
+            evaluation: [
+                "Functionality — does it actually and reliably collect the data",
+                "Code quality & structure",
+                "Report clarity and professionalism",
+                "Documentation quality",
+                "Original engineering effort — not a copy-pasted script with your name on it"
+            ],
+            importantNote: "Only run this tool against domains you own or are explicitly authorized to scan (your own website, or a domain you control). Building recon automation is legal and encouraged — running it against unauthorized targets is not."
+        }
+    ];
+
+    const grid = document.getElementById('projectGrid');
+    projects.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'proj-card reveal p-4 cursor-pointer';
+        card.onclick = () => openProject(p.id);
+        card.innerHTML = `
+            <div class="flex items-start gap-3 mb-2">
+                <div class="proj-icon" style="background:${p.color}"><i class="fas ${p.icon} text-[13px]"></i></div>
+                <div class="min-w-0">
+                    <div class="badge-num">PROJECT 0${p.id} · ${p.domain.toUpperCase()}</div>
+                    <h3 class="f-display font-semibold text-[12.5px] text-slate-900 leading-snug mt-0.5">${p.title}</h3>
+                </div>
+            </div>
+            <p class="text-slate-500 text-[10.5px] leading-relaxed mb-3">${p.tagline}</p>
+            <span class="btn-dark inline-flex items-center gap-1.5 text-[10px] px-3.5 py-2 rounded-lg">
+                <i class="fas fa-play text-[8px]"></i> Start Project
+            </span>
+        `;
+        grid.appendChild(card);
+        revealObserver.observe(card);
+    });
+
+    function openProject(id) {
+        const p = projects.find(x => x.id === id);
+
+        const resourceHtml = p.resource
+            ? `<a href="${p.resource.href}" ${p.resource.disabled ? 'onclick="return false;"' : 'download target="_blank" rel="noopener noreferrer"'} class="resource-btn inline-flex items-center gap-2 text-[10.5px] px-4 py-2.5 rounded-lg ${p.resource.disabled ? 'opacity-60 cursor-not-allowed' : ''}">
+                <i class="fas ${p.resource.icon} text-[10px]"></i> ${p.resource.label}
+               </a>`
+            : `<div class="info-box p-3 text-[10.5px] text-slate-600 inline-flex items-center gap-2"><i class="fas fa-hammer text-cyan-600"></i> No dataset for this one — this project is about what you build.</div>`;
+
+        const requirementsHtml = p.requirements.map((req, i) => `
+            <div class="proj-card p-4 mb-3">
+                <div class="flex items-center gap-2.5 mb-2.5">
+                    <div class="step-chip">${i + 1}</div>
+                    <div class="w-7 h-7 rounded-[8px] flex items-center justify-center text-white shrink-0" style="background:${p.color}"><i class="fas ${req.icon} text-[10px]"></i></div>
+                    <h4 class="f-display font-semibold text-[12px] text-slate-900">${req.title}</h4>
+                </div>
+                <ul class="space-y-1.5 pl-1">
+                    ${req.points.map(pt => `
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-[8px] text-red-600 mt-1 shrink-0"></i>
+                            <span class="text-slate-600 text-[11px] leading-relaxed">${pt}</span>
+                        </li>`).join('')}
+                </ul>
+            </div>`).join('');
+
+        const submissionHtml = p.submission.map(s => `
+            <li class="flex items-start gap-2 mb-1.5">
+                <i class="fas fa-circle-check text-[10px] text-emerald-600 mt-0.5 shrink-0"></i>
+                <span class="text-slate-600 text-[11px] leading-relaxed">${s}</span>
+            </li>`).join('');
+
+        const evaluationHtml = p.evaluation ? `
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.15em] text-slate-500 uppercase mb-3 mt-6 flex items-center gap-2"><i class="fas fa-scale-balanced text-[10px]"></i> Evaluation Criteria</h4>
+            <div class="flex flex-wrap gap-1.5 mb-2">
+                ${p.evaluation.map(e => `<span class="bg-slate-100 border border-slate-200 text-slate-600 text-[10px] px-2.5 py-1.5 rounded-full">${e}</span>`).join('')}
+            </div>` : '';
+
+        const reportNoteHtml = p.reportNote ? `
+            <div class="info-box p-3.5 mb-3">
+                <div class="f-mono text-[9px] font-bold tracking-[0.12em] text-cyan-700 uppercase mb-1"><i class="fas fa-file-signature mr-1"></i> Report Writing Standard</div>
+                <p class="text-slate-600 text-[11px] leading-relaxed">${p.reportNote}</p>
+            </div>` : '';
+
+        document.getElementById('modalContent').innerHTML = `
+            <div class="p-6 sm:p-8">
+                <div class="flex items-start gap-3 mb-4">
+                    <div class="proj-icon" style="background:${p.color}; width:40px; height:40px;"><i class="fas ${p.icon} text-[15px]"></i></div>
+                    <div>
+                        <div class="badge-num">PROJECT 0${p.id} · ${p.domain.toUpperCase()}</div>
+                        <h2 class="f-display text-[17px] sm:text-lg font-bold text-slate-900 leading-snug mt-0.5">${p.title}</h2>
+                        <p class="text-slate-500 text-[11px] mt-0.5">${p.tagline}</p>
+                    </div>
+                </div>
+
+                <div class="info-box p-3.5 mb-3">
+                    <div class="f-mono text-[9px] font-bold tracking-[0.12em] text-cyan-700 uppercase mb-1"><i class="fas fa-bullseye mr-1"></i> Objective</div>
+                    <p class="text-slate-600 text-[11.5px] leading-relaxed">${p.objective}</p>
+                </div>
+
+                <div class="note-box p-3.5 mb-5">
+                    <div class="f-mono text-[9px] font-bold tracking-[0.12em] text-red-600 uppercase mb-1"><i class="fas fa-book-open-reader mr-1"></i> Project Overview</div>
+                    <p class="text-slate-600 text-[11.5px] leading-relaxed">${p.overview}</p>
+                </div>
+
+                <div class="mb-5">${resourceHtml}</div>
+
+                <h4 class="f-mono text-[9.5px] font-bold tracking-[0.15em] text-red-600 uppercase mb-3 flex items-center gap-2"><i class="fas fa-list-ol text-[10px]"></i> Project Requirements</h4>
+                <div class="mb-2">${requirementsHtml}</div>
+
+                <h4 class="f-mono text-[9.5px] font-bold tracking-[0.15em] text-red-600 uppercase mb-3 mt-6 flex items-center gap-2"><i class="fas fa-paper-plane text-[10px]"></i> Final Submission</h4>
+                <ul class="mb-2">${submissionHtml}</ul>
+
+                ${evaluationHtml}
+
+                ${reportNoteHtml}
+
+                <div class="note-box p-3.5 mb-3 mt-3">
+                    <div class="f-mono text-[9px] font-bold tracking-[0.12em] text-red-600 uppercase mb-1"><i class="fas fa-robot mr-1"></i> AI Usage</div>
+                    <p class="text-slate-600 text-[11px] leading-relaxed">AI is genuinely helpful — use it to learn a concept or unblock yourself. Just don't let it do the work for you; you should be able to explain every part of what you submitted, in your own words, if asked.</p>
+                </div>
+
+                ${p.importantNote ? `
+                <div class="note-box p-3.5">
+                    <div class="f-mono text-[9px] font-bold tracking-[0.12em] text-red-600 uppercase mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Important</div>
+                    <p class="text-slate-600 text-[11px] leading-relaxed">${p.importantNote}</p>
+                </div>` : ''}
+            </div>
+        `;
+        document.getElementById('modalOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+        document.querySelector('.modal-sheet').scrollTop = 0;
+    }
+
+    function closeProject() {
+        document.getElementById('modalOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProject(); });
+</script>
+</body>
+</html>
