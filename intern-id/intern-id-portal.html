@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your Intern ID | Cryptonic Area</title>
+    <meta name="description" content="Cryptonic Area Internship ID Portal — enter the email you used at registration to securely retrieve your official Intern ID.">
+    <meta name="theme-color" content="#e0122f">
+    <link rel="icon" type="image/jpeg" href="assets/cryptonicarea.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+    :root{
+        --platinum:#f7f8fa;
+        --platinum-2:#eef0f3;
+        --line: rgba(15,23,42,.08);
+        --ink:#0f1420;
+        --steel:#64748b;
+        --crimson:#e0122f;
+        --crimson-bright:#ff3552;
+        --crimson-deep:#8a0f22;
+        --cyan:#0891b2;
+        --gold:#d4a017;
+    }
+    *{ scroll-behavior:smooth; }
+    body{
+        font-family:'Inter', sans-serif;
+        color:var(--ink);
+        background:
+            radial-gradient(circle at 12% 8%, rgba(224,18,48,.05), transparent 40%),
+            radial-gradient(circle at 88% 92%, rgba(8,145,178,.04), transparent 40%),
+            var(--platinum);
+        overflow-x:hidden;
+        position:relative;
+    }
+    body::before{
+        content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+        background-image:radial-gradient(rgba(224,18,48,.06) 1px, transparent 1px);
+        background-size:20px 20px;
+    }
+    .f-display{ font-family:'Space Grotesk', sans-serif; }
+    .f-mono{ font-family:'JetBrains Mono', monospace; }
+
+    ::-webkit-scrollbar{ width:5px; }
+    ::-webkit-scrollbar-track{ background:var(--platinum); }
+    ::-webkit-scrollbar-thumb{ background:var(--crimson); border-radius:6px; }
+
+    #mesh{ position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:.35; }
+    #burstCanvas{ position:fixed; inset:0; width:100%; height:100%; z-index:80; pointer-events:none; }
+
+    /* header */
+    .site-header{ backdrop-filter:blur(16px); background:rgba(255,255,255,.85); border-bottom:1px solid var(--line); }
+    .nav-link{ position:relative; color:var(--steel); font-size:.72rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; transition:color .25s ease; cursor:pointer; }
+    .nav-link::after{ content:''; position:absolute; left:0; right:0; bottom:-5px; height:2px; background:var(--crimson); transform:scaleX(0); transform-origin:left; transition:transform .3s cubic-bezier(.4,0,.2,1); }
+    .nav-link:hover{ color:var(--ink); }
+    .nav-link:hover::after{ transform:scaleX(1); }
+
+    .eyebrow{ display:inline-flex; align-items:center; gap:.4rem; font-family:'JetBrains Mono', monospace; font-size:.6rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:.3rem .7rem; border-radius:100px; background:rgba(224,18,48,.06); border:1px solid rgba(224,18,48,.18); color:var(--crimson); }
+    .dot-pulse{ width:5px; height:5px; border-radius:50%; background:var(--crimson-bright); animation:pulseDot 1.8s ease-in-out infinite; }
+    @keyframes pulseDot{ 0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(255,53,82,.5);} 50%{ opacity:.5; box-shadow:0 0 0 5px rgba(255,53,82,0);} }
+
+    .btn-primary{ background:linear-gradient(135deg, var(--crimson-bright), var(--crimson-deep)); color:#fff; font-weight:700; box-shadow:0 10px 24px -8px rgba(224,18,48,.5); transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s ease; }
+    .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 28px -6px rgba(224,18,48,.6); }
+    .btn-primary:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+    .btn-dark{ background:var(--ink); color:#fff; font-weight:700; transition:transform .3s ease, background .3s ease; }
+    .btn-dark:hover{ transform:translateY(-2px); background:#000; }
+    .btn-outline{ background:#fff; border:1px solid var(--line); color:var(--ink); font-weight:700; transition:all .3s ease; }
+    .btn-outline:hover{ border-color:var(--crimson); color:var(--crimson); transform:translateY(-2px); }
+
+    .glass-panel{ background:linear-gradient(135deg, rgba(255,255,255,.96), rgba(248,250,252,.98)); border:1px solid var(--line); box-shadow:0 20px 45px -20px rgba(15,23,42,.12); }
+
+    .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s cubic-bezier(.2,.6,.2,1), transform .6s cubic-bezier(.2,.6,.2,1); }
+    .reveal.in{ opacity:1; transform:translateY(0); }
+
+    .icon-float{ animation:iconFloat 3s ease-in-out infinite; }
+    @keyframes iconFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
+
+    .proj-card{ background:#fff; border:1px solid var(--line); border-radius:14px; transition:transform .3s cubic-bezier(.4,0,.2,1), border-color .3s ease, box-shadow .3s ease; position:relative; overflow:hidden; }
+    .proj-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--crimson-bright), var(--cyan), transparent); animation:scanSweep 3.6s linear infinite; }
+    @keyframes scanSweep{ 0%{ left:-40%; } 100%{ left:100%; } }
+    .proj-card:hover{ transform:translateY(-4px); border-color:rgba(224,18,48,.3); box-shadow:0 22px 40px -18px rgba(15,23,42,.18); }
+    .proj-icon{ width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; color:#fff; box-shadow:0 8px 16px -6px rgba(0,0,0,.35); flex-shrink:0; }
+
+    .note-box{ background:rgba(224,18,48,.04); border:1px solid rgba(224,18,48,.16); border-radius:12px; }
+    .info-box{ background:rgba(8,145,178,.05); border:1px solid rgba(8,145,178,.18); border-radius:12px; }
+    .wa-box{ background:linear-gradient(135deg, rgba(16,185,129,.06), rgba(16,185,129,.02)); border:1px solid rgba(16,185,129,.25); border-radius:14px; }
+
+    .cursor-blink{ display:inline-block; width:2px; height:1em; background:var(--crimson-bright); margin-left:2px; vertical-align:-2px; animation:blink 1s step-start infinite; }
+    @keyframes blink{ 50%{ opacity:0; } }
+
+    /* ===== Signature element: the rotating hex "access badge" ===== */
+    .badge-orbit{ position:relative; width:132px; height:132px; margin:0 auto; }
+    .badge-ring{ position:absolute; inset:0; border-radius:50%; border:1.5px dashed rgba(224,18,48,.35); animation:spinSlow 14s linear infinite; }
+    .badge-ring.ring2{ inset:14px; border-color:rgba(8,145,178,.35); animation-duration:10s; animation-direction:reverse; }
+    @keyframes spinSlow{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+    .badge-core{ position:absolute; inset:26px; border-radius:22px; background:linear-gradient(145deg, #12141c, #1c1f2c 55%, #0a0c12); display:flex; align-items:center; justify-content:center; box-shadow:0 18px 40px -12px rgba(224,18,48,.45), inset 0 0 0 1px rgba(255,255,255,.06); animation:badgeGlow 3s ease-in-out infinite; }
+    @keyframes badgeGlow{ 0%,100%{ box-shadow:0 18px 40px -12px rgba(224,18,48,.45), inset 0 0 0 1px rgba(255,255,255,.06);} 50%{ box-shadow:0 18px 48px -10px rgba(8,145,178,.5), inset 0 0 0 1px rgba(255,255,255,.1);} }
+    .badge-core i{ color:#ff3552; font-size:26px; filter:drop-shadow(0 0 10px rgba(255,53,82,.6)); animation:iconFloat 3s ease-in-out infinite; }
+    .badge-core::after{ content:''; position:absolute; left:8%; right:8%; height:2px; background:linear-gradient(90deg, transparent, rgba(8,145,178,.9), transparent); animation:idScan 2.6s ease-in-out infinite; }
+    @keyframes idScan{ 0%{ top:10%; opacity:0;} 10%{ opacity:1;} 50%{ top:88%; opacity:1;} 60%{ opacity:0;} 100%{ top:88%; opacity:0;} }
+
+    /* Lookup card */
+    .lookup-card{ background:linear-gradient(180deg, #ffffff, #fbfbfd); border:1px solid var(--line); border-radius:22px; box-shadow:0 30px 70px -30px rgba(15,23,42,.25); position:relative; overflow:hidden; }
+    .lookup-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--crimson-bright), var(--gold), var(--cyan), var(--crimson-bright)); background-size:300% 100%; animation:gradSweep 5s linear infinite; }
+    @keyframes gradSweep{ 0%{ background-position:0% 0; } 100%{ background-position:300% 0; } }
+
+    .email-input{ background:#fff; border:1.5px solid var(--line); border-radius:12px; transition:border-color .25s ease, box-shadow .25s ease; }
+    .email-input:focus{ outline:none; border-color:var(--crimson); box-shadow:0 0 0 4px rgba(224,18,48,.1); }
+
+    /* ===== ID Card (result: success) ===== */
+    .id-card{ position:relative; border-radius:18px; overflow:hidden; background:
+        radial-gradient(circle at 15% 0%, rgba(224,18,48,.35), transparent 45%),
+        radial-gradient(circle at 90% 100%, rgba(8,145,178,.35), transparent 45%),
+        linear-gradient(145deg, #0a0c14, #14171f 55%, #090a10);
+        box-shadow:0 30px 60px -20px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+    .id-card::before{
+        content:''; position:absolute; inset:0; opacity:.5; pointer-events:none;
+        background-image:radial-gradient(rgba(255,255,255,.045) 1px, transparent 1px);
+        background-size:14px 14px;
+    }
+    .id-card::after{
+        content:''; position:absolute; left:0; right:0; height:70px; top:-70px;
+        background:linear-gradient(180deg, rgba(8,145,178,.35), transparent);
+        animation:cardScan 3.2s ease-in-out infinite;
+        pointer-events:none;
+    }
+    @keyframes cardScan{ 0%{ top:-70px; opacity:0;} 15%{ opacity:.9;} 85%{ opacity:.9;} 100%{ top:100%; opacity:0;} }
+    .id-chip{ width:34px; height:26px; border-radius:6px; background:linear-gradient(135deg,#e8c874,#b8860b); box-shadow:inset 0 0 0 1px rgba(255,255,255,.3); position:relative; overflow:hidden; }
+    .id-chip::before, .id-chip::after{ content:''; position:absolute; background:rgba(0,0,0,.25); }
+    .id-chip::before{ left:0; right:0; top:50%; height:1px; }
+    .id-chip::after{ top:0; bottom:0; left:50%; width:1px; }
+    .id-code{ letter-spacing:.06em; text-shadow:0 0 18px rgba(255,53,82,.4); }
+    .verified-pill{ background:rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.4); color:#34d399; }
+    .verified-pulse{ width:6px; height:6px; border-radius:50%; background:#34d399; animation:pulseDot 1.6s ease-in-out infinite; box-shadow:0 0 0 0 rgba(52,211,153,.5); }
+
+    .pop-in{ animation:popIn .55s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes popIn{ 0%{ opacity:0; transform:scale(.92) translateY(10px); } 100%{ opacity:1; transform:scale(1) translateY(0); } }
+
+    .shake{ animation:shakeX .5s ease; }
+    @keyframes shakeX{ 0%,100%{ transform:translateX(0);} 20%{ transform:translateX(-6px);} 40%{ transform:translateX(6px);} 60%{ transform:translateX(-4px);} 80%{ transform:translateX(4px);} }
+
+    .spinner{ width:16px; height:16px; border-radius:50%; border:2px solid rgba(255,255,255,.35); border-top-color:#fff; animation:spin .7s linear infinite; }
+    @keyframes spin{ to{ transform:rotate(360deg);} }
+
+    .hex-strip{ position:absolute; inset:0; opacity:.06; pointer-events:none; background-image:
+        linear-gradient(30deg, var(--ink) 12%, transparent 12.5%, transparent 87%, var(--ink) 87.5%, var(--ink)),
+        linear-gradient(150deg, var(--ink) 12%, transparent 12.5%, transparent 87%, var(--ink) 87.5%, var(--ink)),
+        linear-gradient(30deg, var(--ink) 12%, transparent 12.5%, transparent 87%, var(--ink) 87.5%, var(--ink)),
+        linear-gradient(150deg, var(--ink) 12%, transparent 12.5%, transparent 87%, var(--ink) 87.5%, var(--ink));
+        background-size:44px 76px; background-position:0 0, 0 0, 22px 38px, 22px 38px;
+    }
+</style>
+</head>
+<body class="antialiased selection:bg-red-600 selection:text-white">
+
+<canvas id="mesh"></canvas>
+<canvas id="burstCanvas"></canvas>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header fixed top-0 left-0 w-full z-50">
+    <div class="max-w-[1300px] mx-auto px-5 lg:px-8 h-14 flex items-center justify-between">
+        <a href="https://cryptonicarea.site/" class="flex items-center gap-2">
+            <img src="assets/cryptonicarea.jpg" alt="Cryptonic Area" width="28" height="28" decoding="async" class="h-7 w-7 rounded-md object-cover" onerror="this.style.display='none'; document.getElementById('brand-fallback').classList.remove('hidden');">
+            <div id="brand-fallback" class="hidden w-7 h-7 rounded-md bg-gradient-to-br from-red-600 to-red-800 items-center justify-center text-white text-[11px] flex"><i class="fas fa-shield-halved"></i></div>
+            <div class="leading-none">
+                <span class="f-display text-slate-900 font-bold text-[13px] tracking-tight block">Cryptonic Area</span>
+                <span class="f-mono text-[8px] text-red-600 font-bold tracking-[0.15em] uppercase">Empowering Digital Defenders</span>
+            </div>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-7">
+            <a href="https://cryptonicarea.site/" target="_blank" rel="noopener noreferrer" class="nav-link">Main Website</a>
+            <a href="index.html" class="nav-link">Project Portal</a>
+            <a href="#lookup" class="nav-link">Get Intern ID</a>
+            <a href="#help" class="nav-link">Need Help?</a>
+        </nav>
+
+        <div class="flex items-center gap-2.5">
+            <a href="#lookup" class="hidden sm:inline-flex btn-primary text-[10.5px] px-4 py-2 rounded-lg items-center gap-1.5">
+                <i class="fas fa-id-badge text-[10px]"></i> Get My ID
+            </a>
+            <button id="menuToggle" aria-label="Open menu" class="lg:hidden w-8 h-8 rounded-lg border border-slate-200 text-slate-700 flex items-center justify-center">
+                <i class="fas fa-bars text-xs"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3">
+        <a href="https://cryptonicarea.site/" target="_blank" rel="noopener noreferrer" class="block nav-link !text-[11px]">Main Website</a>
+        <a href="index.html" class="block nav-link !text-[11px]">Project Portal</a>
+        <a href="#lookup" class="block nav-link !text-[11px]">Get Intern ID</a>
+        <a href="#help" class="block nav-link !text-[11px]">Need Help?</a>
+    </div>
+</header>
+
+<div id="top"></div>
+
+<!-- ================= HERO ================= -->
+<section class="relative z-10 pt-28 pb-10 px-5 lg:px-8">
+    <div class="max-w-[720px] mx-auto text-center">
+
+        <div class="eyebrow mb-5 mx-auto"><span class="dot-pulse"></span> Cryptonic Area · Internship ID Portal</div>
+
+        <div class="badge-orbit mb-5 reveal in">
+            <div class="badge-ring"></div>
+            <div class="badge-ring ring2"></div>
+            <div class="badge-core"><i class="fas fa-fingerprint"></i></div>
+        </div>
+
+        <h1 class="f-display font-bold text-[1.8rem] sm:text-4xl lg:text-[2.6rem] leading-[1.12] tracking-tight text-slate-900 mb-4">
+            Get Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-red-700 to-slate-900">Official Intern ID</span><span class="cursor-blink"></span>
+        </h1>
+
+        <p class="text-slate-600 text-[12.5px] lg:text-[13.5px] leading-relaxed max-w-[540px] mx-auto mb-2">
+            Every registered intern at <strong class="text-slate-900">Cryptonic Area</strong> already has a unique Intern ID
+            waiting in our records. Enter the <strong class="text-slate-900">same email address you used during registration</strong>
+            below, and we'll pull it up for you instantly.
+        </p>
+        <p class="text-slate-500 text-[11px] lg:text-[12px] leading-relaxed max-w-[520px] mx-auto mb-8">
+            No forms to fill again, no waiting in a queue — just a secure, one-click lookup against our official intern database.
+        </p>
+    </div>
+</section>
+
+<!-- ================= LOOKUP ================= -->
+<section id="lookup" class="relative z-10 pb-14 px-5 lg:px-8">
+    <div class="max-w-[560px] mx-auto">
+
+        <div class="lookup-card p-6 sm:p-8 reveal in">
+            <div class="flex items-center gap-2 mb-1.5">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white shrink-0" style="background:linear-gradient(135deg,var(--crimson-bright),var(--crimson-deep))">
+                    <i class="fas fa-magnifying-glass-chart text-[12px]"></i>
+                </div>
+                <h2 class="f-display font-bold text-[14px] text-slate-900">Look Up My Intern ID</h2>
+            </div>
+            <p class="text-slate-500 text-[10.5px] leading-relaxed mb-5 ml-10">
+                Use the exact email address from your internship registration form.
+            </p>
+
+            <form id="lookupForm" class="space-y-3">
+                <div>
+                    <label for="emailInput" class="block f-mono text-[9px] font-bold tracking-[0.15em] text-slate-500 uppercase mb-1.5">Registered Email Address</label>
+                    <div class="relative">
+                        <i class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[12px]"></i>
+                        <input type="email" id="emailInput" required placeholder="you@example.com"
+                            class="email-input w-full pl-10 pr-4 py-3 text-[12.5px] text-slate-900 placeholder:text-slate-400">
+                    </div>
+                </div>
+                <button type="submit" id="submitBtn" class="btn-primary w-full py-3.5 rounded-xl text-[11.5px] inline-flex items-center justify-center gap-2">
+                    <i class="fas fa-unlock-keyhole text-[11px]"></i> <span id="submitBtnText">Get My Intern ID</span>
+                </button>
+            </form>
+
+            <div class="flex items-center justify-center gap-2 mt-4 text-slate-400 text-[9.5px] f-mono">
+                <i class="fas fa-lock text-[9px]"></i> Secured lookup · Cryptonic Area database
+            </div>
+        </div>
+
+        <!-- ===== Result area (populated by JS) ===== -->
+        <div id="resultArea" class="mt-5"></div>
+
+    </div>
+</section>
+
+<!-- ================= WHY IT MATTERS (motivational / premium) ================= -->
+<section class="relative z-10 py-14 px-5 lg:px-8">
+    <div class="max-w-[1050px] mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-9 reveal">
+            <div class="eyebrow mb-3 mx-auto"><i class="fas fa-compass text-[9px]"></i> Why Your Intern ID Matters</div>
+            <h2 class="f-display text-xl lg:text-2xl font-bold tracking-tight text-slate-900 mb-2.5">More than just a number</h2>
+            <p class="text-slate-500 text-[12px] lg:text-[12.5px] leading-relaxed">
+                Your Intern ID is your identity inside the entire Cryptonic Area internship system.
+            </p>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-3 mb-6">
+            <div class="proj-card reveal p-4">
+                <div class="flex items-start gap-3">
+                    <div class="proj-icon" style="background:linear-gradient(135deg,var(--crimson-bright),var(--crimson-deep))"><i class="fas fa-paper-plane text-[12px]"></i></div>
+                    <div>
+                        <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">Needed for submissions</h3>
+                        <p class="text-slate-500 text-[11px] leading-relaxed">Every project you submit will be tagged against your Intern ID — it's how we track and verify your work is yours.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="proj-card reveal p-4">
+                <div class="flex items-start gap-3">
+                    <div class="proj-icon" style="background:linear-gradient(135deg,#0891b2,#0e7490)"><i class="fas fa-trophy text-[12px]"></i></div>
+                    <div>
+                        <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">This internship is competitive</h3>
+                        <p class="text-slate-500 text-[11px] leading-relaxed">Top performers are recognized and featured by ID — going deep on your projects is what gets you noticed.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="proj-card reveal p-4">
+                <div class="flex items-start gap-3">
+                    <div class="proj-icon" style="background:linear-gradient(135deg,#10b981,#047857)"><i class="fas fa-shield-heart text-[12px]"></i></div>
+                    <div>
+                        <h3 class="f-display font-semibold text-[12.5px] text-slate-900 mb-1">Lost it? No problem</h3>
+                        <p class="text-slate-500 text-[11px] leading-relaxed">Forgot to save your ID? Just come back to this page anytime and look it up again with your registered email.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-box p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 reveal">
+            <div class="proj-icon shrink-0" style="background:linear-gradient(135deg,var(--crimson-bright),var(--crimson-deep))"><i class="fas fa-triangle-exclamation text-[12px]"></i></div>
+            <p class="text-slate-700 text-[11px] leading-relaxed">
+                Keep your Intern ID somewhere safe — a notes app, an email to yourself, anywhere you won't lose it.
+                You'll need it every time you submit a project, and throughout the rest of your internship journey with us.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ================= HELP / CONTACT ================= -->
+<section id="help" class="relative z-10 px-5 lg:px-8 pb-16">
+    <div class="max-w-[1050px] mx-auto wa-box p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center text-white text-[16px] shrink-0">
+            <i class="fas fa-headset"></i>
+        </div>
+        <div class="flex-1">
+            <div class="f-display font-bold text-[12.5px] text-slate-900">Couldn't find your ID?</div>
+            <p class="text-[10.5px] text-slate-500 mt-1 max-w-md leading-relaxed">Our team is here to help — reach out and we'll sort out your registration or ID issue quickly.</p>
+        </div>
+        <!-- OWNER NOTE: replace YOUR_NUMBER_HERE below with your WhatsApp number (with country code, no + or spaces) e.g. 91XXXXXXXXXX -->
+        <a href="https://wa.me/YOUR_NUMBER_HERE" target="_blank" rel="noopener noreferrer" class="btn-primary px-4 py-2.5 rounded-lg text-[10.5px] inline-flex items-center gap-2 shrink-0">
+            <i class="fab fa-whatsapp"></i> Contact Our Team
+        </a>
+    </div>
+</section>
+
+<!-- ================= FOOTER (matches main site) ================= -->
+<footer id="footer" class="relative z-10 pt-12 pb-6 px-5 lg:px-8 bg-gradient-to-b from-slate-50 to-slate-100 border-t border-slate-200/80">
+    <div class="max-w-[1250px] mx-auto grid md:grid-cols-12 gap-8 mb-9">
+
+        <div class="md:col-span-4">
+            <div class="flex items-center gap-2 mb-3">
+                <img src="assets/cryptonicarea.jpg" alt="Cryptonic Area" width="28" height="28" loading="lazy" decoding="async" class="h-7 w-7 rounded-md object-cover" onerror="this.style.display='none'; document.getElementById('footer-brand-fallback').classList.remove('hidden');">
+                <div id="footer-brand-fallback" class="hidden w-7 h-7 rounded-md bg-gradient-to-br from-red-600 to-red-800 items-center justify-center text-white text-[11px] flex"><i class="fas fa-shield-halved"></i></div>
+                <span class="f-display font-bold text-slate-900 text-[13px]">Cryptonic Area</span>
+            </div>
+            <p class="text-slate-500 text-[11px] leading-relaxed max-w-xs mb-4">
+                A global technology community dedicated to cyber security capability building, tactical training, and hands-on systems learning.
+            </p>
+            <div class="space-y-2 text-[11px] f-mono text-slate-600">
+                <div class="flex items-center gap-2"><i class="fas fa-phone text-red-500 text-[10px]"></i><a href="tel:+919509622197" class="hover:text-slate-950 transition-colors">+91 9509622197</a></div>
+                <div class="flex items-center gap-2"><i class="fab fa-whatsapp text-emerald-600 text-[10px]"></i><a href="https://wa.me/918503979765" target="_blank" rel="noopener noreferrer" class="hover:text-slate-950 transition-colors">WhatsApp Chat</a></div>
+                <div class="flex items-center gap-2"><i class="fas fa-envelope text-slate-400 text-[10px]"></i><a href="mailto:info@cryptonicarea.site" class="hover:text-slate-950 transition-colors">info@cryptonicarea.site</a></div>
+            </div>
+        </div>
+
+        <div class="md:col-span-3">
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.2em] text-red-600 uppercase mb-3">Programs</h4>
+            <ul class="space-y-2 text-[11px] text-slate-600">
+                <li><a href="https://cryptonicarea.site/" target="_blank" rel="noopener noreferrer" class="hover:text-red-600 transition-colors">Main Website</a></li>
+                <li><a href="index.html" class="hover:text-red-600 transition-colors">Internship Guidelines</a></li>
+                <li><a href="index.html#projects" class="hover:text-red-600 transition-colors">Project List</a></li>
+            </ul>
+        </div>
+
+        <div class="md:col-span-2">
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.2em] text-slate-400 uppercase mb-3">Company</h4>
+            <ul class="space-y-2 text-[11px] text-slate-600">
+                <li><a href="https://cryptonicarea.site/about/" target="_blank" rel="noopener noreferrer" class="hover:text-red-600 transition-colors">About</a></li>
+                <li><a href="https://cryptonicarea.site/team/" target="_blank" rel="noopener noreferrer" class="hover:text-red-600 transition-colors">Core Team</a></li>
+                <li><a href="#help" class="hover:text-red-600 transition-colors">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="md:col-span-3">
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.2em] text-slate-900 uppercase mb-3">Connect</h4>
+            <div class="grid grid-cols-3 gap-2">
+                <a href="https://linkedin.com/company/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on LinkedIn" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-linkedin-in text-[11px]"></i>
+                </a>
+                <a href="https://instagram.com/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on Instagram" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-instagram text-[11px]"></i>
+                </a>
+                <a href="https://youtube.com/@CryptonicArea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on YouTube" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-youtube text-[11px]"></i>
+                </a>
+                <a href="https://t.me/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on Telegram" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-telegram-plane text-[11px]"></i>
+                </a>
+                <a href="https://chat.whatsapp.com/LCZscqpn1hm6nhBBOSfymq" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area WhatsApp community" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-whatsapp text-[11px]"></i>
+                </a>
+                <a href="https://x.com/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on X (Twitter)" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-x-twitter text-[11px]"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-[1250px] mx-auto border-t border-slate-200 pt-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-[9px] f-mono text-slate-500 uppercase tracking-wider">
+        <span>&copy; 2026 Cryptonic Area. All rights reserved.</span>
+        <span class="text-red-600 font-bold">Internship Portal // System Secure</span>
+    </div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    /* reveal on scroll */
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in'); });
+    }, { threshold: .15 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* background mesh (same as main site) */
+    const canvas = document.getElementById('mesh');
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+    const isMobile = window.innerWidth < 768;
+    const nodeCount = isMobile ? 22 : 36;
+    const linkDist = 115;
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+    class Node {
+        constructor() {
+            this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4;
+            this.r = Math.random() * 1.5 + 0.6;
+        }
+        update() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        }
+        draw() {
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(224, 18, 48, 0.3)'; ctx.fill();
+        }
+    }
+    for (let i = 0; i < nodeCount; i++) nodes.push(new Node());
+    function drawLinks() {
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+                if (d < linkDist) {
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.strokeStyle = `rgba(8, 145, 178, ${0.12 * (1 - d / linkDist)})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+    function animateMesh() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        nodes.forEach(n => { n.update(); n.draw(); });
+        drawLinks();
+        requestAnimationFrame(animateMesh);
+    }
+    animateMesh();
+
+    /* =========================================================
+       INTERN ID LOOKUP
+       =========================================================
+       OWNER: paste the link to your live database below.
+       This should be a URL that returns JSON — for example a
+       published Google Sheet read through a small proxy, or a
+       Google Apps Script "Web App" deployment connected to your
+       spreadsheet. It should return an array of objects like:
+       [
+         { "name": "Aarav Sharma", "email": "aarav@email.com", "internId": "CA-INT-2026-0001" },
+         { "name": "Priya Verma",  "email": "priya@email.com", "internId": "CA-INT-2026-0002" }
+       ]
+       If your column headers are different, adjust the field
+       names inside normalizeRow() below — no other code needs
+       to change.
+       ========================================================= */
+    const SHEET_API_URL = "PASTE_YOUR_SHEET_LINK_HERE";
+
+    // Demo records — used ONLY while the link above is still the placeholder,
+    // purely so you can test the design. Try: demo@cryptonicarea.site
+    const DEMO_DATA = [
+        { name: "Aarav Sharma", email: "demo@cryptonicarea.site", internId: "CA-INT-2026-0001" },
+        { name: "Priya Verma",  email: "priya.demo@cryptonicarea.site", internId: "CA-INT-2026-0002" }
+    ];
+
+    function normalizeRow(row) {
+        return {
+            name: row.name || row.Name || row.NAME || row.fullName || "",
+            email: String(row.email || row.Email || row.EMAIL || "").trim().toLowerCase(),
+            internId: row.internId || row.InternID || row["Intern ID"] || row.id || row.ID || ""
+        };
+    }
+
+    async function fetchDatabase() {
+        const isPlaceholder = !SHEET_API_URL || SHEET_API_URL.indexOf("PASTE_YOUR") !== -1;
+        if (isPlaceholder) {
+            await new Promise(r => setTimeout(r, 500)); // simulate lookup delay
+            return DEMO_DATA;
+        }
+        const res = await fetch(SHEET_API_URL);
+        if (!res.ok) throw new Error("network");
+        const data = await res.json();
+        const rows = Array.isArray(data) ? data : (data.rows || data.data || []);
+        return rows.map(normalizeRow);
+    }
+
+    const form = document.getElementById('lookupForm');
+    const emailInput = document.getElementById('emailInput');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitBtnText = document.getElementById('submitBtnText');
+    const resultArea = document.getElementById('resultArea');
+
+    function setLoading(isLoading) {
+        submitBtn.disabled = isLoading;
+        submitBtnText.textContent = isLoading ? "Scanning database..." : "Get My Intern ID";
+        submitBtn.querySelector('i').className = isLoading ? '' : 'fas fa-unlock-keyhole text-[11px]';
+        if (isLoading) {
+            const spin = document.createElement('span');
+            spin.className = 'spinner';
+            spin.id = 'loadSpin';
+            submitBtn.querySelector('i')?.remove();
+            submitBtn.prepend(spin);
+        } else {
+            document.getElementById('loadSpin')?.remove();
+            if (!submitBtn.querySelector('i')) {
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-unlock-keyhole text-[11px]';
+                submitBtn.prepend(icon);
+            }
+        }
+    }
+
+    function renderSuccess(match) {
+        resultArea.innerHTML = `
+            <div class="id-card p-6 sm:p-7 pop-in relative">
+                <div class="hex-strip"></div>
+                <div class="relative">
+                    <div class="flex items-center justify-between mb-5">
+                        <div class="flex items-center gap-2">
+                            <div class="w-7 h-7 rounded-md bg-white/10 flex items-center justify-center"><i class="fas fa-shield-halved text-white text-[11px]"></i></div>
+                            <span class="f-display font-bold text-white text-[12px] tracking-tight">Cryptonic Area</span>
+                        </div>
+                        <span class="verified-pill f-mono text-[8.5px] font-bold tracking-[0.14em] uppercase px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                            <span class="verified-pulse"></span> Verified
+                        </span>
+                    </div>
+
+                    <div class="text-center mb-5">
+                        <div class="f-mono text-emerald-400 text-[10px] font-bold tracking-[0.2em] uppercase mb-1"><i class="fas fa-circle-check mr-1"></i> Access Granted</div>
+                        <h3 class="f-display text-white text-[19px] sm:text-xl font-bold">Congratulations, ${match.name || 'Intern'}!</h3>
+                        <p class="text-slate-400 text-[11px] mt-1">Welcome to Cryptonic Area — your identity has been confirmed.</p>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center justify-between gap-3 mb-4">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="id-chip shrink-0"></div>
+                            <div class="min-w-0">
+                                <div class="f-mono text-[8px] text-slate-400 tracking-[0.15em] uppercase">Your Intern ID</div>
+                                <div class="id-code f-mono text-red-400 font-bold text-[15px] sm:text-base truncate">${match.internId || 'N/A'}</div>
+                            </div>
+                        </div>
+                        <button onclick="copyId('${(match.internId || '').replace(/'/g, "")}')" id="copyBtn" class="shrink-0 bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold px-3 py-2 rounded-lg transition-colors inline-flex items-center gap-1.5">
+                            <i class="fas fa-copy text-[10px]"></i> Copy
+                        </button>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 rounded-xl p-3.5">
+                        <p class="text-slate-300 text-[10.5px] leading-relaxed">
+                            <i class="fas fa-bookmark text-red-400 mr-1"></i> This is your official Internship ID — save it somewhere safe right now.
+                            You'll need it to <span class="text-white font-semibold">submit every project</span>, and remember: this internship
+                            is competitive, so this ID is how your work gets tracked and recognized going forward.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-slate-400 text-[10px] mt-4 f-mono">
+                <i class="fas fa-rotate-left mr-1"></i> Forgot it later? Just come back here and enter your email again.
+            </p>
+        `;
+    }
+
+    function renderNotFound() {
+        resultArea.innerHTML = `
+            <div class="glass-panel rounded-2xl p-6 sm:p-7 pop-in shake">
+                <div class="flex items-start gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center text-white shrink-0" style="background:linear-gradient(135deg,var(--crimson-bright),var(--crimson-deep))">
+                        <i class="fas fa-circle-exclamation text-[15px]"></i>
+                    </div>
+                    <div>
+                        <h3 class="f-display font-bold text-[14px] text-slate-900">Sorry, we couldn't find your Intern ID</h3>
+                        <p class="text-slate-500 text-[11px] mt-1 leading-relaxed">
+                            This could be a technical issue on our side, or your registration may not be confirmed yet in our system.
+                        </p>
+                    </div>
+                </div>
+                <div class="note-box p-3.5 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                    <p class="text-slate-600 text-[11px] leading-relaxed flex-1">Contact our team and we'll help sort this out for you right away.</p>
+                    <a href="https://wa.me/YOUR_NUMBER_HERE" target="_blank" rel="noopener noreferrer" class="btn-primary px-3.5 py-2 rounded-lg text-[10px] inline-flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+                        <i class="fab fa-whatsapp"></i> Contact Our Team
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderTechError() {
+        resultArea.innerHTML = `
+            <div class="glass-panel rounded-2xl p-6 sm:p-7 pop-in shake">
+                <div class="flex items-start gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center text-white shrink-0" style="background:linear-gradient(135deg,#0891b2,#0e7490)">
+                        <i class="fas fa-wifi text-[15px]"></i>
+                    </div>
+                    <div>
+                        <h3 class="f-display font-bold text-[14px] text-slate-900">Couldn't reach our database</h3>
+                        <p class="text-slate-500 text-[11px] mt-1 leading-relaxed">A connection issue happened while looking up your ID. Please try again in a moment.</p>
+                    </div>
+                </div>
+                <div class="note-box p-3.5 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                    <p class="text-slate-600 text-[11px] leading-relaxed flex-1">Still not working? Reach out and we'll help directly.</p>
+                    <a href="https://wa.me/YOUR_NUMBER_HERE" target="_blank" rel="noopener noreferrer" class="btn-primary px-3.5 py-2 rounded-lg text-[10px] inline-flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+                        <i class="fab fa-whatsapp"></i> Contact Our Team
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+
+    function copyId(id) {
+        navigator.clipboard?.writeText(id).then(() => {
+            const btn = document.getElementById('copyBtn');
+            if (!btn) return;
+            const original = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check text-[10px]"></i> Copied';
+            setTimeout(() => { btn.innerHTML = original; }, 1600);
+        });
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = emailInput.value.trim().toLowerCase();
+        if (!email) return;
+
+        setLoading(true);
+        resultArea.innerHTML = '';
+
+        try {
+            const db = await fetchDatabase();
+            const match = db.find(r => r.email === email);
+            if (match) {
+                renderSuccess(match);
+                burstParticles();
+            } else {
+                renderNotFound();
+            }
+        } catch (err) {
+            renderTechError();
+        } finally {
+            setLoading(false);
+        }
+    });
+
+    /* ===== light particle burst on success (canvas) ===== */
+    const burstCanvas = document.getElementById('burstCanvas');
+    const bctx = burstCanvas.getContext('2d');
+    function resizeBurst() { burstCanvas.width = window.innerWidth; burstCanvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeBurst);
+    resizeBurst();
+    const colors = ['#ff3552', '#0891b2', '#d4a017', '#10b981'];
+    function burstParticles() {
+        const originX = window.innerWidth / 2;
+        const originY = window.innerHeight * 0.35;
+        let particles = [];
+        const count = isMobile ? 40 : 70;
+        for (let i = 0; i < count; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = 2 + Math.random() * 5;
+            particles.push({
+                x: originX, y: originY,
+                vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 1.5,
+                life: 1, color: colors[Math.floor(Math.random() * colors.length)],
+                r: 2 + Math.random() * 2.5
+            });
+        }
+        let frame = 0;
+        function step() {
+            bctx.clearRect(0, 0, burstCanvas.width, burstCanvas.height);
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy; p.vy += 0.06; p.life -= 0.014;
+                bctx.globalAlpha = Math.max(p.life, 0);
+                bctx.beginPath(); bctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                bctx.fillStyle = p.color; bctx.fill();
+            });
+            particles = particles.filter(p => p.life > 0);
+            frame++;
+            if (particles.length && frame < 240) requestAnimationFrame(step);
+            else bctx.clearRect(0, 0, burstCanvas.width, burstCanvas.height);
+        }
+        step();
+    }
+
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') mobileMenu.classList.add('hidden'); });
+</script>
+</body>
+</html>
