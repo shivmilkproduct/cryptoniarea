@@ -477,8 +477,8 @@
        Google Apps Script "Web App" deployment connected to your
        spreadsheet. It should return an array of objects like:
        [
-         { "name": "Aarav Sharma", "email": "aarav@email.com", "internId": "CA-INT-2026-0001" },
-         { "name": "Priya Verma",  "email": "priya@email.com", "internId": "CA-INT-2026-0002" }
+         { "name": "Aarav Sharma", "email": "aarav@email.com", "internId": "CA0001" },
+         { "name": "Priya Verma",  "email": "priya@email.com", "internId": "CA0002" }
        ]
        If your column headers are different, adjust the field
        names inside normalizeRow() below — no other code needs
@@ -489,8 +489,8 @@
     // Demo records — used ONLY while the link above is still the placeholder,
     // purely so you can test the design. Try: demo@cryptonicarea.site
     const DEMO_DATA = [
-        { name: "Aarav Sharma", email: "demo@cryptonicarea.site", internId: "CA-INT-2026-0001" },
-        { name: "Priya Verma",  email: "priya.demo@cryptonicarea.site", internId: "CA-INT-2026-0002" }
+        { name: "Aarav Sharma", email: "demo@cryptonicarea.site", internId: "CA0001" },
+        { name: "Priya Verma",  email: "priya.demo@cryptonicarea.site", internId: "CA0001" }
     ];
 
     function normalizeRow(row) {
