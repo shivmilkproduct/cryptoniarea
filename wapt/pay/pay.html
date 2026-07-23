@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure Checkout | Cryptonic Area</title>
+<meta name="robots" content="noindex, nofollow">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    brand: {
+                        bg: '#f4f7f9',
+                        dark: '#0a0e27',
+                        cyan: '#00d1c7',
+                        purple: '#7c3aed',
+                    }
+                },
+                fontFamily: {
+                    tech: ['Rajdhani', 'monospace'],
+                    sans: ['Inter', 'sans-serif'],
+                }
+            }
+        }
+    }
+
+    // --- SAFE REDIRECT LOGIC ---
+    function handleSecurePayment() {
+        const upiId = "barorkarndeep0@okaxis";
+        const amount = "3999";
+        const name = "Cryptonic Area";
+        const url = `upi://pay?pa=${upiId}&pn=${name}&am=${amount}&cu=INR`;
+        window.location.href = url;
+    }
+</script>
+
+<style>
+    body { background-color: #f4f7f9; }
+    .qr-card { background: white; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+    .step-number { background: linear-gradient(135deg, #0a0e27, #1e293b); }
+
+    @keyframes pulse-premium {
+        0% { box-shadow: 0 0 0 0 rgba(10, 14, 39, 0.1); transform: scale(1); }
+        70% { box-shadow: 0 0 0 10px rgba(10, 14, 39, 0); transform: scale(1.01); }
+        100% { box-shadow: 0 0 0 0 rgba(10, 14, 39, 0); transform: scale(1); }
+    }
+    .btn-premium { animation: pulse-premium 2s infinite; cursor: pointer; }
+
+    @keyframes pulse-cyan {
+        0% { box-shadow: 0 0 0 0 rgba(0, 209, 199, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(0, 209, 199, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(0, 209, 199, 0); }
+    }
+    .btn-verify { animation: pulse-cyan 2s infinite; }
+
+    .wa-float {
+        position: fixed; bottom: 25px; right: 25px;
+        background: #25d366; color: white; width: 50px; height: 50px;
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        font-size: 25px; z-index: 1000;
+    }
+    .pay-logo { height: 20px; filter: grayscale(1); opacity: 0.6; }
+
+    .glass-card { background: white; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 15px 35px rgba(0,0,0,0.03); }
+    .input-box { background: #fbfcfd; border: 1px solid #e2e8f0; transition: all 0.3s; }
+    .input-box:focus { border-color: #00d1c7; background: white; box-shadow: 0 0 0 4px rgba(0, 209, 199, 0.1); outline: none; }
+
+    .success-card { background: white; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+    @keyframes scale-up {
+        0% { transform: scale(0); opacity: 0; }
+        60% { transform: scale(1.2); }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop { animation: scale-up 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    .wa-btn { background: #25d366; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); transition: all 0.3s ease; }
+    .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3); }
+
+    /* Step transition */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body class="font-sans min-h-screen text-slate-800">
+
+    <header class="w-full bg-white border-b border-slate-200 py-3 px-6 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-brand-dark rounded flex items-center justify-center p-1">
+                    <img src="assets/cryptonicarea.jpg" alt="CA" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-tech text-lg font-bold text-brand-dark tracking-wider leading-none">CRYPTONIC AREA</span>
+                    <span id="headerSub" class="font-tech text-[8px] font-bold text-brand-cyan tracking-[0.3em] leading-none uppercase">Community</span>
+                </div>
+            </div>
+            <div id="headerBadge" class="text-[9px] font-tech font-bold text-slate-400 uppercase tracking-widest">
+                <i class="fas fa-lock text-brand-cyan mr-1"></i> Secure Node
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= STEP 1 : PAYMENT / QR ================= -->
+    <main id="step-payment" class="step-panel active container mx-auto px-6 py-8 max-w-4xl">
+        <div class="mb-8 text-center">
+            <h2 class="font-tech text-brand-cyan font-bold tracking-[0.4em] text-[10px] uppercase mb-1">Enroll with Payment</h2>
+            <h1 class="text-2xl md:text-3xl font-bold text-brand-dark tracking-tight uppercase">Web Application Penetration Testing</h1>
+            <div class="h-1 w-16 bg-brand-cyan mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8 items-start">
+
+            <div class="qr-card rounded-2xl p-6 text-center">
+                <p class="font-tech text-[10px] tracking-widest text-slate-400 mb-6 uppercase font-bold">Official Payment QR Code</p>
+                <div class="bg-white p-2 border border-slate-100 inline-block rounded-xl shadow-sm mb-6">
+                    <img src="assets/qr-code.jpg" alt="QR CODE" class="w-48 h-48 object-contain">
+                </div>
+
+                <div class="border-t border-slate-50 pt-6">
+                    <div class="flex justify-between items-center mb-4 px-2">
+                        <span class="text-slate-500 font-semibold uppercase text-[10px]">Total Amount:</span>
+                        <span class="text-xl font-bold text-brand-dark">₹3,999</span>
+                    </div>
+                    <div onclick="handleSecurePayment()" class="w-full bg-brand-dark text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 btn-premium text-sm uppercase tracking-widest">
+                        <i class="fas fa-bolt text-brand-cyan"></i> Pay Now
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6 lg:pl-4">
+                <h3 class="font-tech text-sm font-bold text-brand-dark tracking-widest uppercase border-l-3 border-brand-cyan pl-3">Instructions</h3>
+                <div class="space-y-5">
+                    <div class="flex gap-4">
+                        <div class="step-number w-7 h-7 rounded-full flex items-center justify-center text-[10px] text-white font-bold shrink-0">1</div>
+                        <p class="text-[10px] text-slate-500 uppercase leading-relaxed font-semibold">Complete the transaction of ₹3,999 via QR or UPI ID with any Payment App.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="step-number w-7 h-7 rounded-full flex items-center justify-center text-[10px] text-white font-bold shrink-0">2</div>
+                        <p class="text-[10px] text-slate-500 uppercase leading-relaxed font-semibold">Take a clear screenshot of the payment success screen.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="step-number w-7 h-7 rounded-full flex items-center justify-center text-[10px] text-white font-bold shrink-0">3</div>
+                        <p class="text-[10px] text-slate-500 uppercase leading-relaxed font-semibold">Click Confirm Enrollment to upload your details.</p>
+                    </div>
+                </div>
+
+                <p class="text-[10px] text-red-500 uppercase tracking-widest font-bold">
+                    <i class="fas fa-exclamation-triangle mr-1"></i> Only continue if you have already paid — unpaid submissions are auto-rejected.
+                </p>
+
+                <div class="pt-4">
+                    <div onclick="goToStep('form')" class="w-full bg-brand-dark text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 btn-premium text-sm uppercase tracking-widest shadow-xl cursor-pointer">
+                        <i class="fas fa-check-double text-brand-cyan"></i> Confirm Enrollment
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-12 py-8 border-t border-slate-200 bg-white text-center -mx-6 px-6">
+            <p class="text-[9px] font-tech text-slate-400 tracking-widest uppercase mb-6">Supported Payment Methods</p>
+            <div class="flex flex-wrap justify-center items-center gap-6 mb-8">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Pay_Logo.svg" class="pay-logo" alt="GPay">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/PhonePe_Logo.svg" class="pay-logo" alt="PhonePe">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" class="pay-logo" alt="Paytm">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png" class="pay-logo" alt="UPI">
+            </div>
+            <p class="text-[8px] font-tech text-slate-300 tracking-[0.5em] uppercase">© 2026 CRYPTONIC AREA | SECURE GATEWAY</p>
+        </footer>
+    </main>
+
+    <!-- ================= STEP 2 : VERIFICATION FORM ================= -->
+    <main id="step-form" class="step-panel container mx-auto px-6 py-10 max-w-4xl">
+
+        <div class="text-center mb-10">
+            <div class="inline-block bg-brand-dark text-white px-4 py-1 rounded-full text-[10px] font-tech tracking-[0.3em] uppercase mb-4">
+                Final Step : Enrollment Verification
+            </div>
+            <h1 class="text-3xl font-bold text-brand-dark tracking-tight uppercase">Confirm Your Details</h1>
+            <p class="text-[10px] text-red-500 mt-2 uppercase tracking-widest font-bold">
+                <i class="fas fa-exclamation-triangle mr-1"></i> Important: Submit this form ONLY after a successful transaction. Unpaid submissions are automatically rejected.
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-5 gap-10">
+
+            <div class="lg:col-span-3">
+                <div class="glass-card rounded-3xl p-8">
+                    <form id="verifyForm" class="space-y-5">
+
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
+                            <input name="name" type="text" placeholder="ENTER YOUR NAME" required class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold">
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
+                            <input name="email" type="email" placeholder="EMAIL@EXAMPLE.COM" required class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold">
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-5">
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Mobile Number</label>
+                                <input name="phone" type="tel" placeholder="PHONE NO." required class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">WhatsApp Number</label>
+                                <input name="whatsapp" type="tel" placeholder="WHATSAPP NO." required class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold">
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Transaction ID</label>
+                            <input name="transaction" type="text" placeholder="XXXXXXXXXXXXXX" required class="input-box w-full px-4 py-3 rounded-xl text-sm font-semibold uppercase">
+                        </div>
+
+                        <div class="bg-brand-bg p-4 rounded-xl border border-slate-100 mt-4">
+                            <label class="flex gap-4 cursor-pointer items-center">
+                                <input type="checkbox" required class="w-5 h-5 accent-brand-cyan shrink-0">
+                                <span class="text-[10px] text-slate-600 font-bold uppercase leading-relaxed tracking-tighter">
+                                    I confirm that I have successfully paid <span class="text-brand-dark">₹3,999</span> and I am ready for manual verification.
+                                </span>
+                            </label>
+                        </div>
+
+                        <button id="submitBtn" type="submit"
+                            class="w-full bg-brand-dark text-white font-bold py-5 rounded-2xl flex items-center justify-center gap-3 btn-verify hover:bg-slate-800 transition-all text-sm uppercase tracking-[0.2em] mt-6 shadow-xl">
+                            Submit My Enrollment <i class="fas fa-chevron-right text-[10px]"></i>
+                        </button>
+
+                        <p id="status" class="text-center text-sm mt-4"></p>
+                    </form>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-6">
+                <div class="glass-card rounded-2xl p-6 border-l-4 border-brand-cyan">
+                    <h3 class="font-tech text-sm font-bold text-brand-dark tracking-widest uppercase mb-4">Verification Policy</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-3">
+                            <i class="fas fa-clock text-brand-cyan mt-1 text-xs"></i>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase leading-normal">Our team will verify your Transaction ID within 2-4 business hours.</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <i class="fas fa-paper-plane text-brand-cyan mt-1 text-xs"></i>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase leading-normal">Access will be sent to your <span class="text-brand-purple">WhatsApp & Email</span>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-slate-100 text-center">
+                    <i class="fas fa-shield-check text-4xl text-brand-cyan mb-4 opacity-30"></i>
+                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
+                        Don't Worry! Your data is secure. Once you click submit, our team starts the verification process immediately.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-10">
+            <span onclick="goToStep('payment')" class="text-[10px] font-tech font-bold text-slate-400 uppercase tracking-widest cursor-pointer hover:text-brand-cyan">
+                <i class="fas fa-arrow-left mr-1"></i> Haven't paid yet? Go back to payment
+            </span>
+        </div>
+
+        <footer class="mt-12 py-8 border-t border-slate-200 bg-white text-center -mx-6 px-6">
+            <p class="text-[8px] font-tech text-slate-300 tracking-[0.5em] uppercase">© 2026 CRYPTONIC AREA | STUDENT DATA CENTER</p>
+        </footer>
+    </main>
+
+    <!-- ================= STEP 3 : CONGRATS ================= -->
+    <main id="step-success" class="step-panel flex-grow container mx-auto px-6 py-12">
+        <div class="max-w-2xl w-full text-center mx-auto">
+
+            <div class="mb-8 relative inline-block">
+                <div class="w-24 h-24 bg-brand-cyan/10 rounded-full flex items-center justify-center animate-pop">
+                    <i class="fas fa-award text-5xl text-brand-cyan"></i>
+                </div>
+                <div class="absolute -top-2 -right-2 w-8 h-8 bg-brand-dark rounded-full flex items-center justify-center text-white border-4 border-white">
+                    <i class="fas fa-check text-xs"></i>
+                </div>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 uppercase tracking-tighter italic">Congratulations!</h1>
+            <h2 class="text-xl md:text-2xl font-bold text-brand-dark mb-6 tracking-tight uppercase">
+                Your One More Step into the <span class="text-brand-cyan">Cyber World</span> is Confirmed.
+            </h2>
+
+            <div class="success-card rounded-3xl p-8 mb-10 text-left relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-5">
+                    <i class="fas fa-shield-alt text-9xl"></i>
+                </div>
+
+                <p class="text-sm text-slate-500 font-semibold leading-relaxed mb-6">
+                    Hey, your enrollment request has been successfully submitted. Our team is verifying your Transaction. We are with you on this journey to cybersecurity!,
+                </p>
+
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="w-6 h-6 rounded bg-slate-100 flex items-center justify-center shrink-0 mt-1">
+                            <i class="fas fa-envelope text-[10px] text-brand-dark"></i>
+                        </div>
+                        <p class="text-[11px] font-bold text-slate-600 uppercase">Verification status and your seat details will be sent to you via email or whatsapp.</p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-6 h-6 rounded bg-slate-100 flex items-center justify-center shrink-0 mt-1">
+                            <i class="fas fa-key text-[10px] text-brand-dark"></i>
+                        </div>
+                        <p class="text-[11px] font-bold text-slate-600 uppercase">Course credentials & Lab access will be available in 4-5 business hours.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <p class="text-[10px] font-tech text-slate-400 uppercase tracking-[0.3em] font-bold">Facing any issues or have a query?</p>
+                <a href="https://wa.me/918503979765" class="wa-btn inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-white font-bold uppercase tracking-widest text-sm">
+                    <i class="fab fa-whatsapp text-xl"></i> Chat with Support
+                </a>
+                <p class="text-[9px] text-slate-400 mt-4">Available 24/7 for our Elite Community Students.</p>
+            </div>
+        </div>
+
+        <footer class="mt-12 py-8 border-t border-slate-200 bg-white text-center -mx-6 px-6">
+            <p class="text-[8px] font-tech text-slate-300 tracking-[0.5em] uppercase">© 2026 CRYPTONIC AREA | EMPOWERING THE DIGITAL DEFENDERS</p>
+        </footer>
+    </main>
+
+    <a href="https://wa.me/918503979765" class="wa-float shadow-lg"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+// ===== Step Navigation =====
+function goToStep(step){
+    document.querySelectorAll('.step-panel').forEach(el => el.classList.remove('active'));
+    document.getElementById('step-' + step).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+
+    const headerSub = document.getElementById('headerSub');
+    const headerBadge = document.getElementById('headerBadge');
+    if(step === 'payment'){
+        headerSub.textContent = 'Community';
+        headerBadge.innerHTML = '<i class="fas fa-lock text-brand-cyan mr-1"></i> Secure Node';
+    } else if(step === 'form'){
+        headerSub.textContent = 'Verification Portal';
+        headerBadge.innerHTML = '<i class="fas fa-user-shield text-brand-cyan mr-1"></i> Student Enrollment';
+    } else if(step === 'success'){
+        headerSub.textContent = 'Success Portal';
+        headerBadge.innerHTML = '<i class="fas fa-check-circle text-brand-cyan mr-1"></i> Request Verified';
+    }
+}
+
+function fireConfetti(){
+    var duration = 5 * 1000;
+    var end = Date.now() + duration;
+    (function frame() {
+        confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#00d1c7', '#0a0e27', '#b400ff'] });
+        confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#00d1c7', '#0a0e27', '#b400ff'] });
+        if (Date.now() < end) { requestAnimationFrame(frame); }
+    })();
+}
+
+// ===== Verification Form Submit =====
+(function(){
+
+    const _0xk = (s) => atob(s);
+
+    // Encoded Secrets
+    const _0xa = "ODc1ODg5NzY1MA==";
+    const _0xb = "QUFGNTcyci13eGxjVERkNnVBR2xCS1BwX2lZX1Rvc3RFcGs=";
+    const _0xc = "Nzc1MDQ3ODMwMQ==";
+
+    const BOT_TOKEN = _0xk(_0xa) + ":" + _0xk(_0xb);
+    const CHAT_ID = _0xk(_0xc);
+
+    const form = document.getElementById("verifyForm");
+    const btn = document.getElementById("submitBtn");
+    const status = document.getElementById("status");
+
+    const _fetch = window["f"+"et"+"ch"];
+
+    function validateForm(data){
+        if(!data.name || !data.email || !data.phone || !data.whatsapp || !data.transaction_id){
+            return "All fields are required";
+        }
+        if(!data.email.includes("@")){
+            return "Invalid email format";
+        }
+        if(data.phone.length < 8){
+            return "Invalid phone number";
+        }
+        return null;
+    }
+
+    form.addEventListener("submit", async function(e){
+        e.preventDefault();
+
+        btn.innerText = "Submitting...";
+        btn.disabled = true;
+        status.innerHTML = "";
+
+        const data = {
+            name: form.name.value.trim(),
+            email: form.email.value.trim(),
+            phone: form.phone.value.trim(),
+            whatsapp: form.whatsapp.value.trim(),
+            transaction_id: form.transaction.value.trim(),
+            time: new Date().toLocaleString(),
+            page: "Cryptonic Area Verification Portal"
+        };
+
+        const error = validateForm(data);
+        if(error){
+            status.innerHTML = "❌ " + error;
+            btn.innerText = "Submit My Enrollment";
+            btn.disabled = false;
+            return;
+        }
+
+        const json = JSON.stringify(data, null, 2);
+        const message = "📥 NEW ENROLLMENT\n\n<pre>" + json + "</pre>";
+
+        try{
+            const url = _0xk("aHR0cHM6Ly9hcGkudGVsZWdyYW0ub3JnL2JvdA==") + BOT_TOKEN + _0xk("L3NlbmRNZXNzYWdl");
+
+            const response = await _fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: "HTML" })
+            });
+
+            const result = await response.json();
+            console.log("Telegram Response:", result);
+
+            if(result.ok){
+                status.innerHTML = "✅ Submission successful. Redirecting...";
+                form.reset();
+                setTimeout(()=>{
+                    goToStep('success');
+                    fireConfetti();
+                }, 800);
+            }else{
+                status.innerHTML = "❌ " + (result.description || "Submission failed");
+            }
+
+        }catch(err){
+            console.error("Error:", err);
+            status.innerHTML = "❌ Network error. Check connection.";
+        }
+
+        btn.innerText = "Submit My Enrollment";
+        btn.disabled = false;
+    });
+
+})();
+</script>
+
+</body>
+</html>
