@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============ PRIMARY SEO META ============ -->
+    <title>Recognition Portal — Official Student & Intern Recognition | Cryptonic Area</title>
+    <meta name="description" content="The official Cryptonic Area Recognition Portal. Verified, digitally traceable recognition for students and interns who complete Cryptonic Area internships, hackathons, CTFs and workshops. Browse recognized batches and verify records.">
+    <meta name="keywords" content="Cryptonic Area recognition, Cryptonic Area intern list, Cryptonic Area internship recognized students, Cryptonic Area verification portal, cyber security internship certificate verification, Cryptonic Area batch recognition, official recognition portal">
+    <meta name="author" content="Cryptonic Area">
+    <meta name="publisher" content="Cryptonic Area">
+    <meta name="application-name" content="Cryptonic Area">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="rating" content="general">
+    <meta name="distribution" content="global">
+    <meta name="language" content="English">
+    <meta name="geo.region" content="IN">
+    <meta name="geo.placename" content="India">
+    <meta name="theme-color" content="#e0122f">
+    <link rel="canonical" href="https://cryptonicarea.site/recognition">
+    <link rel="icon" type="image/jpeg" href="assets/cryptonicarea.jpg">
+    <link rel="apple-touch-icon" href="assets/cryptonicarea.jpg">
+    <link rel="alternate" hreflang="en-in" href="https://cryptonicarea.site/recognition">
+    <link rel="alternate" hreflang="x-default" href="https://cryptonicarea.site/recognition">
+
+    <!-- ============ OPEN GRAPH ============ -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Cryptonic Area">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:url" content="https://cryptonicarea.site/recognition">
+    <meta property="og:title" content="Recognition Portal — Cryptonic Area">
+    <meta property="og:description" content="Official, verifiable recognition for students and interns who complete Cryptonic Area programs. Browse recognized batches.">
+    <meta property="og:image" content="https://cryptonicarea.site/assets/cryptonicarea.jpg">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="Cryptonic Area — Recognition Portal">
+
+    <!-- ============ TWITTER CARD ============ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@cryptonicarea">
+    <meta name="twitter:title" content="Recognition Portal — Cryptonic Area">
+    <meta name="twitter:description" content="Official, verifiable recognition for students and interns who complete Cryptonic Area programs.">
+    <meta name="twitter:image" content="https://cryptonicarea.site/assets/cryptonicarea.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- ============ STRUCTURED DATA ============ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Cryptonic Area Recognition Portal",
+      "description": "Official portal listing students and interns recognized by Cryptonic Area across internships, hackathons, CTFs and workshops.",
+      "url": "https://cryptonicarea.site/recognition",
+      "publisher": { "@type": "EducationalOrganization", "name": "Cryptonic Area", "url": "https://cryptonicarea.site" },
+      "inLanguage": "en"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptonicarea.site/" },
+        { "@type": "ListItem", "position": 2, "name": "Recognition Portal", "item": "https://cryptonicarea.site/recognition" }
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What does 'Recognized' mean on this portal?", "acceptedAnswer": { "@type": "Answer", "text": "It means a student or intern successfully completed a Cryptonic Area program and met the performance standard required for official recognition." } },
+        { "@type": "Question", "name": "How are students selected for recognition?", "acceptedAnswer": { "@type": "Answer", "text": "Based on completion, participation quality, and performance during the program, reviewed internally by the Cryptonic Area team once a batch concludes." } },
+        { "@type": "Question", "name": "Can employers verify a recognition listing?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, each recognized batch links to a dedicated list, and entries can be independently referenced against official Cryptonic Area records." } }
+      ]
+    }
+    </script>
+
+<style>
+    :root{
+        --platinum:#f7f8fa;
+        --platinum-2:#eef0f3;
+        --line: rgba(15,23,42,.08);
+        --ink:#0f1420;
+        --steel:#64748b;
+        --crimson:#e0122f;
+        --crimson-bright:#ff3552;
+        --crimson-deep:#8a0f22;
+        --cyan:#0891b2;
+        --cyan-bright:#22d3ee;
+        --cyan-deep:#0e7490;
+        --emerald:#059669;
+    }
+    *{ scroll-behavior:smooth; }
+    body{
+        font-family:'Inter', sans-serif;
+        color:var(--ink);
+        background:
+            radial-gradient(circle at 12% 8%, rgba(224,18,48,.06), transparent 40%),
+            radial-gradient(circle at 88% 92%, rgba(8,145,178,.04), transparent 40%),
+            var(--platinum);
+        overflow-x:hidden;
+        position:relative;
+    }
+    body::before{
+        content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+        background-image:radial-gradient(rgba(224,18,48,.07) 1px, transparent 1px);
+        background-size:20px 20px;
+    }
+    .f-display{ font-family:'Space Grotesk', sans-serif; }
+    .f-mono{ font-family:'JetBrains Mono', monospace; }
+
+    ::-webkit-scrollbar{ width:5px; }
+    ::-webkit-scrollbar-track{ background:var(--platinum); }
+    ::-webkit-scrollbar-thumb{ background:var(--crimson); border-radius:6px; }
+
+    #mesh{ position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:.35; }
+
+    /* header */
+    .site-header{ backdrop-filter:blur(16px); background:rgba(255,255,255,.85); border-bottom:1px solid var(--line); }
+    .nav-link{ position:relative; color:var(--steel); font-size:.72rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; transition:color .25s ease; cursor:pointer; }
+    .nav-link::after{ content:''; position:absolute; left:0; right:0; bottom:-5px; height:2px; background:var(--crimson); transform:scaleX(0); transform-origin:left; transition:transform .3s cubic-bezier(.4,0,.2,1); }
+    .nav-link:hover{ color:var(--ink); }
+    .nav-link:hover::after{ transform:scaleX(1); }
+
+    .eyebrow{ display:inline-flex; align-items:center; gap:.4rem; font-family:'JetBrains Mono', monospace; font-size:.6rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:.3rem .7rem; border-radius:100px; background:rgba(224,18,48,.07); border:1px solid rgba(224,18,48,.22); color:var(--crimson-deep); }
+    .eyebrow-c{ background:rgba(8,145,178,.06); border:1px solid rgba(8,145,178,.18); color:var(--cyan-deep); }
+    .dot-pulse{ width:5px; height:5px; border-radius:50%; background:var(--crimson-bright); animation:pulseDot 1.8s ease-in-out infinite; }
+    @keyframes pulseDot{ 0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(255,53,82,.5);} 50%{ opacity:.5; box-shadow:0 0 0 5px rgba(255,53,82,0);} }
+
+    .btn-primary{ background:linear-gradient(135deg, var(--crimson-bright), var(--crimson-deep)); color:#fff; font-weight:700; box-shadow:0 10px 24px -8px rgba(224,18,48,.55); transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s ease; }
+    .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 28px -6px rgba(224,18,48,.65); }
+    .btn-dark{ background:var(--ink); color:#fff; font-weight:700; transition:transform .3s ease, background .3s ease; }
+    .btn-dark:hover{ transform:translateY(-2px); background:#000; }
+    .btn-outline{ background:#fff; border:1px solid var(--line); color:var(--ink); font-weight:700; transition:all .3s ease; }
+    .btn-outline:hover{ border-color:var(--crimson); color:var(--crimson-deep); transform:translateY(-2px); }
+    .btn-cyan{ background:linear-gradient(135deg, var(--cyan-bright), var(--cyan-deep)); color:#fff; font-weight:700; box-shadow:0 10px 24px -8px rgba(8,145,178,.5); transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s ease; }
+    .btn-cyan:hover{ transform:translateY(-2px); box-shadow:0 16px 28px -6px rgba(8,145,178,.6); }
+
+    .glass-panel{ background:linear-gradient(135deg, rgba(255,255,255,.96), rgba(248,250,252,.98)); border:1px solid var(--line); box-shadow:0 20px 45px -20px rgba(15,23,42,.12); }
+
+    .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s cubic-bezier(.2,.6,.2,1), transform .6s cubic-bezier(.2,.6,.2,1); }
+    .reveal.in{ opacity:1; transform:translateY(0); }
+
+    .proj-icon{ width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; color:#fff; box-shadow:0 8px 16px -6px rgba(0,0,0,.35); flex-shrink:0; }
+    .badge-num{ font-family:'JetBrains Mono', monospace; font-size:.58rem; font-weight:700; letter-spacing:.12em; color:var(--crimson-deep); }
+
+    .note-box{ background:rgba(224,18,48,.04); border:1px solid rgba(224,18,48,.16); border-radius:12px; }
+    .info-box{ background:rgba(8,145,178,.045); border:1px solid rgba(8,145,178,.16); border-radius:12px; }
+
+    .cursor-blink{ display:inline-block; width:2px; height:1em; background:var(--crimson-bright); margin-left:2px; vertical-align:-2px; animation:blink 1s step-start infinite; }
+    @keyframes blink{ 50%{ opacity:0; } }
+
+    .stat-card{ background:#fff; border:1px solid var(--line); border-radius:16px; position:relative; overflow:hidden; }
+    .stat-card::after{ content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(224,18,48,.03), transparent 60%); pointer-events:none; }
+    .stat-num{ font-family:'Space Grotesk', sans-serif; font-weight:800; }
+
+    .trust-banner{ background:linear-gradient(120deg, #fff 0%, var(--platinum-2) 60%, rgba(224,18,48,.05) 150%); border:1px solid var(--line); border-radius:20px; position:relative; overflow:hidden; box-shadow:0 24px 50px -28px rgba(15,23,42,.18); }
+    .trust-banner::after{ content:''; position:absolute; inset:0; background-image:radial-gradient(rgba(224,18,48,.06) 1px, transparent 1px); background-size:16px 16px; opacity:.6; pointer-events:none; }
+    .trust-banner-icon{ width:38px; height:38px; border-radius:11px; background:linear-gradient(135deg, var(--crimson-bright), var(--crimson-deep)); border:1px solid rgba(224,18,48,.25); color:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; position:relative; z-index:1; box-shadow:0 8px 16px -6px rgba(224,18,48,.5); }
+    .trust-banner-cta{ background:linear-gradient(135deg, var(--crimson-bright), var(--crimson-deep)); color:#fff; font-weight:700; box-shadow:0 10px 24px -8px rgba(224,18,48,.55); transition:transform .3s ease, box-shadow .3s ease; position:relative; z-index:1; }
+    .trust-banner-cta:hover{ transform:translateY(-2px); box-shadow:0 16px 28px -6px rgba(224,18,48,.65); }
+    .trust-banner > *{ position:relative; z-index:1; }
+
+    .feature-card{ background:#fff; border:1px solid var(--line); border-radius:16px; transition:transform .3s cubic-bezier(.4,0,.2,1), border-color .3s ease, box-shadow .3s ease; }
+    .feature-card:hover{ transform:translateY(-4px); border-color:rgba(224,18,48,.3); box-shadow:0 20px 40px -18px rgba(224,18,48,.2); }
+
+    .record-preview{ border-radius:20px; position:relative; overflow:hidden; }
+    .record-preview::before{ content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg, var(--crimson-bright), var(--crimson-deep)); }
+    .record-preview-icon{ width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg, var(--crimson-bright), var(--crimson-deep)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; box-shadow:0 8px 16px -6px rgba(224,18,48,.4); }
+
+    .tool-chip{ display:inline-flex; align-items:center; gap:.35rem; font-family:'JetBrains Mono', monospace; font-size:.63rem; font-weight:600; padding:.3rem .65rem; border-radius:8px; background:var(--platinum-2); border:1px solid var(--line); color:var(--ink); }
+
+    .domain-tag{ display:inline-flex; align-items:center; gap:.35rem; font-family:'JetBrains Mono', monospace; font-size:.6rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:.3rem .7rem; border-radius:8px; }
+
+    .meta-pill{ background:var(--platinum-2); border:1px solid var(--line); border-radius:10px; padding:.55rem .6rem; text-align:center; }
+
+    .check-row{ display:flex; align-items:flex-start; gap:.55rem; }
+
+    .faq-item{ background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+    .faq-q{ cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 1.1rem; }
+    .faq-a{ max-height:0; overflow:hidden; transition:max-height .35s ease, padding .35s ease; padding:0 1.1rem; }
+    .faq-item.open .faq-a{ max-height:260px; padding:0 1.1rem 1.1rem; }
+    .faq-item.open .faq-chevron{ transform:rotate(180deg); }
+    .faq-chevron{ transition:transform .3s ease; }
+
+    /* ===== Recognition-specific ===== */
+    .recog-card{ background:#fff; border:1px solid var(--line); border-radius:16px; position:relative; overflow:hidden; transition:transform .3s cubic-bezier(.4,0,.2,1), border-color .3s ease, box-shadow .3s ease; }
+    .recog-card::before{ content:''; position:absolute; top:0; left:0; bottom:0; width:3px; background:linear-gradient(180deg, var(--crimson-bright), var(--crimson-deep)); }
+    .recog-card:hover{ transform:translateY(-3px); border-color:rgba(224,18,48,.3); box-shadow:0 20px 38px -18px rgba(224,18,48,.22); }
+
+    .status-pill{ display:inline-flex; align-items:center; gap:.3rem; font-family:'JetBrains Mono', monospace; font-size:.53rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:.22rem .55rem; border-radius:100px; background:rgba(5,150,105,.09); border:1px solid rgba(5,150,105,.28); color:#065f46; }
+    .status-pill-pending{ display:inline-flex; align-items:center; gap:.3rem; font-family:'JetBrains Mono', monospace; font-size:.53rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:.22rem .55rem; border-radius:100px; background:rgba(100,116,139,.09); border:1px solid rgba(100,116,139,.28); color:#475569; }
+    .note-line{ display:flex; align-items:flex-start; gap:.45rem; background:var(--platinum-2); border:1px solid var(--line); border-radius:10px; padding:.55rem .7rem; }
+
+    .category-tag{ display:inline-flex; align-items:center; gap:.3rem; font-family:'JetBrains Mono', monospace; font-size:.53rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:.22rem .55rem; border-radius:100px; background:rgba(224,18,48,.08); border:1px solid rgba(224,18,48,.24); color:var(--crimson-deep); }
+
+    .empty-slot{ border:1.5px dashed var(--line); border-radius:16px; background:rgba(15,23,42,.015); }
+
+    .date-pill{ display:inline-flex; align-items:center; gap:.45rem; background:var(--platinum-2); border:1px solid var(--line); border-radius:10px; padding:.4rem .65rem; }
+    .date-pill i{ color:var(--crimson); font-size:10.5px; }
+    .date-pill-label{ display:block; font-family:'JetBrains Mono', monospace; font-size:.52rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--steel); }
+    .date-pill-value{ display:block; font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:.7rem; color:var(--ink); margin-top:1px; }
+
+    .step-num{ width:30px; height:30px; border-radius:9px; background:linear-gradient(135deg, var(--crimson-bright), var(--crimson-deep)); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk', sans-serif; font-weight:800; font-size:.72rem; flex-shrink:0; box-shadow:0 8px 16px -6px rgba(224,18,48,.4); }
+    .step-line{ position:absolute; left:15px; top:30px; bottom:-1.1rem; width:1.5px; background:repeating-linear-gradient(180deg, var(--line) 0 4px, transparent 4px 8px); }
+</style>
+</head>
+<body class="antialiased selection:bg-red-600 selection:text-white">
+
+<canvas id="mesh"></canvas>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header fixed top-0 left-0 w-full z-50">
+    <div class="max-w-[1300px] mx-auto px-5 lg:px-8 h-14 flex items-center justify-between">
+        <a href="https://cryptonicarea.site/" class="flex items-center gap-2">
+            <img src="assets/cryptonicarea.jpg" alt="Cryptonic Area" width="28" height="28" decoding="async" class="h-7 w-7 rounded-md object-cover" onerror="this.style.display='none'; document.getElementById('brand-fallback').classList.remove('hidden');">
+            <div id="brand-fallback" class="hidden w-7 h-7 rounded-md bg-gradient-to-br from-red-600 to-red-800 items-center justify-center text-white text-[11px] flex"><i class="fas fa-award"></i></div>
+            <div class="leading-none">
+                <span class="f-display text-slate-900 font-bold text-[13px] tracking-tight block">Cryptonic Area</span>
+                <span class="f-mono text-[8px] text-red-700 font-bold tracking-[0.15em] uppercase">Recognition Portal</span>
+            </div>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-7">
+            <a href="https://cryptonicarea.site/" class="nav-link">Home</a>
+            <a href="https://cryptonicarea.site/programs" class="nav-link">All Programs</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#programs-list" class="nav-link">Recognized Batches</a>
+            <a href="#verification" class="nav-link">Verification</a>
+            <a href="#faq" class="nav-link">FAQ</a>
+        </nav>
+
+        <div class="flex items-center gap-2.5">
+            <a href="#programs-list" class="hidden sm:inline-flex btn-primary text-[10.5px] px-4 py-2 rounded-lg items-center gap-1.5">
+                <i class="fas fa-list-check text-[10px]"></i> View Recognized Batches
+            </a>
+            <button id="menuToggle" aria-label="Open menu" class="lg:hidden w-8 h-8 rounded-lg border border-slate-200 text-slate-700 flex items-center justify-center">
+                <i class="fas fa-bars text-xs"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3">
+        <a href="https://cryptonicarea.site/" class="block nav-link !text-[11px]">Home</a>
+        <a href="https://cryptonicarea.site/programs" class="block nav-link !text-[11px]">All Programs</a>
+        <a href="#about" class="block nav-link !text-[11px]">About</a>
+        <a href="#programs-list" class="block nav-link !text-[11px]">Recognized Batches</a>
+        <a href="#verification" class="block nav-link !text-[11px]">Verification</a>
+        <a href="#faq" class="block nav-link !text-[11px]">FAQ</a>
+    </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="relative z-10 pt-28 pb-10 px-5 lg:px-8">
+    <div class="max-w-[960px] mx-auto text-center">
+
+        <div class="eyebrow mb-4 mx-auto"><span class="dot-pulse"></span> Cryptonic Area · Official Recognition Portal</div>
+
+        <h1 class="f-display font-bold text-[1.85rem] sm:text-4xl lg:text-[2.75rem] leading-[1.12] tracking-tight text-slate-900 mb-4">
+            Where <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-red-700 to-slate-900" id="typewriter"></span><span class="cursor-blink"></span>
+        </h1>
+
+        <p class="text-slate-600 text-[12.5px] lg:text-[13.5px] leading-relaxed max-w-[640px] mx-auto mb-2">
+            This is the official record of students and interns <strong class="text-slate-900">recognized by Cryptonic Area</strong>
+            — across internships, hackathons, CTFs and workshops. Every entry here reflects real, verified
+            completion and performance, not just attendance.
+        </p>
+        <p class="text-slate-500 text-[11.5px] lg:text-[12px] leading-relaxed max-w-[560px] mx-auto mb-7">
+            Browse recognized batches below, or use this page to independently verify whether a name
+            belongs to an official Cryptonic Area cohort.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-3">
+            <a href="#programs-list" class="btn-primary px-6 py-3.5 rounded-xl text-[12px] inline-flex items-center gap-2">
+                <i class="fas fa-list-check text-[10px]"></i> View Recognized Batches
+            </a>
+            <a href="#verification" class="btn-outline px-6 py-3.5 rounded-xl text-[12px] inline-flex items-center gap-2">
+                <i class="fas fa-shield-check text-[10px]"></i> How Verification Works
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ================= TRUST BANNER ================= -->
+<section class="relative z-10 px-5 lg:px-8 mb-6">
+    <div class="max-w-[1000px] mx-auto">
+        <div class="trust-banner reveal px-5 sm:px-7 py-3.5 sm:py-4 flex flex-col sm:flex-row items-center gap-3.5 sm:gap-5">
+            <div class="trust-banner-icon shrink-0">
+                <i class="fas fa-shield-halved"></i>
+            </div>
+            <div class="flex-1 text-center sm:text-left">
+                <h3 class="f-display font-bold text-[13px] sm:text-[13.5px] text-slate-900 mb-0.5">A record built to be trusted, not just displayed</h3>
+                <p class="text-slate-500 text-[10.5px] sm:text-[11px] leading-relaxed max-w-2xl">Every name on this portal is reviewed by the Cryptonic Area team, permanently published, and independently verifiable.</p>
+            </div>
+            <div class="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 whitespace-nowrap">
+                <i class="fas fa-circle-check text-[11px]"></i> Verified &amp; Traceable
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= ABOUT RECOGNITION ================= -->
+<section id="about" class="relative z-10 px-5 lg:px-8 py-10">
+    <div class="max-w-[760px] mx-auto text-center">
+        <div class="reveal">
+            <div class="eyebrow mb-3 mx-auto"><i class="fas fa-award text-[9px]"></i> What Is Recognition</div>
+            <h2 class="f-display text-xl lg:text-2xl font-bold tracking-tight text-slate-900 mb-3">A permanent, official record of achievement</h2>
+            <p class="text-slate-600 text-[12px] leading-relaxed mb-3">
+                Whenever a Cryptonic Area program concludes — an internship, hackathon, CTF, or workshop — the
+                students and interns who performed well are officially recognized. This page exists as the single,
+                trusted source for that record.
+            </p>
+            <p class="text-slate-500 text-[11.5px] leading-relaxed mb-5">
+                Recognition here isn't a participation badge. It's reviewed internally by the Cryptonic Area team
+                once a batch ends, published to this portal, and kept as a lasting reference that recognized
+                students can point to and that anyone can independently check.
+            </p>
+            <div class="flex flex-wrap justify-center gap-2">
+                <span class="domain-tag" style="background:rgba(224,18,48,.08); color:var(--crimson-deep); border:1px solid rgba(224,18,48,.25);"><i class="fas fa-briefcase"></i> Internships</span>
+                <span class="domain-tag" style="background:rgba(8,145,178,.06); color:var(--cyan-deep); border:1px solid rgba(8,145,178,.2);"><i class="fas fa-flag-checkered"></i> Hackathons & CTFs</span>
+                <span class="domain-tag" style="background:rgba(5,150,105,.08); color:#065f46; border:1px solid rgba(5,150,105,.22);"><i class="fas fa-chalkboard-user"></i> Workshops</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= TYPES OF RECOGNITION ================= -->
+<section class="relative z-10 px-5 lg:px-8 py-10">
+    <div class="max-w-[1100px] mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-9 reveal">
+            <div class="eyebrow mb-3 mx-auto"><i class="fas fa-layer-group text-[9px]"></i> Recognition Categories</div>
+            <h2 class="f-display text-xl lg:text-2xl font-bold tracking-tight text-slate-900 mb-2.5">Recognition isn't limited to one kind of program</h2>
+            <p class="text-slate-500 text-[12px] lg:text-[12.5px] leading-relaxed">Cryptonic Area runs many kinds of programs — any of them can lead to official recognition.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="feature-card reveal p-5">
+                <div class="proj-icon mb-3" style="background:linear-gradient(135deg,#e0122f,#8a0f22);"><i class="fas fa-briefcase text-[14px]"></i></div>
+                <h3 class="f-display font-bold text-[13px] text-slate-900 mb-1.5">Internship Completion</h3>
+                <p class="text-slate-500 text-[11px] leading-relaxed">Interns who complete a Cryptonic Area internship and meet the performance bar.</p>
+            </div>
+            <div class="feature-card reveal p-5">
+                <div class="proj-icon mb-3" style="background:linear-gradient(135deg,#0891b2,#0e7490);"><i class="fas fa-flag-checkered text-[14px]"></i></div>
+                <h3 class="f-display font-bold text-[13px] text-slate-900 mb-1.5">Hackathon Achievers</h3>
+                <p class="text-slate-500 text-[11px] leading-relaxed">Top performers and winning teams from Cryptonic Area-hosted hackathons.</p>
+            </div>
+            <div class="feature-card reveal p-5">
+                <div class="proj-icon mb-3" style="background:linear-gradient(135deg,#f59e0b,#b45309);"><i class="fas fa-flag text-[14px]"></i></div>
+                <h3 class="f-display font-bold text-[13px] text-slate-900 mb-1.5">CTF Performers</h3>
+                <p class="text-slate-500 text-[11px] leading-relaxed">Standout participants from Capture-The-Flag events run by Cryptonic Area.</p>
+            </div>
+            <div class="feature-card reveal p-5">
+                <div class="proj-icon mb-3" style="background:linear-gradient(135deg,#10b981,#047857);"><i class="fas fa-chalkboard-user text-[14px]"></i></div>
+                <h3 class="f-display font-bold text-[13px] text-slate-900 mb-1.5">Workshop Participants</h3>
+                <p class="text-slate-500 text-[11px] leading-relaxed">Active, high-performing participants from Cryptonic Area workshops and bootcamps.</p>
+            </div>
+            <div class="feature-card reveal p-5">
+                <div class="proj-icon mb-3" style="background:linear-gradient(135deg,#6366f1,#4338ca);"><i class="fas fa-bug text-[14px]"></i></div>
+                <h3 class="f-display font-bold text-[13px] text-slate-900 mb-1.5">Bug Bounty Contributors</h3>
+                <p class="text-slate-500 text-[11px] leading-relaxed">Community members recognized for meaningful vulnerability research contributions.</p>
+            </div>
+            <div class="feature-card reveal p-5">
+                <div class="proj-icon mb-3" style="background:linear-gradient(135deg,#0f172a,#000);"><i class="fas fa-hands-helping text-[14px]"></i></div>
+                <h3 class="f-display font-bold text-[13px] text-slate-900 mb-1.5">Mentorship Contributors</h3>
+                <p class="text-slate-500 text-[11px] leading-relaxed">Community members recognized for supporting and mentoring fellow learners.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section class="relative z-10 px-5 lg:px-8 py-10">
+    <div class="max-w-[820px] mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-9 reveal">
+            <div class="eyebrow mb-3 mx-auto"><i class="fas fa-gears text-[9px]"></i> The Process</div>
+            <h2 class="f-display text-xl lg:text-2xl font-bold tracking-tight text-slate-900 mb-2.5">How a name ends up on this page</h2>
+        </div>
+
+        <div class="space-y-7">
+            <div class="flex items-start gap-4 relative reveal">
+                <div class="step-num">1</div>
+                <div class="step-line"></div>
+                <div class="pt-0.5"><h3 class="f-display font-bold text-[13px] text-slate-900 mb-1">Program concludes</h3><p class="text-slate-500 text-[11.5px] leading-relaxed">The internship, hackathon, CTF or workshop batch officially ends.</p></div>
+            </div>
+            <div class="flex items-start gap-4 relative reveal">
+                <div class="step-num">2</div>
+                <div class="step-line"></div>
+                <div class="pt-0.5"><h3 class="f-display font-bold text-[13px] text-slate-900 mb-1">Performance is reviewed</h3><p class="text-slate-500 text-[11.5px] leading-relaxed">The Cryptonic Area team reviews completion and performance internally.</p></div>
+            </div>
+            <div class="flex items-start gap-4 relative reveal">
+                <div class="step-num">3</div>
+                <div class="step-line"></div>
+                <div class="pt-0.5"><h3 class="f-display font-bold text-[13px] text-slate-900 mb-1">List is finalized</h3><p class="text-slate-500 text-[11.5px] leading-relaxed">A final list of recognized students for that batch is prepared.</p></div>
+            </div>
+            <div class="flex items-start gap-4 relative reveal">
+                <div class="step-num">4</div>
+                <div class="step-line"></div>
+                <div class="pt-0.5"><h3 class="f-display font-bold text-[13px] text-slate-900 mb-1">Published to this portal</h3><p class="text-slate-500 text-[11.5px] leading-relaxed">The batch appears in the Recognized Batches section below with its own list.</p></div>
+            </div>
+            <div class="flex items-start gap-4 relative reveal">
+                <div class="step-num"><i class="fas fa-check text-[11px]"></i></div>
+                <div class="pt-0.5"><h3 class="f-display font-bold text-[13px] text-slate-900 mb-1">Independently verifiable</h3><p class="text-slate-500 text-[11.5px] leading-relaxed">Anyone — a recruiter, a parent, a student — can reference the listing directly from this page.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= RECOGNIZED PROGRAMS / BATCHES LIST ================= -->
+<section id="programs-list" class="relative z-10 px-5 lg:px-8 py-12">
+    <div class="max-w-[1000px] mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-9 reveal">
+            <div class="eyebrow mb-3 mx-auto"><i class="fas fa-list-check text-[9px]"></i> Recognized Batches</div>
+            <h2 class="f-display text-xl lg:text-2xl font-bold tracking-tight text-slate-900 mb-2.5">Programs recognized by Cryptonic Area</h2>
+            <p class="text-slate-500 text-[12px] lg:text-[12.5px] leading-relaxed">Every batch below links to its full list of recognized students. New batches are added here as programs conclude.</p>
+        </div>
+
+        <div class="space-y-4">
+
+            <!-- Recognized Batch #2 -->
+            <div class="recog-card reveal p-5 sm:p-6 pl-6 sm:pl-7">
+                <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="category-tag"><i class="fas fa-briefcase"></i> Internship</span>
+                    <span class="status-pill"><i class="fas fa-circle-check"></i> Completed &amp; Recognized</span>
+                </div>
+                <h3 class="f-display font-bold text-[13.5px] sm:text-[14.5px] text-slate-900 mb-2.5">Cyber Security & Ethical Hacking Internship</h3>
+
+                <div class="flex flex-wrap gap-2 mb-3">
+                    <div class="date-pill">
+                        <i class="fas fa-calendar-days"></i>
+                        <div>
+                            <span class="date-pill-label">Starts</span>
+                            <span class="date-pill-value">20 July 2026</span>
+                        </div>
+                    </div>
+                    <div class="date-pill">
+                        <i class="fas fa-flag-checkered"></i>
+                        <div>
+                            <span class="date-pill-label">Ends</span>
+                            <span class="date-pill-value">20 August 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-slate-500 text-[11px] leading-relaxed mb-4 max-w-2xl">
+                    The first internship cohort run by Cryptonic Area. Interns who completed the program and met the
+                    performance standard have been officially recognized and added to the list below.
+                </p>
+                <a href="https://cryptonicarea.site/recognition/interns" class="btn-primary px-5 py-3 rounded-xl text-[11.5px] inline-flex items-center gap-2">
+                    <i class="fas fa-users text-[10px]"></i> View Recognized Interns
+                </a>
+            </div>
+
+            <!-- Recognized Batch #1 -->
+            <div class="recog-card reveal p-5 sm:p-6 pl-6 sm:pl-7">
+                <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="category-tag"><i class="fas fa-briefcase"></i> Internship</span>
+                    <span class="status-pill-pending"><i class="fas fa-hourglass-half"></i> Not Recognized On Portal</span>
+                </div>
+                <h3 class="f-display font-bold text-[13.5px] sm:text-[14.5px] text-slate-900 mb-2.5">Cryptonic Area Virtual Internship Program</h3>
+
+                <div class="flex flex-wrap gap-2 mb-3">
+                    <div class="date-pill">
+                        <i class="fas fa-calendar-days"></i>
+                        <div>
+                            <span class="date-pill-label">Starts</span>
+                            <span class="date-pill-value">1 February 2026</span>
+                        </div>
+                    </div>
+                    <div class="date-pill">
+                        <i class="fas fa-flag-checkered"></i>
+                        <div>
+                            <span class="date-pill-label">Ends</span>
+                            <span class="date-pill-value">29 February 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-slate-500 text-[11px] leading-relaxed mb-4 max-w-2xl">
+                    A virtual internship program giving students real-world experience across various technical fields under
+                    one roof — with domain-specific certificates and structured tasks backed by mentorship.
+                </p>
+                <div class="note-line">
+                    <i class="fas fa-circle-info text-slate-400 text-[13px] mt-0.5"></i>
+                    <p class="text-slate-500 text-[11px] leading-relaxed">Students from this program are not recognized on the portal yet.</p>
+                </div>
+            </div>
+
+            <!-- Mini CTF Event -->
+            <div class="recog-card reveal p-5 sm:p-6 pl-6 sm:pl-7">
+                <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="category-tag"><i class="fas fa-flag"></i> CTF Event</span>
+                    <span class="status-pill-pending"><i class="fas fa-hourglass-half"></i> Not Recognized On Portal</span>
+                </div>
+                <h3 class="f-display font-bold text-[13.5px] sm:text-[14.5px] text-slate-900 mb-2.5">Cryptonic Area Mini CTF Event</h3>
+
+                <div class="flex flex-wrap gap-2 mb-3">
+                    <div class="date-pill">
+                        <i class="fas fa-calendar-days"></i>
+                        <div>
+                            <span class="date-pill-label">Date</span>
+                            <span class="date-pill-value">18 November 2025</span>
+                        </div>
+                    </div>
+                    <div class="date-pill">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <span class="date-pill-label">Time</span>
+                            <span class="date-pill-value">5:00 PM IST</span>
+                        </div>
+                    </div>
+                    <div class="date-pill">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <span class="date-pill-label">Mode</span>
+                            <span class="date-pill-value">Online</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-slate-500 text-[11px] leading-relaxed mb-4 max-w-2xl">
+                    A live online Mini CTF with 7 unique challenges built for curious minds, from beginner to intermediate.
+                    Every participant received a certificate, with special spotlight recognition for the best player.
+                </p>
+                <div class="note-line">
+                    <i class="fas fa-circle-info text-slate-400 text-[13px] mt-0.5"></i>
+                    <p class="text-slate-500 text-[11px] leading-relaxed">Students from this event are not recognized on the portal yet.</p>
+                </div>
+            </div>
+
+            <!-- Empty state / future batches -->
+            <div class="empty-slot reveal p-5 sm:p-6 text-center">
+                <div class="w-11 h-11 rounded-xl bg-slate-100 flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-hourglass-half text-slate-400 text-[15px]"></i>
+                </div>
+                <h3 class="f-display font-semibold text-[13px] text-slate-700 mb-1">More batches coming soon</h3>
+                <p class="text-slate-400 text-[11px] leading-relaxed max-w-md mx-auto">Hackathons, CTFs and workshop cohorts will appear here as future Cryptonic Area programs conclude and are recognized.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ================= VERIFICATION / TRUST ================= -->
+<section id="verification" class="relative z-10 px-5 lg:px-8 py-12">
+    <div class="max-w-[1100px] mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-9 reveal">
+            <div class="eyebrow mb-3 mx-auto"><i class="fas fa-shield-check text-[9px]"></i> Trust & Verification</div>
+            <h2 class="f-display text-xl lg:text-2xl font-bold tracking-tight text-slate-900 mb-2.5">Built to be checked, not just believed</h2>
+            <p class="text-slate-500 text-[12px] lg:text-[12.5px] leading-relaxed max-w-lg mx-auto">Every entry on this portal is designed to hold up under scrutiny from recruiters, institutions, or anyone doing due diligence.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="feature-card reveal p-5">
+                <div class="proj-icon mb-3" style="background:linear-gradient(135deg,#e0122f,#8a0f22);"><i class="fas fa-fingerprint text-[14px]"></i></div>
+                <h3 class="f-display font-bold text-[12.5px] text-slate-900 mb-1.5">Unique Student ID</h3>
+                <p class="text-slate-500 text-[11px] leading-relaxed">Every recognized student is tied to a unique, traceable identifier.</p>
+            </div>
+            <div class="feature-card reveal p-5">
+                <div class="proj-icon mb-3" style="background:linear-gradient(135deg,#0891b2,#0e7490);"><i class="fas fa-globe text-[14px]"></i></div>
+                <h3 class="f-display font-bold text-[12.5px] text-slate-900 mb-1.5">Digitally Verifiable</h3>
+                <p class="text-slate-500 text-[11px] leading-relaxed">Listings live permanently on this official portal, not a spreadsheet that can quietly change.</p>
+            </div>
+            <div class="feature-card reveal p-5">
+                <div class="proj-icon mb-3" style="background:linear-gradient(135deg,#10b981,#047857);"><i class="fas fa-stamp text-[14px]"></i></div>
+                <h3 class="f-display font-bold text-[12.5px] text-slate-900 mb-1.5">Official Company Record</h3>
+                <p class="text-slate-500 text-[11px] leading-relaxed">Maintained directly by the Cryptonic Area team — not user-submitted or self-reported.</p>
+            </div>
+            <div class="feature-card reveal p-5">
+                <div class="proj-icon mb-3" style="background:linear-gradient(135deg,#6366f1,#4338ca);"><i class="fas fa-ban text-[14px]"></i></div>
+                <h3 class="f-display font-bold text-[12.5px] text-slate-900 mb-1.5">Non-Transferable</h3>
+                <p class="text-slate-500 text-[11px] leading-relaxed">Recognition is tied to the individual and the batch — it cannot be bought, sold, or reassigned.</p>
+            </div>
+        </div>
+
+        <div class="note-box p-4 text-center mt-6 max-w-2xl mx-auto">
+            <p class="text-slate-500 text-[10.5px] leading-relaxed"><i class="fas fa-circle-info text-red-600 mr-1"></i> If you need to confirm whether a specific individual is officially recognized by Cryptonic Area, reach out via WhatsApp or email and reference the batch name.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" class="relative z-10 px-5 lg:px-8 py-10">
+    <div class="max-w-[820px] mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-8 reveal">
+            <div class="eyebrow mb-3 mx-auto"><i class="fas fa-circle-question text-[9px]"></i> Common Questions</div>
+            <h2 class="f-display text-xl lg:text-2xl font-bold tracking-tight text-slate-900">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="space-y-3">
+            <div class="faq-item reveal">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="f-display font-semibold text-[12.5px] text-slate-900">What does "Recognized" mean on this portal?</span>
+                    <i class="fas fa-chevron-down faq-chevron text-slate-400 text-[11px]"></i>
+                </div>
+                <div class="faq-a"><p class="text-slate-500 text-[11.5px] leading-relaxed">It means a student or intern successfully completed a Cryptonic Area program and met the performance standard required for official recognition — not simply that they registered or attended.</p></div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="f-display font-semibold text-[12.5px] text-slate-900">How are students selected for recognition?</span>
+                    <i class="fas fa-chevron-down faq-chevron text-slate-400 text-[11px]"></i>
+                </div>
+                <div class="faq-a"><p class="text-slate-500 text-[11.5px] leading-relaxed">The Cryptonic Area team reviews completion and performance once a batch concludes, and finalizes the recognized list internally before publishing it here.</p></div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="f-display font-semibold text-[12.5px] text-slate-900">Can employers or institutions verify a listing?</span>
+                    <i class="fas fa-chevron-down faq-chevron text-slate-400 text-[11px]"></i>
+                </div>
+                <div class="faq-a"><p class="text-slate-500 text-[11.5px] leading-relaxed">Yes. Each recognized batch links to its own dedicated list, and entries can be referenced directly against this official portal.</p></div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="f-display font-semibold text-[12.5px] text-slate-900">How often is this page updated?</span>
+                    <i class="fas fa-chevron-down faq-chevron text-slate-400 text-[11px]"></i>
+                </div>
+                <div class="faq-a"><p class="text-slate-500 text-[11.5px] leading-relaxed">A new batch is added as soon as a program concludes and its recognized list is finalized by the team.</p></div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="f-display font-semibold text-[12.5px] text-slate-900">Is there a fee to be recognized?</span>
+                    <i class="fas fa-chevron-down faq-chevron text-slate-400 text-[11px]"></i>
+                </div>
+                <div class="faq-a"><p class="text-slate-500 text-[11.5px] leading-relaxed">No. Recognition is earned through completion and performance in a Cryptonic Area program — it is never sold or purchased separately.</p></div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="f-display font-semibold text-[12.5px] text-slate-900">I was part of a batch but don't see my name — what do I do?</span>
+                    <i class="fas fa-chevron-down faq-chevron text-slate-400 text-[11px]"></i>
+                </div>
+                <div class="faq-a"><p class="text-slate-500 text-[11.5px] leading-relaxed">Reach out to the team via WhatsApp or email with your batch name and details, and it will be looked into directly.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="relative z-10 px-5 lg:px-8 pb-16">
+    <div class="max-w-[1050px] mx-auto glass-panel rounded-2xl p-7 sm:p-9 text-center relative overflow-hidden reveal">
+        <div class="absolute inset-0 opacity-[0.05] pointer-events-none" style="background-image:radial-gradient(rgba(224,18,48,.9) 1px, transparent 1px); background-size:16px 16px;"></div>
+        <div class="relative">
+            <div class="eyebrow mb-4 mx-auto"><i class="fas fa-award text-[9px]"></i> Cryptonic Area · Recognition Portal</div>
+            <h3 class="f-display text-lg sm:text-xl font-bold tracking-tight text-slate-900 mb-3">Want your name on this page next?</h3>
+            <p class="text-slate-500 text-[12px] leading-relaxed max-w-2xl mx-auto mb-6">
+                Every recognized student started the same way — by joining a Cryptonic Area program and doing the
+                work. Explore current programs and start building your own record.
+            </p>
+            <a href="https://cryptonicarea.site/programs" class="btn-primary px-7 py-3.5 rounded-xl text-[12px] inline-flex items-center gap-2">
+                <i class="fas fa-arrow-right text-[10px]"></i> Explore Programs
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ================= FOOTER (matches main site) ================= -->
+<footer id="footer" class="relative z-10 pt-12 pb-6 px-5 lg:px-8 bg-gradient-to-b from-slate-50 to-slate-100 border-t border-slate-200/80">
+    <div class="max-w-[1250px] mx-auto grid md:grid-cols-12 gap-8 mb-9">
+
+        <div class="md:col-span-4">
+            <div class="flex items-center gap-2 mb-3">
+                <img src="assets/cryptonicarea.jpg" alt="Cryptonic Area" width="28" height="28" loading="lazy" decoding="async" class="h-7 w-7 rounded-md object-cover" onerror="this.style.display='none'; document.getElementById('footer-brand-fallback').classList.remove('hidden');">
+                <div id="footer-brand-fallback" class="hidden w-7 h-7 rounded-md bg-gradient-to-br from-red-600 to-red-800 items-center justify-center text-white text-[11px] flex"><i class="fas fa-shield-halved"></i></div>
+                <span class="f-display font-bold text-slate-900 text-[13px]">Cryptonic Area</span>
+            </div>
+            <p class="text-slate-500 text-[11px] leading-relaxed max-w-xs mb-4">
+                A global technology community dedicated to cyber security capability building, tactical training, and hands-on systems learning.
+            </p>
+            <div class="space-y-2 text-[11px] f-mono text-slate-600">
+                <div class="flex items-center gap-2"><i class="fas fa-phone text-red-500 text-[10px]"></i><a href="tel:+919509622197" class="hover:text-slate-950 transition-colors">+91 9509622197</a></div>
+                <div class="flex items-center gap-2"><i class="fab fa-whatsapp text-emerald-600 text-[10px]"></i><a href="https://wa.me/918503979765" target="_blank" rel="noopener noreferrer" class="hover:text-slate-950 transition-colors">WhatsApp Chat</a></div>
+                <div class="flex items-center gap-2"><i class="fas fa-envelope text-slate-400 text-[10px]"></i><a href="mailto:info@cryptonicarea.site" class="hover:text-slate-950 transition-colors">tranning@cryptonicarea.site</a></div>
+            </div>
+        </div>
+
+        <div class="md:col-span-3">
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.2em] text-red-600 uppercase mb-3">Programs</h4>
+            <ul class="space-y-2 text-[11px] text-slate-600">
+                <li><a href="https://cryptonicarea.site/wapt" class="hover:text-red-600 transition-colors">WAPT Elite Program</a></li>
+                <li><a href="https://cryptonicarea.site/soc-analyst" class="hover:text-red-600 transition-colors">SOC Analyst Program</a></li>
+                <li><a href="https://cryptonicarea.site/recognition" class="hover:text-red-600 transition-colors">Recognition Portal</a></li>
+                <li><a href="https://cryptonicarea.site/programs" class="hover:text-red-600 transition-colors">All Programs</a></li>
+            </ul>
+        </div>
+
+        <div class="md:col-span-2">
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.2em] text-slate-400 uppercase mb-3">Company</h4>
+            <ul class="space-y-2 text-[11px] text-slate-600">
+                <li><a href="https://cryptonicarea.site/about/" target="_blank" rel="noopener noreferrer" class="hover:text-red-600 transition-colors">About</a></li>
+                <li><a href="https://cryptonicarea.site/team/" target="_blank" rel="noopener noreferrer" class="hover:text-red-600 transition-colors">Core Team</a></li>
+                <li><a href="#verification" class="hover:text-red-600 transition-colors">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="md:col-span-3">
+            <h4 class="f-mono text-[9.5px] font-bold tracking-[0.2em] text-slate-900 uppercase mb-3">Connect</h4>
+            <div class="grid grid-cols-3 gap-2">
+                <a href="https://linkedin.com/company/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on LinkedIn" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-linkedin-in text-[11px]"></i>
+                </a>
+                <a href="https://instagram.com/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on Instagram" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-instagram text-[11px]"></i>
+                </a>
+                <a href="https://youtube.com/@CryptonicArea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on YouTube" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-youtube text-[11px]"></i>
+                </a>
+                <a href="https://t.me/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on Telegram" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-telegram-plane text-[11px]"></i>
+                </a>
+                <a href="https://chat.whatsapp.com/LCZscqpn1hm6nhBBOSfymq" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area WhatsApp community" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-whatsapp text-[11px]"></i>
+                </a>
+                <a href="https://x.com/cryptonicarea" target="_blank" rel="noopener noreferrer" aria-label="Cryptonic Area on X (Twitter)" class="bg-white border border-slate-200 hover:border-red-400 text-slate-500 hover:text-slate-950 p-2.5 rounded-lg text-center transition-all shadow-sm">
+                    <i class="fab fa-x-twitter text-[11px]"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-[1250px] mx-auto border-t border-slate-200 pt-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-[9px] f-mono text-slate-500 uppercase tracking-wider">
+        <span>&copy; 2025 Cryptonic Area. All rights reserved.</span>
+        <span class="text-red-700 font-bold">Recognition Portal // Verified Records</span>
+    </div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    /* typewriter */
+    const phrases = ["achievement gets verified.", "hard work gets a permanent record.", "recognized talent gets seen.", "your name earns its place."];
+    let pIndex = 0;
+    const twEl = document.getElementById('typewriter');
+    function typeForward() {
+        let letters = phrases[pIndex].split('');
+        (function step() {
+            if (letters.length) { twEl.textContent += letters.shift(); setTimeout(step, 60); }
+            else { setTimeout(typeErase, 2200); }
+        })();
+    }
+    function typeErase() {
+        let letters = twEl.textContent.split('');
+        (function step() {
+            if (letters.length) { letters.pop(); twEl.textContent = letters.join(''); setTimeout(step, 32); }
+            else { pIndex = (pIndex + 1) % phrases.length; setTimeout(typeForward, 250); }
+        })();
+    }
+    typeForward();
+
+    /* reveal on scroll */
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in'); });
+    }, { threshold: .15 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* stat counters */
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.target, 10);
+                let cur = 0;
+                const step = Math.max(1, Math.ceil(target / 30));
+                const tick = () => {
+                    cur += step;
+                    if (cur >= target) { el.textContent = target; return; }
+                    el.textContent = cur;
+                    requestAnimationFrame(tick);
+                };
+                tick();
+                counterObserver.unobserve(el);
+            }
+        });
+    }, { threshold: .4 });
+    counters.forEach(c => counterObserver.observe(c));
+
+    /* FAQ accordions are handled inline via onclick toggles above */
+
+    /* background mesh (same mechanics as main site) */
+    const canvas = document.getElementById('mesh');
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+    const isMobile = window.innerWidth < 768;
+    const nodeCount = isMobile ? 22 : 36;
+    const linkDist = 115;
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+    class Node {
+        constructor() {
+            this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4;
+            this.r = Math.random() * 1.5 + 0.6;
+        }
+        update() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        }
+        draw() {
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(224, 18, 48, 0.32)'; ctx.fill();
+        }
+    }
+    for (let i = 0; i < nodeCount; i++) nodes.push(new Node());
+    function drawLinks() {
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+                if (d < linkDist) {
+                    ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.strokeStyle = `rgba(224, 18, 48, ${0.09 * (1 - d / linkDist)})`; ctx.lineWidth = 0.6; ctx.stroke();
+                }
+            }
+        }
+    }
+    function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        nodes.forEach(n => { n.update(); n.draw(); });
+        drawLinks();
+        requestAnimationFrame(loop);
+    }
+    loop();
+</script>
+
+</body>
+</html>
