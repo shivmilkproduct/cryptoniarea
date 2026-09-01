@@ -1,0 +1,14 @@
+{
+  "name": "cryptonic-area-case-request-backend",
+  "version": "1.0.0",
+  "description": "Tiny backend that receives 'The Last Login' case request submissions and forwards them to a Telegram chat via a Telegram Bot.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}
