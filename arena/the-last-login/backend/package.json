@@ -1,0 +1,15 @@
+{
+  "name": "cryptonic-area-arena-backend",
+  "version": "1.0.0",
+  "description": "Backend for Cryptonic Area Arena case access requests — forwards submissions to Telegram.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
