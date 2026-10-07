@@ -1,9 +1,8 @@
 # Cryptonic Area
 
-> Cryptonic Area is a global cybersecurity and technology community focused on practical learning, hands-on projects and real-world skill development in ethical hacking, WAPT (Web Application Penetration Testing), OSINT, network security and cyber crime investigation. 5000+ members, 400+ trained interns, 40+ countries reached.
+> Cryptonic Area is a cybersecurity and technology company focused on building practical capabilities, delivering hands-on technical learning, and developing real-world solutions across the evolving digital landscape. We work at the intersection of cybersecurity, technology, and practical innovation, helping individuals and organizations strengthen their technical knowledge, security awareness, and ability to address real-world challenges. With a growing global presence across 40+ countries, Cryptonic Area is committed to empowering the next generation of digital defenders through practical execution, continuous learning, and technical excellence.
 
-Founder and CEO: Karndeep Baror (Red Team Operator, Penetration Tester, APT Intelligence).
-Community Research & Lead: Saniya Yadav.
+Founder and CEO: Karndeep Baror (Cyber Crime Investigator, Security Researcher, Mentor, Penetration Tester, APT Intelligence).
 Contact: info@cryptonicarea.site
 
 ## Main pages
