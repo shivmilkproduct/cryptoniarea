@@ -1,0 +1,15 @@
+{
+  "name": "Cryptonic Area",
+  "short_name": "Cryptonic Area",
+  "description": "Global cybersecurity community: ethical hacking, WAPT, OSINT, network security and cyber crime investigation.",
+  "start_url": "/?utm_source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#e0122f",
+  "lang": "en-IN",
+  "categories": ["education", "security", "technology"],
+  "icons": [
+    { "src": "/assets/cryptonicarea.jpg", "sizes": "any", "type": "image/jpeg", "purpose": "any" }
+  ]
+}
