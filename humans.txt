@@ -1,8 +1,7 @@
 /* TEAM */
 Founder & CEO: Karndeep Baror
-Community Research & Lead: Saniya Yadav
 Site: https://cryptonicarea.site
-Contact: info@cryptonicarea.site
+Contact: karndeep@cryptonicarea.site
 
 /* SITE */
 Last update: 2026/10/07
