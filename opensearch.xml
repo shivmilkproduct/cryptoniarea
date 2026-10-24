@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
-<ShortName>Cryptonic Area</ShortName>
-<Description>Search Cryptonic Area</Description>
-<Image width="64" height="64" type="image/jpeg">https://cryptonicarea.site/assets/cryptonicarea.jpg</Image>
-<Url type="text/html" template="https://www.google.com/search?q=site:cryptonicarea.site+{searchTerms}"/>
+  <ShortName>Cryptonic Area</ShortName>
+  <LongName>Cryptonic Area - Cybersecurity Community</LongName>
+  <Description>Search Cryptonic Area — cybersecurity programs, Arena challenges, internships and community resources.</Description>
+  <Tags>cybersecurity ethical-hacking WAPT OSINT network-security cyber-crime-investigation digital-forensics</Tags>
+  <Contact>info@cryptonicarea.in</Contact>
+  <Image width="64" height="64" type="image/jpeg">https://cryptonicarea.in/assets/cryptonicarea.jpg</Image>
+  <Url type="text/html" template="https://www.google.com/search?q=site:cryptonicarea.in+{searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://cryptonicarea.in/opensearch.xml"/>
+  <InputEncoding>UTF-8</InputEncoding>
+  <OutputEncoding>UTF-8</OutputEncoding>
+  <Language>en-in</Language>
+  <Developer>Cryptonic Area</Developer>
+  <SyndicationRight>open</SyndicationRight>
+  <AdultContent>false</AdultContent>
 </OpenSearchDescription>
