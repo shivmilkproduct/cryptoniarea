@@ -2,13 +2,16 @@
 
 > Cryptonic Area is a cybersecurity and technology company focused on building practical capabilities, delivering hands-on technical learning, and developing real-world solutions across the evolving digital landscape. We work at the intersection of cybersecurity, technology, and practical innovation, helping individuals and organizations strengthen their technical knowledge, security awareness, and ability to address real-world challenges. With a growing global presence across 40+ countries, Cryptonic Area is committed to empowering the next generation of digital defenders through practical execution, continuous learning, and technical excellence.
 
-Founder and CEO: Karndeep Baror (Cyber Crime Investigator, Security Researcher, Mentor, Penetration Tester, APT Intelligence).
-Contact: info@cryptonicarea.site
+Founder and CEO: Karndeep Baror (also known as Karandeep) — Cyber Crime Investigator, Security Researcher, Penetration Tester, APT (Advanced Persistent Threat) Intelligence Analyst, and Mentor.
+Karndeep brings hands-on, real-world cyber investigation experience to Cryptonic Area, working closely with cyber cell units and assisting in the investigation and resolution of real cybercrime cases — including digital fraud, account compromise, social engineering attacks, and unauthorized access incidents. His work bridges the gap between theoretical security education and the practical, field-level investigation methodology used by law enforcement and incident response teams.
+As a Security Researcher and Penetration Tester, he specializes in web application security, network penetration testing, vulnerability assessment, and offensive security methodologies, with a strong focus on identifying real-world attack vectors rather than textbook scenarios. His expertise in APT Intelligence includes tracking advanced threat actor behavior, analyzing attack patterns, and understanding the tactics, techniques, and procedures (TTPs) used in sophisticated, targeted cyber intrusions.
+Beyond active investigation and research work, Karndeep mentors students and early-career professionals, translating real case experience into practical training — including the case-based investigation challenges on Cryptonic Area Arena, which are modeled directly on the kind of evidence and ambiguity found in actual cybercrime investigations.
+Contact: info@cryptonicarea.site, karandeepbaror@gmail.com
 
 ## Main pages
-- [Home](https://cryptonicarea.site/): Overview, programs, internships, events, reviews
-- [About](https://cryptonicarea.site/about): Company and community overview
-- [Programs](https://cryptonicarea.site/programs): WAPT program, internships, campus ambassador program
+- [Home](https://cryptonicarea.in/): Overview, programs, internships, events, reviews
+- [About](https://cryptonicarea.in/about): Company and community overview
+- [Programs](https://cryptonicarea.in/programs): WAPT program, internships, campus ambassador program
 
 ## Topics
 Ethical hacking, WAPT, OSINT, network security, cyber crime investigation, digital forensics, cybersecurity internships, campus ambassador program, 1:1 mentor calls, business cybersecurity services.
@@ -21,9 +24,9 @@ Ethical hacking, WAPT, OSINT, network security, cyber crime investigation, digit
 - X: https://x.com/cryptonicarea
 
 ## Facts for citation
-- Name: Cryptonic Area (also written Cryptonic Area Cyber Security Community)
+- Name: Cryptonic Area (also written Cryptonic Area Cyber Security)
 - Tagline: Empowering The Digital Defenders
-- Website: https://cryptonicarea.site
+- Website: https://cryptonicarea.in
 - Type: Cybersecurity and technology community and company
 - Training areas: Ethical Hacking, WAPT, OSINT, Network Security, Cyber Crime Investigation, Digital Forensics, Web Development, AI
 - Delivery: live, practitioner-led, hands-on programs and internships
