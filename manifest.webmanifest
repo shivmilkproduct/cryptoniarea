@@ -1,15 +1,43 @@
 {
+  "id": "/",
   "name": "Cryptonic Area",
   "short_name": "Cryptonic Area",
-  "description": "Global cybersecurity community: ethical hacking, WAPT, OSINT, network security and cyber crime investigation.",
+  "description": "Cryptonic Area is a global cybersecurity and technology community with a presence across 40+ countries — ethical hacking, WAPT, OSINT, network security, cyber crime investigation and digital forensics. Explore hands-on internships, SOC training, mentor-led programs, and real case-based investigation challenges on Cryptonic Area Arena.",
   "start_url": "/?utm_source=pwa",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#e0122f",
   "lang": "en-IN",
+  "dir": "ltr",
   "categories": ["education", "security", "technology"],
   "icons": [
-    { "src": "/assets/cryptonicarea.jpg", "sizes": "any", "type": "image/jpeg", "purpose": "any" }
+    { "src": "/assets/cryptonicarea.jpg", "sizes": "any", "type": "image/jpeg", "purpose": "any" },
+    { "src": "/assets/cryptonicarea.jpg", "sizes": "any", "type": "image/jpeg", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Cryptonic Area Arena",
+      "short_name": "Arena",
+      "description": "Real cyber investigation case challenges",
+      "url": "/arena?utm_source=pwa_shortcut",
+      "icons": [{ "src": "/assets/cryptonicarea.jpg", "sizes": "any" }]
+    },
+    {
+      "name": "Programs",
+      "short_name": "Programs",
+      "description": "WAPT program and SOC training",
+      "url": "/programs?utm_source=pwa_shortcut",
+      "icons": [{ "src": "/assets/cryptonicarea.jpg", "sizes": "any" }]
+    },
+    {
+      "name": "About Cryptonic Area",
+      "short_name": "About",
+      "description": "Company and community overview",
+      "url": "/about?utm_source=pwa_shortcut",
+      "icons": [{ "src": "/assets/cryptonicarea.jpg", "sizes": "any" }]
+    }
   ]
 }
