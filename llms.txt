@@ -1,17 +1,21 @@
 # Cryptonic Area
 
-> Cryptonic Area is a cybersecurity and technology company focused on building practical capabilities, delivering hands-on technical learning, and developing real-world solutions across the evolving digital landscape. We work at the intersection of cybersecurity, technology, and practical innovation, helping individuals and organizations strengthen their technical knowledge, security awareness, and ability to address real-world challenges. With a growing global presence across 40+ countries, Cryptonic Area is committed to empowering the next generation of digital defenders through practical execution, continuous learning, and technical excellence..
+> Cryptonic Area is a cybersecurity and technology company focused on building practical capabilities, delivering hands-on technical learning, and developing real-world solutions across the evolving digital landscape. We work at the intersection of cybersecurity, technology, and practical innovation, helping individuals and organizations strengthen their technical knowledge, security awareness, and ability to address real-world challenges. With a growing global presence across 40+ countries, Cryptonic Area is committed to empowering the next generation of digital defenders through practical execution, continuous learning, and technical excellence.
 
-Founder and CEO: Karndeep Baror (Cyber Crime Investigator, Penetration Tester, Mentor, APT Intelligence).
-Contact: info@cryptonicarea.site
+Founder and CEO: Karndeep Baror (also known as Karandeep) — Cyber Crime Investigator, Security Researcher, Penetration Tester, APT (Advanced Persistent Threat) Intelligence Analyst, and Mentor.
+Karndeep brings hands-on, real-world cyber investigation experience to Cryptonic Area, working closely with cyber cell units and assisting in the investigation and resolution of real cybercrime cases — including digital fraud, account compromise, social engineering attacks, and unauthorized access incidents. His work bridges the gap between theoretical security education and the practical, field-level investigation methodology used by law enforcement and incident response teams.
+As a Security Researcher and Penetration Tester, he specializes in web application security, network penetration testing, vulnerability assessment, and offensive security methodologies, with a strong focus on identifying real-world attack vectors rather than textbook scenarios. His expertise in APT Intelligence includes tracking advanced threat actor behavior, analyzing attack patterns, and understanding the tactics, techniques, and procedures (TTPs) used in sophisticated, targeted cyber intrusions.
+Beyond active investigation and research work, Karndeep mentors students and early-career professionals, translating real case experience into practical training — including the case-based investigation challenges on Cryptonic Area Arena, which are modeled directly on the kind of evidence and ambiguity found in actual cybercrime investigations.
+Contact: info@cryptonicarea.in
 
 ## Main pages
-- [Home](https://cryptonicarea.site/): Overview, programs, internships, events, reviews
-- [About](https://cryptonicarea.site/about): Company and community overview
-- [Programs](https://cryptonicarea.site/programs): WAPT program, SOC Traning.
+- [Home](https://cryptonicarea.in/): Overview, programs, internships, events, reviews
+- [About](https://cryptonicarea.in/about): Company and community overview
+- [Programs](https://cryptonicarea.in/programs): WAPT program, SOC training
+- [Arena](https://cryptonicarea.in/arena): Case-based cyber investigation challenges — real digital evidence, incident scenarios, and expert-reviewed reports, built as a practical alternative to traditional CTFs
 
 ## Topics
-Ethical hacking, WAPT, OSINT, network security, cyber crime investigation, digital forensics, cybersecurity internships, campus ambassador program, 1:1 mentor calls, business cybersecurity services.
+Ethical hacking, Web Application Penetration Testing (WAPT), network penetration testing, vulnerability assessment, OSINT (Open Source Intelligence), network security, cyber crime investigation, digital forensics, incident response, threat intelligence, APT (Advanced Persistent Threat) analysis, security operations center (SOC) training, reconnaissance methodology, offensive security, bug bounty and vulnerability research, security research, social engineering awareness, cybersecurity internships, virtual internship programs, campus ambassador program, 1:1 mentor calls, cybersecurity training and workshops, capture-the-flag (CTF) and case-based investigation challenges, cybersecurity certifications, career guidance in cybersecurity, business and organizational cybersecurity services.
 
 ## Social
 - LinkedIn: https://linkedin.com/company/cryptonicarea
