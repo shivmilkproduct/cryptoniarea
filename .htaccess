@@ -1,31 +1,132 @@
-# Apache - Cryptonic Area
+# ============================================================
+#  Apache Configuration — Cryptonic Area (cryptonicarea.in)
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. CORE REWRITE ENGINE
+# ------------------------------------------------------------
 RewriteEngine On
+
+# ------------------------------------------------------------
+# 2. FORCE HTTPS + FORCE NON-WWW (single canonical host)
+# ------------------------------------------------------------
 RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
-RewriteRule ^ https://cryptonicarea.site%{REQUEST_URI} [L,R=301]
+RewriteRule ^ https://cryptonicarea.in%{REQUEST_URI} [L,R=301]
+
+# ------------------------------------------------------------
+# 3. CLEAN URLs — serve file.html at /file (no extension in the URL)
+# ------------------------------------------------------------
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.*)$ $1.html [L]
+
+# If someone requests the .html URL directly, send them to the clean URL
 RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
 RewriteRule ^ /%1 [R=301,L]
+
+# Remove a trailing slash on files/pages so every URL has one canonical form
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [R=301,L]
+
+# ------------------------------------------------------------
+# 4. ERROR PAGES
+# ------------------------------------------------------------
+ErrorDocument 400 /404.html
+ErrorDocument 401 /404.html
+ErrorDocument 403 /404.html
 ErrorDocument 404 /404.html
+ErrorDocument 500 /404.html
+
+# ------------------------------------------------------------
+# 5. SECURITY — hide sensitive files, stop directory browsing
+# ------------------------------------------------------------
+Options -Indexes
+ServerSignature Off
+UnsetEnv HTTP_PROXY
+
+<IfModule mod_rewrite.c>
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond %{REQUEST_URI} \.(env|git|gitignore|htaccess|htpasswd|log|sql|bak|config|ini|sh|yml|yaml|lock)$ [NC,OR]
+  RewriteCond %{REQUEST_URI} /(composer\.(json|lock)|package(-lock)?\.json)$ [NC]
+  RewriteRule ^ - [F,L]
+</IfModule>
+
+# ------------------------------------------------------------
+# 6. MIME TYPES & CHARSET
+# ------------------------------------------------------------
 AddType application/manifest+json .webmanifest
+AddType image/webp .webp
+AddType image/avif .avif
+AddType font/woff2 .woff2
+AddType application/vnd.ms-fontobject .eot
+AddDefaultCharset UTF-8
+
+# ------------------------------------------------------------
+# 7. COMPRESSION
+# ------------------------------------------------------------
 <IfModule mod_deflate.c>
-AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/xml text/plain
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml application/rss+xml
+  AddOutputFilterByType DEFLATE application/manifest+json
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE font/woff font/woff2 application/vnd.ms-fontobject
+  <IfModule mod_setenvif.c>
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+  </IfModule>
 </IfModule>
+
+# ------------------------------------------------------------
+# 8. BROWSER CACHING
+# ------------------------------------------------------------
 <IfModule mod_expires.c>
-ExpiresActive On
-ExpiresByType image/jpeg "access plus 1 year"
-ExpiresByType image/png "access plus 1 year"
-ExpiresByType image/webp "access plus 1 year"
-ExpiresByType text/css "access plus 1 month"
-ExpiresByType application/javascript "access plus 1 month"
-ExpiresByType text/html "access plus 1 hour"
+  ExpiresActive On
+  ExpiresByType image/jpeg                     "access plus 1 year"
+  ExpiresByType image/png                      "access plus 1 year"
+  ExpiresByType image/webp                     "access plus 1 year"
+  ExpiresByType image/avif                     "access plus 1 year"
+  ExpiresByType image/svg+xml                  "access plus 1 year"
+  ExpiresByType image/x-icon                   "access plus 1 year"
+  ExpiresByType font/woff2                     "access plus 1 year"
+  ExpiresByType font/woff                      "access plus 1 year"
+  ExpiresByType application/vnd.ms-fontobject  "access plus 1 year"
+  ExpiresByType text/css                       "access plus 1 month"
+  ExpiresByType application/javascript         "access plus 1 month"
+  ExpiresByType application/manifest+json      "access plus 1 week"
+  ExpiresByType text/html                      "access plus 1 hour"
+  ExpiresByType application/json               "access plus 0 seconds"
+  ExpiresDefault                               "access plus 2 days"
 </IfModule>
+
 <IfModule mod_headers.c>
-Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-Header always set X-Content-Type-Options "nosniff"
-Header always set X-Frame-Options "SAMEORIGIN"
-Header always set Referrer-Policy "strict-origin-when-cross-origin"
-Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  <FilesMatch "\.(jpg|jpeg|png|webp|avif|svg|ico|woff2|woff|eot|ttf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+  Header append Vary Accept-Encoding
+  Header unset ETag
+</IfModule>
+FileETag None
+
+# ------------------------------------------------------------
+# 9. SECURITY HEADERS
+# ------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always unset X-Powered-By
 </IfModule>
