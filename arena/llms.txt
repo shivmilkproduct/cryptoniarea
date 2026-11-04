@@ -1,0 +1,18 @@
+# Cryptonic Area
+
+> Cryptonic Area is a cyber security community and training company ("Empowering The Digital Defenders"). Its Arena platform lets people practise real cyber investigations: digital forensics, incident response and SOC analysis using full simulated case files.
+
+## Arena
+- [Cryptonic Area Arena](https://cryptonicarea.in/arena): Hands-on cyber investigation platform. Each case comes with a full evidence pack, report submission, expert review, a verifiable certificate and rank recognition.
+
+## Company and training
+- [About Cryptonic Area](https://cryptonicarea.in/about): Who we are and what we do.
+- [Advanced WAPT training](https://cryptonicarea.in/wapt): Web application penetration testing program.
+- [SOC training](https://cryptonicarea.in/soc): Security operations center program.
+
+## Topics covered
+Digital forensics, cyber investigation, incident response, SOC analysis, threat hunting, log analysis, memory and network forensics, malware analysis basics, phishing and account-compromise investigation, OSINT, CTF-style challenges, web application security, bug bounty, MITRE ATT&CK, forensic report writing.
+
+## Contact
+- Email: info@cryptonicarea.site
+- LinkedIn: https://linkedin.com/company/cryptonicarea
