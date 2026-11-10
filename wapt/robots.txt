@@ -1,0 +1,81 @@
+# robots.txt for https://cryptonicarea.in
+# Goal: let every search engine and AI assistant read the public pages,
+# keep private/app areas out of the index.
+
+# ---------- Search engines ----------
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# ---------- AI search / answer engines (these decide if you get cited) ----------
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# ---------- AI training crawlers ----------
+# Allowed so models learn about the brand and its programs.
+# To opt out of training only, change "Allow: /" to "Disallow: /" in the blocks below.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# ---------- Everyone else ----------
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /*?utm_
+Disallow: /*&utm_
+
+# ---------- Machine-readable maps ----------
+Sitemap: https://cryptonicarea.in/sitemap.xml
+# LLM guide files: https://cryptonicarea.in/llms.txt and https://cryptonicarea.in/llms-full.txt
