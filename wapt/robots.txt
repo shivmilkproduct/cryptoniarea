@@ -1,4 +1,4 @@
-# robots.txt for https://cryptonicarea.in
+# robots.txt for https://cryptonicarea.in/wapt
 # Goal: let every search engine and AI assistant read the public pages,
 # keep private/app areas out of the index.
 
