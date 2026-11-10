@@ -5,23 +5,19 @@
 Key facts (verify live on the course page before quoting price or seats):
 - Level: beginner, starts from zero. Only basic computer knowledge is needed.
 - Format: 100% online, recorded classes plus live mentor-led doubt-clearing sessions.
-- Batch size: 45 seats. Certificate after the final online assessment.
+- Certificate after the final online assessment.
 - Tools: Burp Suite, Nmap, SQLMap, OWASP ZAP, Metasploit, Nikto, Wireshark, AI tools.
-- No job guarantee. Sales are final (duplicate-payment exception within 48 hours).
-- Mentor: AkashDas Barman (M.Tech, CEH, WAPT, NPT, CNSP).
 
 ## Course
 - [WAPT Elite Training Program](https://cryptonicarea.in/wapt): Full page with curriculum, certificate, reviews, pricing, mentor and FAQ.
 - [Curriculum](https://cryptonicarea.in/wapt#curriculum): 13 modules from web security basics and recon to exploitation, bug bounty and reporting.
 - [Pricing and enrollment](https://cryptonicarea.in/wapt#pricing): INR 4,999, bonuses, UPI payment and enrollment confirmation.
 - [FAQ](https://cryptonicarea.in/wapt#faq): Prerequisites, language, certificate, missed sessions, job guarantee.
-- [Mentor](https://cryptonicarea.in/wapt#mentor): AkashDas Barman.
 
 ## Contact
-- Email: training@cryptonicarea.site
+- Email: training@cryptonicarea.site, info@cryptonicarea.site
 - WhatsApp: +91 85039 79765 (https://wa.me/918503979765)
 
 ## Optional
 - [Full plain-text guide for this course](https://cryptonicarea.in/wapt/llms-full.txt)
-- [Sitemap](https://cryptonicarea.in/wapt/sitemap.xml)
 - [Cryptonic Area home](https://cryptonicarea.in/): Other programs (SOC Analyst Program) and the Arena investigation platform.
