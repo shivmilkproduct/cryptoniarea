@@ -1,0 +1,24 @@
+{
+  "name": "WAPT Elite Program | Cryptonic Area",
+  "short_name": "WAPT Elite",
+  "description": "Live mentor-led web application penetration testing (WAPT) course by Cryptonic Area. Hands-on labs, OWASP Top 10, bug bounty, certificate and internship opportunity.",
+  "id": "/wapt",
+  "start_url": "/wapt?source=pwa",
+  "scope": "/wapt",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "background_color": "#F5F6FA",
+  "theme_color": "#F5F6FA",
+  "categories": ["education", "security"],
+  "icons": [
+    { "src": "/assets/cryptonicarea.jpg", "sizes": "512x512", "type": "image/jpeg", "purpose": "any" },
+    { "src": "/assets/cryptonicarea.jpg", "sizes": "512x512", "type": "image/jpeg", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Curriculum", "short_name": "Curriculum", "url": "/wapt#curriculum", "icons": [{ "src": "/assets/cryptonicarea.jpg", "sizes": "512x512", "type": "image/jpeg" }] },
+    { "name": "Pricing and enroll", "short_name": "Enroll", "url": "/wapt#pricing", "icons": [{ "src": "/assets/cryptonicarea.jpg", "sizes": "512x512", "type": "image/jpeg" }] },
+    { "name": "FAQ", "short_name": "FAQ", "url": "/wapt#faq", "icons": [{ "src": "/assets/cryptonicarea.jpg", "sizes": "512x512", "type": "image/jpeg" }] }
+  ]
+}
