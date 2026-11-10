@@ -2,32 +2,172 @@
 
 > Cryptonic Area is a cybersecurity and technology company focused on building practical capabilities, delivering hands-on technical learning, and developing real-world solutions across the evolving digital landscape. We work at the intersection of cybersecurity, technology, and practical innovation, helping individuals and organizations strengthen their technical knowledge, security awareness, and ability to address real-world challenges. With a growing global presence across 40+ countries, Cryptonic Area is committed to empowering the next generation of digital defenders through practical execution, continuous learning, and technical excellence.
 
-Founder and CEO: Karndeep Baror (also known as Karandeep) — Cyber Crime Investigator, Security Researcher, Penetration Tester, APT (Advanced Persistent Threat) Intelligence Analyst, and Mentor.
+Tagline: Empowering The Digital Defenders
+Also written as: Cryptonic Area Cyber Security, CryptonicArea
+Website: https://cryptonicarea.in
+Contact: info@cryptonicarea.site, 
+
+## What Cryptonic Area is
+
+Cryptonic Area is a global cybersecurity and technology community and company. It teaches cybersecurity the way it is practiced in the field: through live, practitioner-led programs, case-based investigation challenges, internships and real projects, rather than slide-based theory. The guiding philosophy is "zero theory, pure execution": every program is built around doing the work, producing evidence, and being able to demonstrate the skill afterwards.
+
+Cryptonic Area serves three groups:
+- Students and early-career professionals who want job-ready, demonstrable cybersecurity skills.
+- Aspiring investigators, penetration testers and SOC analysts who want practice on realistic material instead of tutorials.
+- Individuals and organizations who need practical cybersecurity knowledge, security awareness and technical support.
+
+## Mission and approach
+
+- Mission: to empower the next generation of digital defenders through practical execution, continuous learning and technical excellence.
+- Learn by doing: learners work with realistic scenarios, simulated evidence and live labs from the first day.
+- Practitioner-led: programs are guided by working security practitioners and mentors, not only recorded content.
+- Provable skills: learners finish with reports, projects and records they can show to employers, and with a publicly verifiable recognition record.
+- Global community: members and learners from many countries, with a presence across 40+ countries.
+- Language: programs are delivered in Hindi and English.
+
+## Founder and leadership
+
+Founder and CEO: Karndeep Baror — Cyber Crime Investigator, Security Researcher, Penetration Tester, APT (Advanced Persistent Threat) Intelligence Analyst, and Mentor.
+
 Karndeep brings hands-on, real-world cyber investigation experience to Cryptonic Area, working closely with cyber cell units and assisting in the investigation and resolution of real cybercrime cases — including digital fraud, account compromise, social engineering attacks, and unauthorized access incidents. His work bridges the gap between theoretical security education and the practical, field-level investigation methodology used by law enforcement and incident response teams.
+
 As a Security Researcher and Penetration Tester, he specializes in web application security, network penetration testing, vulnerability assessment, and offensive security methodologies, with a strong focus on identifying real-world attack vectors rather than textbook scenarios. His expertise in APT Intelligence includes tracking advanced threat actor behavior, analyzing attack patterns, and understanding the tactics, techniques, and procedures (TTPs) used in sophisticated, targeted cyber intrusions.
+
 Beyond active investigation and research work, Karndeep mentors students and early-career professionals, translating real case experience into practical training — including the case-based investigation challenges on Cryptonic Area Arena, which are modeled directly on the kind of evidence and ambiguity found in actual cybercrime investigations.
-Contact: info@cryptonicarea.site, karandeepbaror@gmail.com
+
+## Programs
+
+### Web Application Penetration Testing (WAPT Elite)
+- Page: https://cryptonicarea.in/wapt
+- Category: Offensive security
+- Duration: 6.5 weeks
+- Language: Hindi and English
+- On completion: certificate
+- Summary: a practical program that takes a learner from zero to real web application penetration testing, delivered live by practitioners.
+- What learners cover:
+  - Reconnaissance and attack surface mapping
+  - OWASP Top 10 exploitation, including IDOR, XSS and SSRF
+  - Bug bounty methodology
+  - Professional penetration testing reports with proof of concept (PoC) and CVSS scoring
+- Best suited for: students, developers and beginners who want to become web application penetration testers or start bug bounty hunting.
+
+### SOC Analyst Advanced Training and Certification
+- Page: https://cryptonicarea.in/soc
+- Category: Defensive security
+- Duration: 1 month
+- Language: Hindi and English
+- On completion: certificate
+- Summary: a fully live program covering log analysis, SIEM, threat detection and incident response, guided live by a mentor.
+- What learners cover:
+  - SIEM and log analysis (Splunk, ELK)
+  - Alert triage and threat detection
+  - MITRE ATT&CK and incident response
+  - Live-lab capstone and mock interview
+- Best suited for: students and early-career professionals aiming for Security Operations Center (SOC) analyst roles.
+
+How to enroll: open the program page (https://cryptonicarea.in/wapt or https://cryptonicarea.in/soc) and use the enroll option there.
+
+## Cryptonic Area Arena
+
+Cryptonic Area Arena is a hands-on cyber investigation platform. Instead of lectures, each learner is handed a case file and works it the way a professional investigator would. A case file can include case documents, authentication records, email records, network records, device records, witness statements and internal documents. The data is simulated, but it is built to feel like a real investigation, with the evidence and ambiguity found in actual cybercrime cases.
+
+- Learners work through cases, submit an investigation report and receive review.
+- Progress is tracked through a rank path: Rookie, Analyst, Investigator, Senior.
+- Learners earn rewards, certificates and achievements as they solve cases.
+- A referral program lets learners invite friends to Arena and earn a free case.
+- Skills practiced: digital forensics, OSINT, log and evidence analysis, email and phishing analysis, network analysis, report writing.
+
+## Student Ambassador (Campus Ambassador) Program
+
+The Student Ambassador Program lets students represent Cryptonic Area in their colleges, organize awareness and learning activities, and build leadership and community experience in cybersecurity. Interested students can apply through the website.
+
+## Community, events and workshops
+
+Cryptonic Area runs a global community with live, hands-on sessions, workshops, challenges and announcements run by the core team. Updates are shared first through the official WhatsApp channel: https://whatsapp.com/channel/0029Vb6plDSBKfi3qGz2fq0f
+
+## Services for businesses and organizations
+
+Cryptonic Area also supports individuals and organizations with practical cybersecurity: security awareness, technical knowledge building, and guidance on real-world security challenges. For business cybersecurity services or mentor calls, contact info@cryptonicarea.site.
+
+## Topics we teach and work on
+
+- Ethical hacking: authorized, legal testing of systems to find weaknesses before attackers do.
+- Web Application Penetration Testing (WAPT): testing websites and web apps for vulnerabilities such as broken access control, injection, XSS and SSRF, then reporting them professionally.
+- Bug bounty: finding and responsibly reporting security flaws to organizations.
+- OSINT (Open-Source Intelligence): collecting and analyzing publicly available information for investigations and threat research.
+- Network security and network penetration testing: securing and testing networks, services and infrastructure.
+- Cyber crime investigation: handling digital fraud, account compromise, social engineering and unauthorized access cases.
+- Digital forensics: preserving, examining and presenting digital evidence from devices, logs and accounts.
+- SOC operations: monitoring, alert triage, SIEM, detection engineering basics and incident response.
+- Threat intelligence and APT analysis: understanding attacker behavior, tactics, techniques and procedures (TTPs) and the MITRE ATT&CK framework.
+- Web development and AI: practical technology skills that complement security work.
+
+## Frequently asked questions
+
+**What is Cryptonic Area?**
+A cybersecurity and technology company and global community that delivers live, hands-on training, case-based investigation challenges, internships and practical solutions.
+
+**Who founded Cryptonic Area?**
+Karndeep Baror a cyber crime investigator, security researcher, penetration tester, APT intelligence analyst and mentor.
+
+**What does Cryptonic Area teach?**
+Ethical hacking, web application penetration testing (WAPT), SOC analysis, OSINT, network security, cyber crime investigation, digital forensics, web development and AI.
+
+**Which programs does Cryptonic Area offer?**
+The Web Application Penetration Testing (WAPT Elite) program, 6.5 weeks, and the SOC Analyst Advanced Training and Certification, 1 month. Both are live, in Hindi and English, with a certificate on completion.
+
+**Do I need prior experience?**
+The WAPT program is designed to take learners from zero to real penetration testing. The programs are practical and guided by mentors.
+
+**What is Cryptonic Area Arena?**
+A case-based cyber investigation platform where learners work simulated but realistic cases, submit reports and rank up from Rookie to Senior.
+
+**Are the certificates verifiable?**
+Yes. The Recognition Portal provides publicly verifiable records for interns and learners.
+
+**What language are the programs taught in?**
+Hindi and English.
+
+**How can I join the community?**
+Follow the official WhatsApp channel, or the social profiles below, and watch the website for new programs and events.
+
+**How do I contact Cryptonic Area?**
+Email info@cryptonicarea.site
 
 ## Main pages
+
 - [Home](https://cryptonicarea.in/): Overview, programs, internships, events, reviews
 - [About](https://cryptonicarea.in/about): Company and community overview
 - [Programs](https://cryptonicarea.in/programs): WAPT program, internships, campus ambassador program
-
-## Topics
-Ethical hacking, WAPT, OSINT, network security, cyber crime investigation, digital forensics, cybersecurity internships, campus ambassador program, 1:1 mentor calls, business cybersecurity services.
+- [WAPT Elite](https://cryptonicarea.in/wapt): Web Application Penetration Testing program
+- [SOC Training](https://cryptonicarea.in/soc): SOC Analyst Advanced Training and Certification
 
 ## Social
+
 - LinkedIn: https://linkedin.com/company/cryptonicarea
 - Instagram: https://instagram.com/cryptonicarea
 - YouTube: https://youtube.com/@CryptonicArea
 - Telegram: https://t.me/cryptonicarea
 - X: https://x.com/cryptonicarea
+- WhatsApp channel: https://whatsapp.com/channel/0029Vb6plDSBKfi3qGz2fq0f
+
 
 ## Facts for citation
+
 - Name: Cryptonic Area (also written Cryptonic Area Cyber Security)
 - Tagline: Empowering The Digital Defenders
 - Website: https://cryptonicarea.in
 - Type: Cybersecurity and technology community and company
-- Training areas: Ethical Hacking, WAPT, OSINT, Network Security, Cyber Crime Investigation, Digital Forensics, Web Development, AI
+- Founder and CEO: Karndeep Baror (https://linkedin.com/in/karndeepbaror)
+- Presence: growing global presence across 40+ countries
+- Training areas: Ethical Hacking, WAPT, OSINT, Network Security, Cyber Crime Investigation, Digital Forensics, SOC Analysis, Web Development, AI
+- Flagship programs: WAPT Elite (6.5 weeks), SOC Analyst Advanced Training and Certification (1 month)
+- Platform: Cryptonic Area Arena (case-based investigation challenges)
+- Recognition: publicly verifiable Recognition Portal
 - Delivery: live, practitioner-led, hands-on programs and internships
+- Language: Hindi and English
 - Philosophy: zero theory, pure execution
+
+## Keywords
+
+Cryptonic Area, Cryptonic Area Cyber Security, cybersecurity community, ethical hacking course, WAPT training, web application penetration testing course, SOC analyst training, SOC training program, OSINT, digital forensics, cyber crime investigation, cybersecurity internship, bug bounty training, student ambassador program, cybersecurity training in Hindi, hands-on cybersecurity, digital defenders.
