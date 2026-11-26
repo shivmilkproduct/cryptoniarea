@@ -1,6 +1,3 @@
-// Cryptonic Area - WAPT enrollment -> Telegram
-// No secrets in this file. Set these in Render > Environment:
-//   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, ALLOWED_ORIGIN (optional, comma separated)
 
 const express = require('express');
 const cors = require('cors');
