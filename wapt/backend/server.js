@@ -43,12 +43,13 @@ app.post('/api/enroll', async (req, res) => {
   const name = clean(b.name, 80);
   const mobile = clean(b.mobile, 20);
   const email = clean(b.email, 100);
-  const txn = clean(b.txnId, 40);
+  const txn = clean(b.txnId, 40).replace(/[\s-]/g, '').toUpperCase();
 
   if (name.length < 2) return res.status(400).json({ ok: false, error: 'Enter a valid name' });
   if (!/^[0-9+ ]{8,15}$/.test(mobile)) return res.status(400).json({ ok: false, error: 'Enter a valid mobile number' });
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ ok: false, error: 'Enter a valid email' });
-  if (!/^[A-Za-z0-9\-_.]{6,40}$/.test(txn)) return res.status(400).json({ ok: false, error: 'Enter a valid transaction ID' });
+  const okTxn = /^\d{12}$/.test(txn) ? !/^(\d)\1{11}$/.test(txn) : (/^[A-Z0-9]{16,35}$/.test(txn) && !/^(.)\1+$/.test(txn));
+  if (!okTxn) return res.status(400).json({ ok: false, error: 'Enter a valid 12-digit UPI transaction ID' });
 
   const time = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
   const digits = mobile.replace(/\D/g, '');
