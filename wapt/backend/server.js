@@ -1,3 +1,6 @@
+// Cryptonic Area - WAPT enrollment -> Telegram
+// No secrets in this file. Set these in Render > Environment:
+//   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, ALLOWED_ORIGIN (optional, comma separated)
 
 const express = require('express');
 const cors = require('cors');
@@ -31,7 +34,7 @@ app.get('/health', (req, res) => res.json({ ok: true }));
 app.post('/api/enroll', async (req, res) => {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) return res.status(500).json({ ok: false, error: 'Server not configured' });
+  if (!token || !chatId) { console.error('Missing env: TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID'); return res.status(500).json({ ok: false, error: 'Server not configured' }); }
   if (limited(req.ip)) return res.status(429).json({ ok: false, error: 'Too many requests. Please try again later.' });
 
   const b = req.body || {};
@@ -79,16 +82,15 @@ app.post('/api/enroll', async (req, res) => {
         disable_notification: false,
         reply_markup: { inline_keyboard: [[
           { text: '💬 WhatsApp', url: 'https://wa.me/' + wa + '?text=' + encodeURIComponent('Hi ' + name + ', your WAPT enrollment payment is verified. Welcome to Cryptonic Area!') },
-          { text: '✉️ Email', url: 'mailto:' + email },
         ]] },
       }),
     });
     const d = await r.json();
-    if (!d.ok) { console.error('Telegram error:', d.description); return res.status(502).json({ ok: false, error: 'Could not notify team' }); }
+    if (!d.ok) { console.error('Telegram error:', d.description); return res.status(502).json({ ok: false, error: 'Could not notify team', detail: process.env.DEBUG === '1' ? d.description : undefined }); }
     res.json({ ok: true, ref });
   } catch (e) {
     console.error('Send failed:', e.message);
-    res.status(502).json({ ok: false, error: 'Could not notify team' });
+    res.status(502).json({ ok: false, error: 'Could not notify team', detail: process.env.DEBUG === '1' ? e.message : undefined });
   }
 });
 
